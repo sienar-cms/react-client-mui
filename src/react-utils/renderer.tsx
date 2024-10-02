@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createRouter } from './router';
-import { createStore } from './store';
+import { createStore } from './stores/utils';
 
 export function createApp(rootId: string = 'root') {
 	createRoot(document.getElementById(rootId)!)
