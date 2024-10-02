@@ -31,7 +31,7 @@ export const authSlice = createSlice({
 		login: (state, action: PayloadAction<LoginPayload>) => {
 			state.isLoggedIn = true;
 			state.username = action.payload.username;
-			state.roles = action.payload.roles;
+			state.roles = action.payload.roles as string[];
 		}
 	}
 });

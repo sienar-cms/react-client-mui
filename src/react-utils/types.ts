@@ -15,7 +15,7 @@ export type AuthenticationState = {
 	/**
 	 * The roles of the current user, if any
 	 */
-	roles: readonly string[]
+	roles: string[]
 };
 
 /**
