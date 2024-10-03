@@ -1,10 +1,107 @@
-﻿import { Outlet } from 'react-router-dom';
+﻿import {Outlet} from 'react-router-dom';
+import {AppBar, Box, CssBaseline, Drawer, IconButton, Toolbar, Typography} from '@mui/material';
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
+import {useState} from "react";
+import SienarDrawer from '@/react-ui/drawer';
+import { useAppbarTextSelector } from '@/react-utils';
 
-export default function Dashboard() {
+export default function Layout() {
+	const [open, setOpen] = useState(false);
+	const appbarText = useAppbarTextSelector();
+	const drawerContent = <SienarDrawer.Content/>;
+
+	const drawerWidth = '20%';
+	const drawerMinWidth = '200px';
+	const drawerMaxWidth = '300px';
+
+	const drawerCommonStyles = {
+		display: 'flex',
+		minHeight: '100vh',
+		flexDirection: 'column'
+	};
+
 	return (
-		<div>
-			<h1>Dashboard layout</h1>
-			<Outlet/>
-		</div>
+		<Box sx={{display: 'flex'}}>
+			<CssBaseline/>
+			<AppBar
+				position='fixed'
+				sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
+			>
+				<Toolbar>
+					<IconButton
+						size='large'
+						edge='start'
+						color='inherit'
+						sx={{
+							mr: 2,
+							display: { xs: 'block', md: 'none' }
+						}}
+						onClick={() => setOpen(!open)}
+					>
+						{open ? <CloseIcon/> : <MenuIcon/>}
+					</IconButton>
+
+					<Typography
+						variant='h6'
+						component='div'
+						sx={{ flexGrow: 1 }}
+					>
+						{ appbarText }
+					</Typography>
+				</Toolbar>
+			</AppBar>
+
+			<Drawer
+				variant='temporary'
+				anchor='left'
+				open={open}
+				onClose={() => setOpen(false)}
+				sx={{
+					display: { xs: 'flex', md: 'none' },
+					[`& .MuiDrawer-paper`]: drawerCommonStyles
+				}}
+			>
+				{drawerContent}
+			</Drawer>
+
+			<Drawer
+				variant='permanent'
+				anchor='left'
+				sx={{
+					minWidth: drawerMinWidth,
+					width: drawerWidth,
+					maxWidth: drawerMaxWidth,
+					display: { xs: 'none', md: 'block' },
+					[`& .MuiDrawer-paper`]: {
+						minWidth: drawerMinWidth,
+						width: drawerWidth,
+						maxWidth: drawerMaxWidth,
+						boxSizing: 'border-box',
+						...drawerCommonStyles
+					}
+				}}
+			>
+				{drawerContent}
+			</Drawer>
+
+			<Box
+				sx={{
+					flexGrow: 1,
+					display: 'flex',
+					flexDirection: 'column',
+					minHeight: '100vh'
+				}}
+			>
+				<Box sx={{ flexGrow: 1 }}>
+					<Toolbar/>
+					<Box
+						component='main'
+						sx={{ p: 4 }}
+					>
+						<Outlet/>
+					</Box>
+				</Box>
+			</Box>
+		</Box>
 	);
 }
