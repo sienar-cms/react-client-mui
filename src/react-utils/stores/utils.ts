@@ -12,5 +12,5 @@ export function addReducer(name: string, reducer: Reducer) {
 }
 
 export function createStore() {
-	return configureStore({ reducer: reducers }); // TODO: test to see if it works, because it should be ready...
+	return configureStore({ reducer: reducers });
 }
