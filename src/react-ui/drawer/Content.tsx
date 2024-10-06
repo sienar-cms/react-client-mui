@@ -5,6 +5,7 @@ import { Dashboard as DashboardIcon, Home as HomeIcon } from '@mui/icons-materia
 import DashboardMenuItem from './MenuLink';
 import DashboardMenuGroup from './MenuGroup';
 import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateMenuLinks, filterLinks } from '@/react-utils';
+import Authorize from '../authorize';
 
 export default function Content() {
 	const activeMenu = useActiveMenuSelector();
@@ -64,7 +65,7 @@ export default function Content() {
 				width: '100%',
 				p: 2
 			}}>
-				{!isLoggedIn && (
+				<Authorize.Content unauthorized={(
 					<Button
 						component={Link}
 						sx={{
@@ -77,7 +78,8 @@ export default function Content() {
 					>
 						Register
 					</Button>
-				)}
+				)}/>
+
 				<Button
 					component={Link}
 					sx={{ width: '100%' }}
