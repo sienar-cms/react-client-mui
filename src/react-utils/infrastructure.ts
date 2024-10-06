@@ -355,3 +355,25 @@ const sienarUrls = {
 export const SIENAR_URLS = Object.freeze(sienarUrls);
 
 // endregion
+
+// region Custom templates
+
+const templates: Record<string, ReactNode> = {};
+
+export function setTemplate(name: string, value: ReactNode) {
+	templates[name] = value;
+}
+
+export function getTemplate(name: string): ReactNode {
+	return templates[name];
+}
+
+const sienarTemplates = {
+	DASHBOARD_HEADER: 'dashboard-header',
+	DRAWER_HEADER: 'drawer-header',
+	DRAWER_FOOTER: 'drawer-footer'
+};
+
+export const SIENAR_TEMPLATES = Object.freeze(sienarTemplates);
+
+// endregion

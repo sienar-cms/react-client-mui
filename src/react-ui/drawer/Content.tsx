@@ -1,11 +1,9 @@
 ﻿import { useMemo } from 'react';
-import { Box, Button, List, Toolbar } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, List, Toolbar } from '@mui/material';
 import { Dashboard as DashboardIcon, Home as HomeIcon } from '@mui/icons-material';
 import DashboardMenuItem from './MenuLink';
 import DashboardMenuGroup from './MenuGroup';
-import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateMenuLinks, filterLinks } from '@/react-utils';
-import Authorize from '../authorize';
+import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateMenuLinks, filterLinks, getTemplate, SIENAR_TEMPLATES } from '@/react-utils';
 
 export default function Content() {
 	const activeMenu = useActiveMenuSelector();
@@ -17,7 +15,8 @@ export default function Content() {
 		return filterLinks(links, isLoggedIn, roles);
 	}, [isLoggedIn, roles, activeMenu]);
 
-	const loginButtonText = isLoggedIn ? 'Log out' : 'Log in';
+	const drawerHeaderContent = getTemplate(SIENAR_TEMPLATES.DRAWER_HEADER);
+	const drawerFooterContent = getTemplate(SIENAR_TEMPLATES.DRAWER_FOOTER);
 
 	return (
 		<Box
@@ -30,6 +29,7 @@ export default function Content() {
 		>
 			<div>
 				<Toolbar/>
+				{drawerHeaderContent}
 				<List>
 					<DashboardMenuItem
 						data={{
@@ -60,35 +60,7 @@ export default function Content() {
 				</List>
 			</div>
 
-			{/*TODO: change this to a configurable footer element*/}
-			<Box sx={{
-				width: '100%',
-				p: 2
-			}}>
-				<Authorize.Content unauthorized={(
-					<Button
-						component={Link}
-						sx={{
-							width: '100%',
-							mb: 2
-						}}
-						variant='outlined'
-						to='/'
-						color='secondary'
-					>
-						Register
-					</Button>
-				)}/>
-
-				<Button
-					component={Link}
-					sx={{ width: '100%' }}
-					variant='contained'
-					to='/'
-				>
-					{loginButtonText}
-				</Button>
-			</Box>
+			{drawerFooterContent}
 		</Box>
 	);
 }
