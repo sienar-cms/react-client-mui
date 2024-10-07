@@ -329,9 +329,11 @@ const urls: Record<string, string> = {};
  *
  * @param name The name of the URL to set
  * @param value The URL value
+ * @param override Whether to override a URL that already has a value or not
  */
-export function setUrl(name: string, value: string) {
-	urls[name] = value;
+export function setUrl(name: string, value: string, override: boolean = true) {
+	if (override) urls[name] = value;
+	else urls[name] ??= value;
 }
 
 /**
