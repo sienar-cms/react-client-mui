@@ -14,6 +14,22 @@ addReducer(INFRASTRUCTURE_NAME, infrastructureReducer);
 
 // endregion
 
+// region Views
+
+import { registerRoutes, getUrl } from '@/react-utils';
+import { Layouts } from '@/react-ui';
+import Dashboard from './views/Dashboard';
+
+registerRoutes(
+	Layouts.Dashboard,
+	{
+		path: getUrl(SIENAR_URLS.DASHBOARD),
+		element: <Dashboard/>
+	}
+)
+
+// endregion
+
 // region Templates
 
 import { setTemplate, SIENAR_TEMPLATES } from '@/react-utils';
