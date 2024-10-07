@@ -1,3 +1,11 @@
+// region URLs
+
+import { setUrl, SIENAR_URLS } from '@/react-utils';
+
+setUrl(SIENAR_URLS.DASHBOARD, '/dashboard', false);
+
+// endregion
+
 // region Stores
 import { addReducer, authReducer, AUTH_NAME, infrastructureReducer, INFRASTRUCTURE_NAME } from '@/react-utils';
 
