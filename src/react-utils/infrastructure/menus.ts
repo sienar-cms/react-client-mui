@@ -70,6 +70,9 @@ export function aggregateLinks<T extends DashboardLink & MenuLink>(
 	while (priority >= MenuPriority.Lowest) {
 		const prioritizedLinks = links[name][priority];
 		if (prioritizedLinks) {
+			prioritizedLinks.forEach(l => {
+				if (l.childMenu) l.sublinks = aggregateLinks(links, l.childMenu);
+			})
 			includedLinks.push(...prioritizedLinks);
 		}
 
@@ -222,6 +225,11 @@ export type DashboardLink = {
  * Contains all the data needed to create a menu link
  */
 export type MenuLink = DashboardLink & {
+	/**
+	 * The menu to render as a submenu, if any
+	 */
+	childMenu?: string
+
 	/**
 	 * Child links to display in a submenu, if any
 	 */
