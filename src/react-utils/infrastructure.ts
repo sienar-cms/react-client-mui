@@ -362,10 +362,23 @@ export const SIENAR_URLS = Object.freeze(sienarUrls);
 
 const templates: Record<string, ReactNode> = {};
 
-export function setTemplate(name: string, value: ReactNode) {
-	templates[name] = value;
+/**
+ * Sets a React template in the template container
+ *
+ * @param name The name of the template to set
+ * @param value The template value
+ * @param override Whether to override the template if it already has a value
+ */
+export function setTemplate(name: string, value: ReactNode, override: boolean = true) {
+	if (override) templates[name] = value;
+	else templates[name] ??= value;
 }
 
+/**
+ * Gets a React template from the template container
+ *
+ * @param name The name of the template to retrieve
+ */
 export function getTemplate(name: string): ReactNode {
 	return templates[name];
 }
