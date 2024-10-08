@@ -1,65 +1,4 @@
-﻿import { useDispatch, useSelector } from 'react-redux';
-import { createSlice } from '@reduxjs/toolkit';
-
-import type { ReactNode } from 'react';
-import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
-
-// region Store
-
-export const INFRASTRUCTURE_NAME = 'infrastructure';
-
-const initialState: InfrastructureState = {
-	activeMenu: '',
-	appbarText: ''
-};
-
-export const infrastructureSlice = createSlice({
-	name: INFRASTRUCTURE_NAME,
-	initialState,
-	reducers: {
-		setActiveMenu: (state, action: PayloadAction<string>) => {
-			state.activeMenu = action.payload;
-		},
-		setAppbarText: (state, action: PayloadAction<string>) => {
-			state.appbarText = action.payload;
-		}
-	}
-});
-
-export const infrastructureReducer = infrastructureSlice.reducer;
-export const { setActiveMenu, setAppbarText } = infrastructureSlice.actions;
-export const useInfrastructureDispatch = useDispatch.withTypes<ThunkDispatch<InfrastructureState, undefined, UnknownAction> & Dispatch>();
-export const useInfrastructureSelector = useSelector.withTypes<InfrastructureRootState>();
-export const selectActiveMenu = (state: InfrastructureRootState) => state.infrastructure.activeMenu;
-export const selectAppbarText = (state: InfrastructureRootState) => state.infrastructure.appbarText;
-export const useActiveMenuSelector = () => useInfrastructureSelector(selectActiveMenu);
-export const useAppbarTextSelector = () => useInfrastructureSelector(selectAppbarText);
-
-/**
- * The app's infrastructure-related state
- */
-export type InfrastructureState = {
-	/**
-	 * The name of the currently active menu
-	 */
-	activeMenu: string
-
-	/**
-	 * The text to show in the app bar on the dashboard page
-	 */
-	appbarText: string
-}
-
-/**
- * The partial type of the store's root state that includes the infrastructure information
- */
-export type InfrastructureRootState = {
-	infrastructure: InfrastructureState
-}
-
-// endregion
-
-// region Menus
+﻿import type { ReactNode } from 'react';
 
 const dashboardLinks = {} as LinkDictionaryProvider<DashboardLink>;
 const menuLinks = {} as LinkDictionaryProvider<MenuLink>;
@@ -214,6 +153,12 @@ export function userIsAuthorized<T extends DashboardLink | MenuLink>(
 	return link.allRolesRequired as boolean;
 }
 
+const sienarMenus = {
+	DASHBOARD: 'SIENAR_DASHBOARD'
+}
+
+export const SIENAR_MENUS = Object.freeze(sienarMenus);
+
 /**
  * A container for {@link DashboardLink} or {@link MenuLink} objects with a string key representing the name of the menu or dashboard
  */
@@ -317,78 +262,3 @@ export enum MenuPriority {
 	 */
 	Highest
 }
-
-// endregion
-
-// region URLs
-
-const urls: Record<string, string> = {};
-
-/**
- * Sets a URL in the URL container
- *
- * @param name The name of the URL to set
- * @param value The URL value
- * @param override Whether to override a URL that already has a value or not
- */
-export function setUrl(name: string, value: string, override: boolean = true) {
-	if (override) urls[name] = value;
-	else urls[name] ??= value;
-}
-
-/**
- * Gets a URL from the URL container
- *
- * @param name The name of the URL to get
- * @param fallback A fallback value to use if the URL is not found
- */
-export function getUrl(name: string, fallback?: string|undefined): string {
-	if (!urls[name] && !fallback) throw new Error(`Unable to locate URL named ${name}`);
-
-	return urls[name] ?? fallback;
-}
-
-const sienarUrls = {
-	DASHBOARD: 'dashboard',
-	LOGIN: 'login',
-	UNAUTHORIZED: 'unauthorized'
-};
-
-export const SIENAR_URLS = Object.freeze(sienarUrls);
-
-// endregion
-
-// region Custom partials
-
-const partials: Record<string, ReactNode> = {};
-
-/**
- * Sets a React partial in the partial container
- *
- * @param name The name of the partial to set
- * @param value The partial value
- * @param override Whether to override the partial if it already has a value
- */
-export function setPartial(name: string, value: ReactNode, override: boolean = true) {
-	if (override) partials[name] = value;
-	else partials[name] ??= value;
-}
-
-/**
- * Gets a React partial from the partial container
- *
- * @param name The name of the partial to retrieve
- */
-export function getPartial(name: string): ReactNode {
-	return partials[name];
-}
-
-const sienarPartials = {
-	DASHBOARD_HEADER: 'dashboard-header',
-	DRAWER_HEADER: 'drawer-header',
-	DRAWER_FOOTER: 'drawer-footer'
-};
-
-export const SIENAR_PARTIALS = Object.freeze(sienarPartials);
-
-// endregion
