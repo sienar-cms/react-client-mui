@@ -358,37 +358,37 @@ export const SIENAR_URLS = Object.freeze(sienarUrls);
 
 // endregion
 
-// region Custom templates
+// region Custom partials
 
-const templates: Record<string, ReactNode> = {};
+const partials: Record<string, ReactNode> = {};
 
 /**
- * Sets a React template in the template container
+ * Sets a React partial in the partial container
  *
- * @param name The name of the template to set
- * @param value The template value
- * @param override Whether to override the template if it already has a value
+ * @param name The name of the partial to set
+ * @param value The partial value
+ * @param override Whether to override the partial if it already has a value
  */
-export function setTemplate(name: string, value: ReactNode, override: boolean = true) {
-	if (override) templates[name] = value;
-	else templates[name] ??= value;
+export function setPartial(name: string, value: ReactNode, override: boolean = true) {
+	if (override) partials[name] = value;
+	else partials[name] ??= value;
 }
 
 /**
- * Gets a React template from the template container
+ * Gets a React partial from the partial container
  *
- * @param name The name of the template to retrieve
+ * @param name The name of the partial to retrieve
  */
-export function getTemplate(name: string): ReactNode {
-	return templates[name];
+export function getPartial(name: string): ReactNode {
+	return partials[name];
 }
 
-const sienarTemplates = {
+const sienarPartials = {
 	DASHBOARD_HEADER: 'dashboard-header',
 	DRAWER_HEADER: 'drawer-header',
 	DRAWER_FOOTER: 'drawer-footer'
 };
 
-export const SIENAR_TEMPLATES = Object.freeze(sienarTemplates);
+export const SIENAR_PARTIALS = Object.freeze(sienarPartials);
 
 // endregion

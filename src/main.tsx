@@ -1,4 +1,4 @@
 import '@/setup/urls';
-import '@/setup/templates';
+import '@/setup/partials';
 import '@/setup/stores'
 import '@/setup/views';
