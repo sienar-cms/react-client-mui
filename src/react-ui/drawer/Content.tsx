@@ -1,6 +1,5 @@
 ﻿import { useMemo } from 'react';
 import { Box, List, Toolbar } from '@mui/material';
-import { Dashboard as DashboardIcon, Home as HomeIcon } from '@mui/icons-material';
 import DashboardMenuItem from './MenuLink';
 import DashboardMenuGroup from './MenuGroup';
 import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateMenuLinks, filterLinks, getPartial, SIENAR_PARTIALS } from '@/react-utils';
@@ -31,14 +30,6 @@ export default function Content() {
 				<Toolbar/>
 				{drawerHeaderContent}
 				<List>
-					<DashboardMenuItem
-						data={{
-							text: 'Dashboard',
-							href: '/',
-							requireLoggedIn: true,
-							icon: <DashboardIcon/>
-						}}
-					/>
 					{drawerItems.map(d => d.sublinks
 						? <DashboardMenuGroup
 							data={d}
@@ -49,14 +40,6 @@ export default function Content() {
 							key={d.text}
 						/>
 					)}
-					<DashboardMenuItem
-						data={{
-							buttonComponent: 'a',
-							text: 'Return home',
-							href: '/',
-							icon: <HomeIcon/>
-						}}
-					/>
 				</List>
 			</div>
 

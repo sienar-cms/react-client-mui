@@ -25,6 +25,7 @@ export function getUrl(name: string, fallback?: string|undefined): string {
 }
 
 const sienarUrls = {
+	HOME: 'home',
 	DASHBOARD: 'dashboard',
 	LOGIN: 'login',
 	UNAUTHORIZED: 'unauthorized'
