@@ -8,50 +8,77 @@ const menuLinks = {} as LinkDictionaryProvider<MenuLink>;
  *
  * @param dictionary The link dictionary to add a link to
  * @param name The name of the menu or dashboard to add the link to
- * @param link The link to add
+ * @param links The links to add
  * @param priority The priority of the link to add
  */
-export function addLink<T extends DashboardLink | MenuLink>(
+export function addLinks<T extends DashboardLink | MenuLink>(
 	dictionary: LinkDictionaryProvider<T>,
 	name: string,
-	link: T,
+	links: T[],
 	priority: MenuPriority) {
-	link.allRolesRequired ??= true;
-	link.requireLoggedIn ??= false;
-	link.requireLoggedOut ??= false;
-	link.roles ??= [];
+	links.forEach(link => {
+		link.allRolesRequired ??= true;
+		link.requireLoggedIn ??= false;
+		link.requireLoggedOut ??= false;
+		link.roles ??= [];
+	});
 
 	dictionary[name] ??= {} as LinkDictionary<T>;
 	dictionary[name][priority] ??= [];
-	dictionary[name][priority].push(link);
+	dictionary[name][priority].push(...links);
 }
 
 /**
- * Adds a {@link DashboardLink} to the internal {@link LinkDictionaryProvider}
+ * Adds an array of {@link DashboardLink} to the internal {@link LinkDictionaryProvider} with normal priority
  *
- * @param name The name of the menu to add the link to
- * @param link The link to add
- * @param priority The priority of the link to add
+ * @param name The name of the menu to add the links to
+ * @param links The links to add
  */
-export function addDashboardLink(
+export function addDashboardLinks(
 	name: string,
-	link: DashboardLink,
-	priority: MenuPriority = MenuPriority.Normal) {
-	addLink(dashboardLinks, name, link, priority);
+	...links: DashboardLink[]) {
+	addLinks(dashboardLinks, name, links, MenuPriority.Normal);
 }
 
 /**
- * Adds a {@link MenuLink} to the internal {@link LinkDictionaryProvider}
+ * Adds an array of {@link DashboardLink} to the internal {@link LinkDictionaryProvider} with the specified priority
  *
- * @param name The name of the menu to add the link to
- * @param link The link to add
- * @param priority The priority of the link to add
+ * @param name The name of the menu to add the links to
+ * @param priority The priority at which to add the links
+ * @param links The links to add
  */
-export function addMenuLink(
+export function addDashboardLinksWithPriority(
 	name: string,
-	link: MenuLink,
-	priority: MenuPriority = MenuPriority.Normal) {
-	addLink(menuLinks, name, link, priority);
+	priority: MenuPriority,
+	...links: DashboardLink[]
+) {
+	addLinks(dashboardLinks, name, links, priority);
+}
+
+/**
+ * Adds an array of {@link MenuLink} to the internal {@link LinkDictionaryProvider} with normal priority
+ *
+ * @param name The name of the menu to add the links to
+ * @param links The links to add
+ */
+export function addMenuLinks(
+	name: string,
+	...links: MenuLink[]) {
+	addLinks(menuLinks, name, links, MenuPriority.Normal);
+}
+
+/**
+ * Adds an array of {@link MenuLink} to the internal {@link LinkDictionaryProvider} with the specified priority
+ *
+ * @param name The name of the menu to add the links to
+ * @param priority The priority at which to add the links
+ * @param links The links to add
+ */
+export function addMenuLinksWithPriority(
+	name: string,
+	priority: MenuPriority,
+	...links: MenuLink[]) {
+	addLinks(menuLinks, name, links, priority);
 }
 
 /**

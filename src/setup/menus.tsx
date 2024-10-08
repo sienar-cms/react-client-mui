@@ -1,15 +1,23 @@
 ﻿import { Dashboard, Home } from '@mui/icons-material';
-import { addMenuLink, getUrl, MenuPriority, SIENAR_MENUS, SIENAR_URLS } from '@/react-utils';
+import { addMenuLinksWithPriority, getUrl, MenuPriority, SIENAR_MENUS, SIENAR_URLS } from '@/react-utils';
 
-addMenuLink(SIENAR_MENUS.DASHBOARD, {
-	text: 'Dashboard',
-	href: getUrl(SIENAR_URLS.DASHBOARD),
-	icon: <Dashboard/>,
-	requireLoggedIn: true
-});
+addMenuLinksWithPriority(
+	SIENAR_MENUS.DASHBOARD,
+	MenuPriority.Highest,
+	{
+		text: 'Dashboard',
+		href: getUrl(SIENAR_URLS.DASHBOARD),
+		icon: <Dashboard/>,
+		requireLoggedIn: false
+	}
+);
 
-addMenuLink(SIENAR_MENUS.DASHBOARD, {
-	text: 'Return home',
-	href: getUrl(SIENAR_URLS.HOME),
-	icon: <Home/>
-}, MenuPriority.Lowest);
+addMenuLinksWithPriority(
+	SIENAR_MENUS.DASHBOARD,
+	MenuPriority.Lowest,
+	{
+		text: 'Return home',
+		href: getUrl(SIENAR_URLS.HOME),
+		icon: <Home/>
+	}
+);
