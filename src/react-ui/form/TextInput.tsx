@@ -1,6 +1,6 @@
-﻿import { useRef, useState } from 'react';
+﻿import { useRef } from 'react';
 import { TextField } from '@mui/material';
-import { useFormField } from '@/react-utils';
+import { useFormField, useRerender } from '@/react-utils';
 import ValidationList from './ValidationList';
 
 import type { FormInputProps } from './shared';
@@ -24,7 +24,7 @@ export default function TextInput<T extends string | number>(props: TextInputPro
 	} = props;
 
 	const currentValue = useRef('' as T);
-	const [rerender, setRerender] = useState(0);
+	const rerender = useRerender();
 	const [validations, interact] = useFormField(id, displayName, currentValue, validators);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -34,7 +34,7 @@ export default function TextInput<T extends string | number>(props: TextInputPro
 		if (currentValue.current !== newValue) {
 			interact();
 			currentValue.current = newValue;
-			setRerender(rerender + 1);
+			rerender();
 		}
 	}
 

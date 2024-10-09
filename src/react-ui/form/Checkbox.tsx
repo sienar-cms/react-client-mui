@@ -1,6 +1,6 @@
-﻿import { useRef, useState } from 'react';
+﻿import { useRef } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
-import { useFormField } from '@/react-utils';
+import { useFormField, useRerender } from '@/react-utils';
 import ValidationList from './ValidationList';
 
 import type {ChangeEvent} from 'react';
@@ -17,15 +17,15 @@ export default function CheckboxInput(props: FormInputProps<boolean>) {
 	} = props;
 
 	const currentValue = useRef(false);
+	const rerender = useRerender();
 	const [validations, interact] = useFormField(id, displayName, currentValue, validators);
-	const [rerender, setRerender] = useState(0);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const newValue = e.target.checked;
 		if (currentValue.current !== newValue) {
 			currentValue.current = e.target.checked;
 			interact();
-			setRerender(rerender + 1);
+			rerender();
 		}
 	}
 
