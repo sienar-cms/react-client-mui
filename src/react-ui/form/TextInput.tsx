@@ -8,8 +8,6 @@ import type { ChangeEvent } from 'react';
 
 export type TextInputProps<T extends string | number> = FormInputProps<T> & {
 	type?: 'text' | 'password';
-	serverErrors?: string[]
-	setServerErrors?: (newErrors: string[]) => void
 }
 
 export default function TextInput<T extends string | number>(props: TextInputProps<T>) {
