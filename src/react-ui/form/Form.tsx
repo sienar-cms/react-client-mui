@@ -31,18 +31,22 @@ export default function Form(props: FormProps) {
 		children
 	} = props;
 
-	const errorContext = useContext(formValidationContext);
+	const formContext = useContext(formValidationContext);
 
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		errorContext.hasInteracted = true;
+		formContext.hasInteracted = true;
 
 		let valid = true;
-		for (let validator in errorContext.validators) {
-			if (!errorContext.validators[validator]()) {
-				valid = false;
-			}
+		for (let validator in formContext.validators) {
+			if (!formContext.validators[validator]()) valid = false;
 		}
+
+		const submitValues = {} as Record<string, any>;
+		Object
+			.keys(formContext.idMap)
+			.forEach(k => submitValues[formContext.idMap[k]] = formContext.values[k]);
+		console.log('values are ', submitValues);
 
 		if (valid && await onSubmit()) {
 			await doReset();
@@ -55,7 +59,7 @@ export default function Form(props: FormProps) {
 	}
 
 	const doReset = async () => {
-		errorContext.hasInteracted = false;
+		formContext.hasInteracted = false;
 		await onReset?.();
 	}
 
@@ -63,10 +67,10 @@ export default function Form(props: FormProps) {
 	// it resets hasInteracted. Without this, revisiting a submitted form
 	// may cause validation to run on load, because
 	// a) React caches components for reuse
-	// b) the existing errorContext.hasInteracted will therefore be true
+	// b) the existing formContext.hasInteracted will therefore be true
 	useEffect(() => {
 		return () => {
-			errorContext.hasInteracted = false;
+			formContext.hasInteracted = false;
 		};
 	}, []);
 
@@ -94,7 +98,7 @@ export default function Form(props: FormProps) {
 	);
 
 	return (
-		<formValidationContext.Provider value={errorContext}>
+		<formValidationContext.Provider value={formContext}>
 			<Card
 				title={title}
 				actions={actions}

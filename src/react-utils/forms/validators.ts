@@ -1,7 +1,7 @@
 ﻿export function required(message?: string): FormValueValidator<any> {
 	return {
 		message: message || '%name is required.',
-		isValid: (input: any) => {
+		isValid: input => {
 			// Damn you, JavaScript. You and your 'truthiness'
 			if (typeof input === 'number' && input === 0) return true;
 
@@ -14,7 +14,7 @@
 export function minLength(min: number, message?: string): FormValueValidator<string> {
 	return {
 		message: message || '%name must be at least %min characters.',
-		isValid: (input: string) => {
+		isValid: input => {
 			if (!input) return null;
 			return input.length >= min
 		},
@@ -25,7 +25,7 @@ export function minLength(min: number, message?: string): FormValueValidator<str
 export function maxLength(max: number, message?: string): FormValueValidator<string> {
 	return {
 		message: message || '%name must be no longer than %max characters.',
-		isValid: (input: string) => {
+		isValid: input => {
 			if (!input) return null;
 			return input.length <= max
 		},
@@ -33,21 +33,21 @@ export function maxLength(max: number, message?: string): FormValueValidator<str
 	};
 }
 
-export function matches(otherName: string, otherValue: string, message?: string): FormValueValidator<string> {
+export function matches(otherName: string, message?: string): FormValueValidator<string> {
 	return {
 		message: message || '%name must match %otherName.',
-		isValid: (input: string) => {
+		isValid: (input, formValues) => {
 			if (!input) return null;
-			return input === otherValue;
+			return input === formValues[otherName];
 		},
-		replacementValues: { otherName, otherValue }
+		replacementValues: { otherName }
 	}
 }
 
 export function isEmail(message?: string): FormValueValidator<string> {
 	return {
 		message: message || '%name must be a valid email address.',
-		isValid: (input: string) => {
+		isValid: input => {
 			if (!input) return null;
 			return /^\S+@\S+\.\S+$/.test(input);
 		}
@@ -57,7 +57,7 @@ export function isEmail(message?: string): FormValueValidator<string> {
 export function matchesRegex(test: RegExp, message: string) :FormValueValidator<string> {
 	return {
 		message,
-		isValid: (input: string) => {
+		isValid: input => {
 			if (!input) return null;
 			return test.test(input);
 		}
@@ -93,7 +93,7 @@ export type FormValueValidator<T> = {
 	 *
 	 * @param input The value to validate
 	 */
-	isValid: (input: T) => boolean|null
+	isValid: (input: T|null, formValues: Record<string, any>) => boolean|null
 
 	/**
 	 * An object of key-value replacement values to use when formatting the validation message

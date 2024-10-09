@@ -1,37 +1,47 @@
 ﻿import { createContext, useContext, useEffect, useState } from 'react';
 
+import type { RefObject } from 'react';
 import type { FormValueValidator } from './validators';
 
 export const formValidationContext = createContext<FormContext>({
 	hasInteracted: false,
-	validators: {}
+	validators: {},
+	values: {},
+	idMap: {}
 });
 
 export function useFormField<T extends unknown>(
 	id: string,
 	displayName: string,
-	value: T,
+	input: RefObject<T>,
 	validators: FormValueValidator<T>[]
 ): [
 	ValidationResult[],
 	() => void
 ] {
 	const [results, setResults] = useState<ValidationResult[]>([]);
-	const errorContext = useContext(formValidationContext);
+	const formContext = useContext(formValidationContext);
+	formContext.idMap[displayName] = id;
 
 	const validate: FormFieldValidator = () => {
-		if (!errorContext.hasInteracted) {
+		if (!formContext.hasInteracted) {
 			return false;
 		}
 
+		// @ts-ignore
+		const currentValue = input.current;
 		const internalResults: ValidationResult[] = [];
 		let hasErrors = false;
+		formContext.values[displayName] = currentValue;
 
 		for (let validator of validators) {
-			const valid = validator.isValid(value);
+			const valid = validator.isValid(
+				currentValue,
+				formContext.values
+			);
 			internalResults.push({
 				valid,
-				message: formatValidationMessage(validator, displayName, value)
+				message: formatValidationMessage(validator, displayName, currentValue)
 			});
 
 			if (!valid) {
@@ -44,13 +54,13 @@ export function useFormField<T extends unknown>(
 	}
 
 	useEffect(() => {
-		errorContext.validators[id] = validate;
+		formContext.validators[id] = validate;
 		validate();
 
-		return () => {delete errorContext.validators[id]};
-	}, [value]);
+		return () => {delete formContext.validators[id]};
+	}, [input.current]);
 
-	return [results, () => errorContext.hasInteracted = true];
+	return [results, () => formContext.hasInteracted = true];
 }
 
 export function formatValidationMessage(
@@ -86,4 +96,6 @@ export type ValidationResult = {
 export type FormContext = {
 	hasInteracted: boolean
 	validators: Record<string, FormFieldValidator>
+	values: Record<string, any>
+	idMap: Record<string, string>
 }

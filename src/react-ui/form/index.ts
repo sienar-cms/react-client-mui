@@ -1,11 +1,13 @@
-﻿import ValidationList from './ValidationList.tsx';
+﻿import ValidationList from './ValidationList';
 import Form from './Form';
 import TextInput from './TextInput';
+import Checkbox from './Checkbox';
 
 export * from './shared';
 
 export default {
-	ErrorList: ValidationList,
+	ValidationList,
 	Form,
-	TextInput
+	TextInput,
+	Checkbox
 }
