@@ -11,7 +11,7 @@ export type TextInputProps<T extends string | number> = FormInputProps<T> & {
 	onChange?: (e: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => Promise<any>|any
 }
 
-export default function TextInput<T extends string | number>(props: TextInputProps<T>) {
+export default function Textbox<T extends string | number>(props: TextInputProps<T>) {
 	const {
 		id,
 		name,
