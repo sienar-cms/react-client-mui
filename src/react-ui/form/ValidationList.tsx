@@ -3,12 +3,14 @@ import { Done, Error, Feedback } from '@mui/icons-material';
 
 import type { ValidationResult } from '@/react-utils';
 
-interface Props {
+export type ValidationListProps = {
 	validations: ValidationResult[]
 	hideNonErrors?: boolean
 }
 
-export default function ValidationList({validations, hideNonErrors = false}: Props) {
+export default function ValidationList(props: ValidationListProps) {
+	const { validations, hideNonErrors = false } = props;
+
 	const filtered = hideNonErrors
 		? validations.filter(v => !v.valid)
 		: validations;
