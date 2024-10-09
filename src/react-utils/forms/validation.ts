@@ -2,7 +2,7 @@
 
 import type { FormValueValidator } from './validators';
 
-export const formErrorContext = createContext<FormContext>({
+export const formValidationContext = createContext<FormContext>({
 	hasInteracted: false,
 	validators: {}
 });
@@ -17,7 +17,7 @@ export function useFormField<T extends unknown>(
 	() => void
 ] {
 	const [results, setResults] = useState<ValidationResult[]>([]);
-	const errorContext = useContext(formErrorContext);
+	const errorContext = useContext(formValidationContext);
 
 	const validate: FormFieldValidator = () => {
 		if (!errorContext.hasInteracted) {

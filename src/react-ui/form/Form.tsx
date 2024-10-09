@@ -1,5 +1,5 @@
 ﻿import Card from '@/react-ui/Card';
-import { formErrorContext } from '@/react-utils';
+import { formValidationContext } from '@/react-utils';
 import { useContext, useEffect } from 'react';
 import { Button } from '@mui/material';
 
@@ -31,7 +31,7 @@ export default function Form(props: FormProps) {
 		children
 	} = props;
 
-	const errorContext = useContext(formErrorContext);
+	const errorContext = useContext(formValidationContext);
 
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
@@ -94,7 +94,7 @@ export default function Form(props: FormProps) {
 	);
 
 	return (
-		<formErrorContext.Provider value={errorContext}>
+		<formValidationContext.Provider value={errorContext}>
 			<Card
 				title={title}
 				actions={actions}
@@ -105,6 +105,6 @@ export default function Form(props: FormProps) {
 					{children}
 				</form>
 			</Card>
-		</formErrorContext.Provider>
+		</formValidationContext.Provider>
 	);
 }
