@@ -6,13 +6,18 @@ import ValidationList from './ValidationList';
 import type {ChangeEvent} from 'react';
 import type {FormInputProps} from './shared';
 
-export default function CheckboxInput(props: FormInputProps<boolean>) {
+export type CheckboxProps = FormInputProps<boolean> & {
+	onChange?: (e: ChangeEvent<HTMLInputElement>) => Promise<any>|any
+}
+
+export default function CheckboxInput(props: CheckboxProps) {
 	const {
 		id,
 		name,
 		displayName,
 		hideNonErrors,
 		validators = [],
+		onChange,
 		children
 	} = props;
 
@@ -20,11 +25,12 @@ export default function CheckboxInput(props: FormInputProps<boolean>) {
 	const rerender = useRerender();
 	const [validations, interact] = useFormField(id, displayName, currentValue, validators);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
 		const newValue = e.target.checked;
 		if (currentValue.current !== newValue) {
 			currentValue.current = e.target.checked;
 			interact();
+			await onChange?.(e);
 			rerender();
 		}
 	}

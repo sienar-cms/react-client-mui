@@ -7,7 +7,8 @@ import type { FormInputProps } from './shared';
 import type { ChangeEvent } from 'react';
 
 export type TextInputProps<T extends string | number> = FormInputProps<T> & {
-	type?: 'text' | 'password';
+	type?: 'text' | 'password'
+	onChange?: (e: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => Promise<any>|any
 }
 
 export default function TextInput<T extends string | number>(props: TextInputProps<T>) {
@@ -17,6 +18,7 @@ export default function TextInput<T extends string | number>(props: TextInputPro
 		displayName,
 		hideNonErrors,
 		validators = [],
+		onChange,
 		type = 'text',
 		children
 	} = props;
@@ -25,13 +27,14 @@ export default function TextInput<T extends string | number>(props: TextInputPro
 	const rerender = useRerender();
 	const [validations, interact] = useFormField(id, displayName, currentValue, validators);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const newValue = (typeof currentValue.current === 'number'
 			? parseFloat(e.target.value)
 			: e.target.value) as T;
 		if (currentValue.current !== newValue) {
-			interact();
 			currentValue.current = newValue;
+			interact();
+			await onChange?.(e);
 			rerender();
 		}
 	}
