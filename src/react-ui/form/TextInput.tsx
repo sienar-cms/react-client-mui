@@ -17,6 +17,7 @@ export default function TextInput<T extends string | number>(props: TextInputPro
 		id,
 		name,
 		displayName,
+		hideNonErrors,
 		validators = [],
 		type = 'text',
 		children
@@ -50,7 +51,10 @@ export default function TextInput<T extends string | number>(props: TextInputPro
 				sx={{ width: '100%' }}
 			/>
 
-			<ValidationList validations={validations}/>
+			<ValidationList
+				validations={validations}
+				hideNonErrors={hideNonErrors}
+			/>
 		</>
 	);
 };

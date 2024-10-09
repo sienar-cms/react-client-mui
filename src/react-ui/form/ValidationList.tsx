@@ -5,10 +5,15 @@ import type { ValidationResult } from '@/react-utils';
 
 interface Props {
 	validations: ValidationResult[]
+	hideNonErrors?: boolean
 }
 
-export default function ValidationList({validations}: Props) {
-	return validations.length > 0 && (
+export default function ValidationList({validations, hideNonErrors = false}: Props) {
+	const filtered = hideNonErrors
+		? validations.filter(v => !v.valid)
+		: validations;
+
+	return filtered.length > 0 && (
 		<List dense>
 			{validations.map(e => {
 				const validationColor = e.valid === true

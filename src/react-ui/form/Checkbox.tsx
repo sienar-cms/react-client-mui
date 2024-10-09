@@ -11,6 +11,7 @@ export default function CheckboxInput(props: FormInputProps<boolean>) {
 		id,
 		name,
 		displayName,
+		hideNonErrors,
 		validators = [],
 		children
 	} = props;
@@ -43,7 +44,10 @@ export default function CheckboxInput(props: FormInputProps<boolean>) {
 				label={children ?? displayName}
 			/>
 
-			<ValidationList validations={validations}/>
+			<ValidationList
+				validations={validations}
+				hideNonErrors={hideNonErrors}
+			/>
 		</>
 	);
 }

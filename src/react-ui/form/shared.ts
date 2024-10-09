@@ -6,6 +6,7 @@ export type FormInputProps<T extends unknown> = PropsWithChildren & {
 	name?: string
 	displayName: string
 	validators?: FormValueValidator<T>[]
+	hideNonErrors?: boolean
 	value?: T
 	setValue?: (input: T) => void
 	inputRef?: ((instance: (HTMLDivElement | null)) => void) | RefObject<HTMLDivElement> | null | undefined
