@@ -1,5 +1,5 @@
 ﻿import { useRef } from 'react';
-import { Checkbox, FormControlLabel } from '@mui/material';
+import { Checkbox as MaterialCheckbox, FormControlLabel } from '@mui/material';
 import { useFormField, useRerender } from '@/react-utils';
 import ValidationList from './ValidationList';
 
@@ -10,7 +10,7 @@ export type CheckboxProps = FormInputProps<boolean> & {
 	onChange?: (e: ChangeEvent<HTMLInputElement>) => Promise<any>|any
 }
 
-export default function CheckboxInput(props: CheckboxProps) {
+export default function Checkbox(props: CheckboxProps) {
 	const {
 		id,
 		name,
@@ -40,7 +40,7 @@ export default function CheckboxInput(props: CheckboxProps) {
 			<FormControlLabel
 				htmlFor={id}
 				control={
-					<Checkbox
+					<MaterialCheckbox
 						id={id}
 						name={name ?? id}
 						checked={currentValue.current}
