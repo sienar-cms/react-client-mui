@@ -10,7 +10,6 @@ export type TextInputProps<T extends string | number> = FormInputProps<T> & {
 	type?: 'text' | 'password' | 'email' | 'number'
 	margin?: 'normal' | 'dense' | 'none'
 	fullWidth?: boolean
-	onChange?: (e: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => Promise<any>|any
 }
 
 export default function Textbox<T extends string | number>(props: TextInputProps<T>) {
@@ -41,7 +40,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		if (currentValue.current !== newValue) {
 			currentValue.current = newValue;
 			interact();
-			await onChange?.(e);
+			await onChange?.(newValue);
 			rerender();
 		}
 	}

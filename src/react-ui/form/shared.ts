@@ -6,6 +6,7 @@ export type FormInputProps<T extends unknown> = PropsWithChildren & {
 	name?: string
 	displayName: string
 	value?: T,
+	onChange?: (newValue: T) => Promise<any>|any
 	validators?: FormValueValidator<T>[]
 	hideNonErrors?: boolean
 }
