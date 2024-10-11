@@ -29,6 +29,9 @@ export default function Checkbox(props: CheckboxProps) {
 		const newValue = e.target.checked;
 		if (currentValue.current !== newValue) {
 			currentValue.current = e.target.checked;
+
+			// ASP.NET doesn't understand 'on' means a checkbox is checked
+			e.target.value = e.target.checked as unknown as string;
 			interact();
 			await onChange?.(e);
 			rerender();

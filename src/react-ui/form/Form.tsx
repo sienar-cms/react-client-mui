@@ -1,6 +1,6 @@
 ﻿import Card from '@/react-ui/Card';
 import { formValidationContext } from '@/react-utils';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { Button } from '@mui/material';
 
 import type { MouseEvent, PropsWithChildren, ReactNode } from 'react';
@@ -10,6 +10,8 @@ export type FormProps = PropsWithChildren & {
 	title: string
 	onSubmit: () => Promise<boolean>
 	onReset?: () => Promise<void> | void
+	method: 'GET'|'POST'|'PUT'|'PATCH'|'DELETE'|'HEAD'|'OPTIONS'|'TRACE'|'CONNECT'
+	action: string
 	submitText?: string
 	resetText?: string
 	showReset?: boolean
@@ -23,6 +25,8 @@ export default function Form(props: FormProps) {
 		title,
 		onSubmit,
 		onReset,
+		method,
+		action,
 		submitText = 'Submit',
 		resetText = 'Reset',
 		showReset = false,
@@ -31,6 +35,7 @@ export default function Form(props: FormProps) {
 		children
 	} = props;
 
+	const formRef = useRef<HTMLFormElement>(null);
 	const formContext = useContext(formValidationContext);
 
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -48,7 +53,15 @@ export default function Form(props: FormProps) {
 			.forEach(k => submitValues[formContext.idMap[k]] = formContext.values[k]);
 		console.log('values are ', submitValues);
 
-		if (valid && await onSubmit()) {
+		if (valid) {
+			const request = new Request(action, {
+				method,
+				body: new FormData(formRef.current!)
+			});
+			const result = await fetch(request);
+			const response = (await result.json()) as {result: Record<string, any>, notifications: Record<string, any>[]};
+			console.log('result is ', response.result);
+			console.log('notifications are ', response.notifications);
 			await doReset();
 		}
 	};
@@ -105,7 +118,10 @@ export default function Form(props: FormProps) {
 			>
 				{information}
 
-				<form id={id}>
+				<form
+					id={id}
+					ref={formRef}
+				>
 					{children}
 				</form>
 			</Card>
