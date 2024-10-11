@@ -28,13 +28,14 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		children
 	} = props;
 
-	const defaultValue = (type === 'number' ? 0 : '') as T;
+	const isNumeric = type === 'number';
+	const defaultValue = (isNumeric ? 0 : '') as T;
 	const currentValue = useRef(value || defaultValue);
 	const rerender = useRerender();
 	const [validations, interact] = useFormField(id, displayName, currentValue, validators);
 
 	const handleChange = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const newValue = (typeof currentValue.current === 'number'
+		const newValue = (isNumeric
 			? parseFloat(e.target.value)
 			: e.target.value) as T;
 		if (currentValue.current !== newValue) {
