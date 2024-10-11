@@ -6,34 +6,41 @@ import ValidationList from './ValidationList';
 import type {ChangeEvent} from 'react';
 import type {FormInputProps} from './shared';
 
-export type CheckboxProps = FormInputProps<boolean> & {
-	onChange?: (e: ChangeEvent<HTMLInputElement>) => Promise<any>|any
+export type CheckboxProps<T> = Omit<FormInputProps<boolean>, 'value'> & {
+	value?: T
+	checked?: boolean
 }
 
-export default function Checkbox(props: CheckboxProps) {
+export default function Checkbox<T>(props: CheckboxProps<T>) {
 	const {
 		id,
 		name,
 		displayName,
 		hideNonErrors,
 		validators = [],
+		value,
+		checked = false,
 		onChange,
 		children
 	} = props;
 
-	const currentValue = useRef(false);
+	const isBoolean = !value;
+	const currentChecked = useRef(checked);
 	const rerender = useRerender();
-	const [validations, interact] = useFormField(id, displayName, currentValue, validators);
+	const [validations, interact] = useFormField(id, displayName, currentChecked, validators);
 
 	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-		const newValue = e.target.checked;
-		if (currentValue.current !== newValue) {
-			currentValue.current = e.target.checked;
+		const newChecked = e.target.checked;
+		if (currentChecked.current !== newChecked) {
+			currentChecked.current = newChecked;
 
 			// ASP.NET doesn't understand 'on' means a checkbox is checked
-			e.target.value = e.target.checked as unknown as string;
+			if (isBoolean) {
+				e.target.value = newChecked.toString();
+			}
+
 			interact();
-			await onChange?.(e);
+			await onChange?.(newChecked);
 			rerender();
 		}
 	}
@@ -46,7 +53,8 @@ export default function Checkbox(props: CheckboxProps) {
 					<MaterialCheckbox
 						id={id}
 						name={name ?? id}
-						checked={currentValue.current}
+						checked={currentChecked.current}
+						value={value}
 						onChange={handleChange}
 					/>
 				}
