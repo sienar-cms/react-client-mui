@@ -7,7 +7,7 @@ import type { FormInputProps } from './shared';
 import type { ChangeEvent } from 'react';
 
 export type TextInputProps<T extends string | number> = FormInputProps<T> & {
-	type?: 'text' | 'password' | 'email'
+	type?: 'text' | 'password' | 'email' | 'number'
 	margin?: 'normal' | 'dense' | 'none'
 	fullWidth?: boolean
 	onChange?: (e: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => Promise<any>|any
@@ -18,6 +18,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		id,
 		name,
 		displayName,
+		value,
 		hideNonErrors,
 		validators = [],
 		onChange,
@@ -27,7 +28,8 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		children
 	} = props;
 
-	const currentValue = useRef('' as T);
+	const defaultValue = (type === 'number' ? 0 : '') as T;
+	const currentValue = useRef(value || defaultValue);
 	const rerender = useRerender();
 	const [validations, interact] = useFormField(id, displayName, currentValue, validators);
 
