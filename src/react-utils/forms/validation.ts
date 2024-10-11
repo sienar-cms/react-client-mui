@@ -12,7 +12,7 @@ export const formValidationContext = createContext<FormContext>({
 
 export function useFormField<T extends unknown>(
 	id: string,
-	displayName: string,
+	displayName: string|null|undefined,
 	input: RefObject<T>,
 	validators: FormValueValidator<T>[]
 ): [
@@ -21,12 +21,15 @@ export function useFormField<T extends unknown>(
 ] {
 	const [results, setResults] = useState<ValidationResult[]>([]);
 	const formContext = useContext(formValidationContext);
-	formContext.idMap[displayName] = id;
+	if (displayName) formContext.idMap[displayName] = id;
 
 	const validate: FormFieldValidator = () => {
 		if (!formContext.hasInteracted) {
 			return false;
 		}
+
+		// If the displayName is not set, the developer should manage validation
+		if (!displayName) return true;
 
 		// @ts-ignore
 		const currentValue = input.current;

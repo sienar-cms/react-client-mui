@@ -32,7 +32,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	const defaultValue = (isNumeric ? 0 : '') as T;
 	const currentValue = useRef(value || defaultValue);
 	const rerender = useRerender();
-	const [validations, interact] = useFormField(id, displayName, currentValue, validators);
+	const [validations, interact] = useFormField(htmlId, displayName, currentValue, validators);
 
 	const handleChange = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const newValue = (isNumeric
@@ -50,7 +50,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		<>
 			<TextField
 				id={htmlId}
-				name={name ?? id}
+				name={name}
 				label={children ?? displayName}
 				value={currentValue.current}
 				onChange={handleChange}

@@ -28,7 +28,7 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 	const htmlId = useId(id);
 	const currentChecked = useRef(checked);
 	const rerender = useRerender();
-	const [validations, interact] = useFormField(id, displayName, currentChecked, validators);
+	const [validations, interact] = useFormField(htmlId, displayName, currentChecked, validators);
 
 	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
 		const newChecked = e.target.checked;
@@ -53,7 +53,7 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 				control={
 					<MaterialCheckbox
 						id={htmlId}
-						name={name ?? id}
+						name={name}
 						checked={currentChecked.current}
 						value={value}
 						onChange={handleChange}
