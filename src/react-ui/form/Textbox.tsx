@@ -9,6 +9,7 @@ import type { ChangeEvent } from 'react';
 export type TextInputProps<T extends string | number> = FormInputProps<T> & {
 	type?: 'text' | 'password' | 'email'
 	margin?: 'normal' | 'dense' | 'none'
+	fullWidth?: boolean
 	onChange?: (e: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => Promise<any>|any
 }
 
@@ -22,6 +23,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		onChange,
 		type = 'text',
 		margin = 'normal',
+		fullWidth = true,
 		children
 	} = props;
 
@@ -51,8 +53,8 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 				onChange={handleChange}
 				type={type}
 				error={validations.filter(v => !v.valid).length > 0}
-				sx={{ width: '100%' }}
 				margin={margin}
+				fullWidth={fullWidth}
 			/>
 
 			<ValidationList
