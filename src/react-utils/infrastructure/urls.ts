@@ -28,6 +28,7 @@ const sienarUrls = {
 	HOME: 'home',
 	DASHBOARD: 'dashboard',
 	LOGIN: 'login',
+	REGISTER: 'register',
 	UNAUTHORIZED: 'unauthorized'
 };
 

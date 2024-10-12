@@ -2,3 +2,7 @@ import { setUrl, SIENAR_URLS } from '@/react-utils';
 
 setUrl(SIENAR_URLS.HOME, '/', false);
 setUrl(SIENAR_URLS.DASHBOARD, '/dashboard', false);
+
+// Account
+
+setUrl(SIENAR_URLS.REGISTER, '/dashboard/account/register', false);

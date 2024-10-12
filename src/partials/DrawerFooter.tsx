@@ -1,4 +1,5 @@
 ﻿import Authorize from '@/react-ui/authorize';
+import { getUrl, SIENAR_URLS } from '@/react-utils';
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ export default function DrawerFooter() {
 							mb: 2
 						}}
 						variant='outlined'
-						to='/'
+						to={getUrl(SIENAR_URLS.REGISTER)}
 						color='secondary'
 					>
 						Register
