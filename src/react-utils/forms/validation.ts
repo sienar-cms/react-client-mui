@@ -6,12 +6,10 @@ import type { FormValueValidator } from './validators';
 export const formValidationContext = createContext<FormContext>({
 	hasInteracted: false,
 	validators: {},
-	values: {},
-	idMap: {}
+	values: {}
 });
 
 export function useFormFieldValidation<T extends unknown>(
-	id: string,
 	displayName: string|null|undefined,
 	input: RefObject<T>,
 	validators: FormValueValidator<T>[]
@@ -21,7 +19,6 @@ export function useFormFieldValidation<T extends unknown>(
 ] {
 	const [results, setResults] = useState<ValidationResult[]>([]);
 	const formContext = useContext(formValidationContext);
-	if (displayName) formContext.idMap[displayName] = id;
 
 	const validate: FormFieldValidator = () => {
 		if (!formContext.hasInteracted) {
@@ -57,10 +54,14 @@ export function useFormFieldValidation<T extends unknown>(
 	}
 
 	useEffect(() => {
-		formContext.validators[id] = validate;
-		validate();
+		if (displayName) {
+			formContext.validators[displayName] = validate;
+			validate();
+		}
 
-		return () => {delete formContext.validators[id]};
+		return () => {
+			if (displayName) delete formContext.validators[displayName];
+		};
 	}, [input.current]);
 
 	return [results, () => formContext.hasInteracted = true];
@@ -100,5 +101,4 @@ export type FormContext = {
 	hasInteracted: boolean
 	validators: Record<string, FormFieldValidator>
 	values: Record<string, any>
-	idMap: Record<string, string>
 }

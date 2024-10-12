@@ -28,7 +28,7 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 	const htmlId = useId(id);
 	const currentChecked = useRef(checked);
 	const rerender = useRerender();
-	const [validations, interact] = useFormFieldValidation(htmlId, displayName, currentChecked, validators);
+	const [validations, interact] = useFormFieldValidation(displayName, currentChecked, validators);
 
 	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
 		const newChecked = e.target.checked;

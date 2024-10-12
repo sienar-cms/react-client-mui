@@ -47,12 +47,6 @@ export default function Form(props: FormProps) {
 			if (!formContext.validators[validator]()) valid = false;
 		}
 
-		const submitValues = {} as Record<string, any>;
-		Object
-			.keys(formContext.idMap)
-			.forEach(k => submitValues[formContext.idMap[k]] = formContext.values[k]);
-		console.log('values are ', submitValues);
-
 		if (valid) {
 			const request = new Request(action, {
 				method,
