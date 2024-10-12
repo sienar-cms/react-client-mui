@@ -1,6 +1,6 @@
 ﻿import { useRef } from 'react';
 import { Checkbox as MaterialCheckbox, FormControlLabel } from '@mui/material';
-import { useFormField, useRerender, useId } from '@/react-utils';
+import { useFormFieldValidation, useRerender, useId } from '@/react-utils';
 import ValidationList from './ValidationList';
 
 import type {ChangeEvent} from 'react';
@@ -28,7 +28,7 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 	const htmlId = useId(id);
 	const currentChecked = useRef(checked);
 	const rerender = useRerender();
-	const [validations, interact] = useFormField(htmlId, displayName, currentChecked, validators);
+	const [validations, interact] = useFormFieldValidation(htmlId, displayName, currentChecked, validators);
 
 	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
 		const newChecked = e.target.checked;
