@@ -54,8 +54,6 @@ export default function Form(props: FormProps) {
 			});
 			const result = await fetch(request);
 			const response = (await result.json()) as {result: Record<string, any>, notifications: Record<string, any>[]};
-			console.log('result is ', response.result);
-			console.log('notifications are ', response.notifications);
 			await doReset();
 		}
 	};
