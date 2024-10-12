@@ -1,13 +1,20 @@
 ﻿import {Outlet} from 'react-router-dom';
 import {AppBar, Box, CssBaseline, Drawer, IconButton, Toolbar, Typography} from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
-import {useState} from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import SienarDrawer from '@/react-ui/drawer';
 import { useAppbarTextSelector } from '@/react-utils';
 
 export default function Layout() {
 	const [open, setOpen] = useState(false);
 	const appbarText = useAppbarTextSelector();
+	const location = useLocation();
+
+	useEffect(() => {
+		setOpen(false)
+	}, [location]);
+
 	const drawerContent = <SienarDrawer.Content/>;
 
 	const drawerWidth = '20%';
