@@ -80,7 +80,7 @@ export function containsLower(): FormValueValidator<string> {
 }
 
 /**
- * A function that validates the value of a form field
+ * An object representing a form value validation rule
  */
 export type FormValueValidator<T> = {
 	/**
