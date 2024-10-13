@@ -1,3 +1,24 @@
+import { enqueueSnackbar } from 'notistack';
+
+export function notify(notification: Notification): void {
+	enqueueSnackbar(notification.message, {
+		variant: mapNotificationTypeToVariant(notification.type)
+	})
+}
+
+function mapNotificationTypeToVariant(type: NotificationType): 'success' | 'warning' | 'info' | 'error' {
+	switch (type) {
+		case NotificationType.Success:
+			return 'success';
+		case NotificationType.Warning:
+			return 'warning';
+		case NotificationType.Info:
+			return 'info';
+		case NotificationType.Error:
+			return 'error';
+	}
+}
+
 export type Notification = {
 	message: string
 	type: NotificationType
