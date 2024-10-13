@@ -5,3 +5,4 @@ setUrl(SIENAR_URLS.DASHBOARD, '/');
 // Account
 
 setUrl(SIENAR_URLS.REGISTER, '/account/register');
+setUrl(SIENAR_URLS.REGISTER_SUCCESSFUL, '/account/register/successful');
