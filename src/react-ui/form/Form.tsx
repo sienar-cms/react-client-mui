@@ -1,16 +1,17 @@
 ﻿import Card from '@/react-ui/Card';
-import { formValidationContext } from '@/react-utils';
+import type { HttpMethod, WebResult } from '@/react-utils';
+import { formValidationContext, NotificationType, notify } from '@/react-utils';
+import type { MouseEvent, PropsWithChildren, ReactNode } from 'react';
 import { useContext, useEffect, useRef } from 'react';
 import { Button } from '@mui/material';
 
-import type { MouseEvent, PropsWithChildren, ReactNode } from 'react';
-
-export type FormProps = PropsWithChildren & {
+export type FormProps<T> = PropsWithChildren & {
 	id: string
 	title: string
-	onSubmit: () => Promise<boolean>
+	onSubmit?: (formValues: Record<string, any>) => boolean
 	onReset?: () => Promise<void> | void
-	method: 'GET'|'POST'|'PUT'|'PATCH'|'DELETE'|'HEAD'|'OPTIONS'|'TRACE'|'CONNECT'
+	onSuccess?: (result: T) => any
+	method: HttpMethod
 	action: string
 	submitText?: string
 	resetText?: string
@@ -19,12 +20,13 @@ export type FormProps = PropsWithChildren & {
 	additionalActions?: ReactNode
 }
 
-export default function Form(props: FormProps) {
+export default function Form<T>(props: FormProps<T>) {
 	const {
 		id,
 		title,
 		onSubmit,
 		onReset,
+		onSuccess,
 		method,
 		action,
 		submitText = 'Submit',
@@ -47,14 +49,42 @@ export default function Form(props: FormProps) {
 			if (!formContext.validators[validator]()) valid = false;
 		}
 
-		if (valid) {
-			const request = new Request(action, {
-				method,
-				body: new FormData(formRef.current!)
+		if (!valid) return;
+
+		if (onSubmit && !onSubmit(formContext.values)) return;
+
+		const request = new Request(action, {
+			method,
+			body: new FormData(formRef.current!)
+		});
+
+		let response: Response;
+		try {
+			response = await fetch(request);
+		} catch {
+			notify({
+				message: 'A network error has occured. Are you connected to the internet?',
+				type: NotificationType.Error
 			});
-			const result = await fetch(request);
-			const response = (await result.json()) as {result: Record<string, any>, notifications: Record<string, any>[]};
-			await doReset();
+			return;
+		}
+
+		// TODO: respond to 422 errors
+
+		if (response.ok) await doReset();
+
+		const result = (await response.json()) as WebResult<T>;
+
+		// TODO: ensure result format matches WebResult and fail if not
+
+		if (result.notifications) {
+			for (let notification of result.notifications) {
+				notify(notification);
+			}
+		}
+
+		if (typeof result.result !== 'undefined') {
+			onSuccess?.(result.result);
 		}
 	};
 
