@@ -55,7 +55,7 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 						id={htmlId}
 						name={name}
 						checked={currentChecked.current}
-						value={value}
+						value={value ?? checked.toString()}
 						onChange={handleChange}
 					/>
 				}
