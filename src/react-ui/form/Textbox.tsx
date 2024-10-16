@@ -32,7 +32,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	const defaultValue = (isNumeric ? 0 : '') as T;
 	const currentValue = useRef(value || defaultValue);
 	const rerender = useRerender();
-	const [validations, interact] = useFormFieldValidation(displayName, currentValue, validators);
+	const [validations, interact] = useFormFieldValidation(name, displayName, currentValue, validators);
 
 	const handleChange = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const newValue = (isNumeric

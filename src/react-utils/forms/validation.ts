@@ -6,10 +6,12 @@ import type { FormValueValidator } from './validators';
 export const formValidationContext = createContext<FormContext>({
 	hasInteracted: false,
 	validators: {},
-	values: {}
+	values: {},
+	errorSetters: {}
 });
 
 export function useFormFieldValidation<T extends unknown>(
+	inputName: string|null|undefined,
 	displayName: string|null|undefined,
 	input: RefObject<T>,
 	validators: FormValueValidator<T>[]
@@ -59,6 +61,10 @@ export function useFormFieldValidation<T extends unknown>(
 			validate();
 		}
 
+		if (inputName) {
+			formContext.errorSetters[inputName] = setResults
+		}
+
 		return () => {
 			if (displayName) delete formContext.validators[displayName];
 		};
@@ -101,4 +107,5 @@ export type FormContext = {
 	hasInteracted: boolean
 	validators: Record<string, FormFieldValidator>
 	values: Record<string, any>
+	errorSetters: Record<string, (errors: ValidationResult[]) => void>
 }
