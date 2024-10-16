@@ -1,11 +1,22 @@
 import { Notification, NotificationType, notify } from './notifications';
 
-export async function sendRequest<T>(
-	url: string,
-	method: HttpMethod,
-	body?: BodyInit,
+export type SendRequestArgs = {
+	url: string
+	method: HttpMethod
+	body?: BodyInit
 	options?: Omit<RequestInit, 'method'|'body'>
-): Promise<T|null> {
+	onUnprocessable?: (error: ValidationErrorWebResult) => void
+}
+
+export async function sendRequest<T>(args: SendRequestArgs): Promise<T|null> {
+	const {
+		url,
+		method,
+		body,
+		options,
+		onUnprocessable
+	} = args;
+
 	const init: RequestInit = Object.assign({ method, body }, options);
 	const request = new Request(url, init);
 
@@ -23,14 +34,10 @@ export async function sendRequest<T>(
 	}
 
 	if (response.status === 422) {
+		if (!onUnprocessable) return null;
+
 		const result = await response.json() as ValidationErrorWebResult;
-
-		for (let errored in result.errors) {
-			for (let error of result.errors[errored]) {
-				notify({ message: error, type: NotificationType.Error });
-			}
-		}
-
+		onUnprocessable(result);
 		return null;
 	}
 

@@ -1,5 +1,5 @@
 ﻿import Card from '@/react-ui/Card';
-import type { HttpMethod } from '@/react-utils';
+import type { HttpMethod, ValidationResult } from '@/react-utils';
 import { formValidationContext, sendRequest } from '@/react-utils';
 import type { MouseEvent, PropsWithChildren, ReactNode } from 'react';
 import { useContext, useEffect, useRef } from 'react';
@@ -53,13 +53,28 @@ export default function Form<T>(props: FormProps<T>) {
 
 		if (onSubmit && !onSubmit(formContext.values)) return;
 
-		const response = await sendRequest<T>(action, method, new FormData(formRef.current!));
+		const result = await sendRequest<T>({
+			url: action,
+			method,
+			body: new FormData(formRef.current!),
+			onUnprocessable: e => {
+				for (let errored in e.errors) {
+					const validationErrors: ValidationResult[] = e.errors[errored].map(e => {
+						return {
+							valid: false,
+							message: e
+						}
+					});
 
-		// If response is null, errors were already handled
-		if (!response) return;
+					formContext.errorSetters[errored]?.(validationErrors);
+				}
+			}
+		});
+
+		if (!result) return;
 
 		await doReset();
-		onSuccess?.(response);
+		onSuccess?.(result);
 	};
 
 	const handleReset = async (e: MouseEvent<HTMLButtonElement>) => {
