@@ -1,6 +1,6 @@
 ﻿import Card from '@/react-ui/Card';
-import type { HttpMethod, WebResult } from '@/react-utils';
-import { formValidationContext, NotificationType, notify } from '@/react-utils';
+import type { HttpMethod } from '@/react-utils';
+import { formValidationContext, sendRequest } from '@/react-utils';
 import type { MouseEvent, PropsWithChildren, ReactNode } from 'react';
 import { useContext, useEffect, useRef } from 'react';
 import { Button } from '@mui/material';
@@ -53,39 +53,13 @@ export default function Form<T>(props: FormProps<T>) {
 
 		if (onSubmit && !onSubmit(formContext.values)) return;
 
-		const request = new Request(action, {
-			method,
-			body: new FormData(formRef.current!)
-		});
+		const response = await sendRequest<T>(action, method, new FormData(formRef.current!));
 
-		let response: Response;
-		try {
-			response = await fetch(request);
-		} catch {
-			notify({
-				message: 'A network error has occured. Are you connected to the internet?',
-				type: NotificationType.Error
-			});
-			return;
-		}
+		// If response is null, errors were already handled
+		if (!response) return;
 
-		// TODO: respond to 422 errors
-
-		if (response.ok) await doReset();
-
-		const result = (await response.json()) as WebResult<T>;
-
-		// TODO: ensure result format matches WebResult and fail if not
-
-		if (result.notifications) {
-			for (let notification of result.notifications) {
-				notify(notification);
-			}
-		}
-
-		if (typeof result.result !== 'undefined') {
-			onSuccess?.(result.result);
-		}
+		await doReset();
+		onSuccess?.(response);
 	};
 
 	const handleReset = async (e: MouseEvent<HTMLButtonElement>) => {
