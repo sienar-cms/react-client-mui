@@ -6,18 +6,33 @@ import type { ValidationResult } from '@/react-utils';
 export type ValidationListProps = {
 	validations: ValidationResult[]
 	hideNonErrors?: boolean
+	hideIfAllValid?: boolean
 }
 
 export default function ValidationList(props: ValidationListProps) {
-	const { validations, hideNonErrors = false } = props;
+	const {
+		validations,
+		hideNonErrors = false,
+		hideIfAllValid = false
+	} = props;
 
-	const filtered = hideNonErrors
-		? validations.filter(v => !v.valid)
-		: validations;
+	let filtered = validations;
+
+	if (hideNonErrors) {
+		filtered = validations.filter(v => !v.valid);
+	}
+
+	if (hideIfAllValid) {
+		if (validations.every(v => v.valid)) {
+			filtered = [];
+		} else {
+			filtered = validations;
+		}
+	}
 
 	return filtered.length > 0 && (
 		<List dense>
-			{validations.map(e => {
+			{filtered.map(e => {
 				const validationColor = e.valid === true
 					? 'success.main'
 					: e.valid === false ? 'error.main' : 'inherit';
