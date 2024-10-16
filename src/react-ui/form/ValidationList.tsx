@@ -6,14 +6,21 @@ import type { ValidationResult } from '@/react-utils';
 export type ValidationListProps = {
 	validations: ValidationResult[]
 	hideNonErrors?: boolean
+	hideIfAllCorrect?: boolean
 }
 
 export default function ValidationList(props: ValidationListProps) {
-	const { validations, hideNonErrors = false } = props;
+	const {
+		validations,
+		hideNonErrors = false,
+		hideIfAllCorrect = false
+	} = props;
 
-	const filtered = hideNonErrors
+	let filtered = hideNonErrors
 		? validations.filter(v => !v.valid)
 		: validations;
+
+	if (hideIfAllCorrect && filtered.find(v => !v.valid))
 
 	return filtered.length > 0 && (
 		<List dense>
