@@ -1,4 +1,26 @@
-﻿const urls: Record<string, string> = {};
+﻿import { useNavigate as useNavigateBase } from 'react-router-dom';
+
+export function useNavigate() {
+	const navigate = useNavigateBase();
+
+	return (destination: string, queryParams?: Record<string, any>|undefined) => {
+		let url: string;
+		try {
+			url = getUrl(destination);
+		} catch {
+			url = destination;
+		}
+
+		if (queryParams) {
+			const search = new URLSearchParams(queryParams);
+			url = `${url}?${search.toString()}`;
+		}
+
+		navigate(url);
+	}
+}
+
+const urls: Record<string, string> = {};
 
 /**
  * Sets a URL in the URL container
