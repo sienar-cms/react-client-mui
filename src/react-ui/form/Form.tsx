@@ -109,6 +109,8 @@ export default function Form<T>(props: FormProps<T>) {
 			<Button
 				onClick={handleSubmit}
 				form={id}
+				// @ts-ignore
+				color={color}
 				type='submit'
 				variant='contained'
 			>
