@@ -19,6 +19,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		displayName,
 		value,
 		hideNonErrors,
+		hideValidationIfValid = true,
 		validators = [],
 		onChange,
 		type = 'text',
@@ -63,6 +64,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 			<ValidationList
 				validations={validations}
 				hideNonErrors={hideNonErrors}
+				hideIfAllValid={hideValidationIfValid}
 			/>
 		</>
 	);
