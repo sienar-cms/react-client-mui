@@ -110,6 +110,7 @@ export default function Form<T>(props: FormProps<T>) {
 				onClick={handleSubmit}
 				form={id}
 				type='submit'
+				variant='contained'
 			>
 				{submitText}
 			</Button>
@@ -119,6 +120,7 @@ export default function Form<T>(props: FormProps<T>) {
 					onClick={handleReset}
 					color='secondary'
 					type='reset'
+					variant='outlined'
 				>
 					{resetText}
 				</Button>
