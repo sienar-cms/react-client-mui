@@ -1,11 +1,14 @@
 ﻿import Card from '@/react-ui/Card';
 import type { HttpMethod, ValidationResult } from '@/react-utils';
-import { formValidationContext, sendRequest } from '@/react-utils';
+import { formValidationContext, sendRequest, Color } from '@/react-utils';
 import type { MouseEvent, PropsWithChildren, ReactNode } from 'react';
 import { useContext, useEffect, useRef } from 'react';
 import { Button } from '@mui/material';
 
 export type FormProps<T> = PropsWithChildren & {
+	color?: Color
+	headerBackgroundColor?: string
+	headerTextColor?: string
 	id: string
 	title: string
 	onSubmit?: (formValues: Record<string, any>) => boolean
@@ -22,6 +25,9 @@ export type FormProps<T> = PropsWithChildren & {
 
 export default function Form<T>(props: FormProps<T>) {
 	const {
+		color,
+		headerBackgroundColor,
+		headerTextColor,
 		id,
 		title,
 		onSubmit,
@@ -126,6 +132,9 @@ export default function Form<T>(props: FormProps<T>) {
 			<Card
 				title={title}
 				actions={actions}
+				color={color}
+				headerBackgroundColor={headerBackgroundColor}
+				headerTextColor={headerTextColor}
 			>
 				{information}
 
