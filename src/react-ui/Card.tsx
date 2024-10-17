@@ -62,12 +62,18 @@ export default function Card(props: CardProps) {
 				{headerIcon}
 			</Box>
 
-			<CardContent>
+			<CardContent sx={{
+				px: 3,
+				py: 2
+			}}>
 				{children}
 			</CardContent>
 
 			{actions && (
-				<CardActions>
+				<CardActions sx={{
+					p: 3,
+					pt: 2
+				}}>
 					{actions}
 				</CardActions>
 			)}
