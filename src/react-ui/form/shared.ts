@@ -10,4 +10,5 @@ export type FormInputProps<T extends unknown> = PropsWithChildren & {
 	validators?: FormValueValidator<T>[]
 	hideNonErrors?: boolean
 	hideValidationIfValid?: boolean
+	allValidMessage?: string
 }
