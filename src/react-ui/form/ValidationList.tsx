@@ -1,5 +1,7 @@
-﻿import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+﻿import { useContext } from 'react';
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Done, Error, Feedback } from '@mui/icons-material';
+import { formValidationContext } from '@/react-utils';
 
 import type { ValidationResult } from '@/react-utils';
 
@@ -7,14 +9,18 @@ export type ValidationListProps = {
 	validations: ValidationResult[]
 	hideNonErrors?: boolean
 	hideIfAllValid?: boolean
+	allValidMessage?: string
 }
 
 export default function ValidationList(props: ValidationListProps) {
 	const {
 		validations,
 		hideNonErrors = false,
-		hideIfAllValid = false
+		hideIfAllValid = false,
+		allValidMessage = 'All requirements met'
 	} = props;
+
+	const context = useContext(formValidationContext);
 
 	let filtered = validations;
 
@@ -24,7 +30,9 @@ export default function ValidationList(props: ValidationListProps) {
 
 	if (hideIfAllValid) {
 		if (validations.every(v => v.valid)) {
-			filtered = [];
+			filtered = context.hasInteracted
+				?  [{ valid: true, message: allValidMessage }]
+				: [];
 		} else {
 			filtered = validations;
 		}
