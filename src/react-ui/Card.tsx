@@ -1,5 +1,6 @@
-﻿import type { PropsWithChildren, ReactNode, ElementType } from 'react';
+﻿import type { ElementType, PropsWithChildren, ReactNode } from 'react';
 import { Box, Card as MaterialCard, CardActions, CardContent, Typography } from '@mui/material';
+import { Color } from '@/react-utils';
 
 export type CardProps = PropsWithChildren & {
 	title: string
@@ -9,6 +10,7 @@ export type CardProps = PropsWithChildren & {
 	subtitleTypography?: string
 	subtitleComponent?: ElementType
 	headerIcon?: ReactNode
+	color?: Color
 	headerBackgroundColor?: string
 	headerTextColor?: string
 	actions?: ReactNode
@@ -18,8 +20,9 @@ export default function Card(props: CardProps) {
 	const {
 		actions,
 		children,
-		headerBackgroundColor = 'primary.main',
-		headerTextColor = '#ffffff',
+		color,
+		headerBackgroundColor,
+		headerTextColor,
 		headerIcon,
 		title,
 		titleTypography = 'h4',
@@ -32,8 +35,8 @@ export default function Card(props: CardProps) {
 	return (
 		<MaterialCard variant='outlined'>
 			<Box sx={{
-				bgcolor: headerBackgroundColor,
-				color: headerTextColor,
+				bgcolor: color !== undefined ? mapThemeBackground(color) : headerBackgroundColor,
+				color: color !== undefined ? mapThemeForeground(color) : headerTextColor,
 				px: 3,
 				py: 2,
 				display: 'flex',
@@ -70,4 +73,42 @@ export default function Card(props: CardProps) {
 			)}
 		</MaterialCard>
 	)
+}
+
+function mapThemeBackground(color: Color): string {
+	switch (color) {
+		case Color.Primary:
+			return 'primary.main';
+		case Color.Secondary:
+			return 'secondary.main';
+		case Color.Info:
+			return 'info.main';
+		case Color.Success:
+			return 'success.main';
+		case Color.Warning:
+			return 'warning.main';
+		case Color.Error:
+			return 'error.main';
+	}
+
+	return '';
+}
+
+function mapThemeForeground(color: Color): string {
+	switch (color) {
+		case Color.Primary:
+			return 'primary.contrastText';
+		case Color.Secondary:
+			return 'secondary.contrastText';
+		case Color.Success:
+			return 'success.contrastText';
+		case Color.Info:
+			return 'info.contrastText';
+		case Color.Warning:
+			return 'warning.contrastText';
+		case Color.Error:
+			return 'error.contrastText';
+	}
+
+	return 'text.primary';
 }
