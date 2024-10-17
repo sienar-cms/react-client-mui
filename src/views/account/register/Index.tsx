@@ -10,7 +10,7 @@ export default function Index() {
 	return (
 		<Form.Form
 			id='register'
-			title='Index'
+			title='Register'
 			method='POST'
 			action='/api/account'
 			onSuccess={(result: boolean) => {
