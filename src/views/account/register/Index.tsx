@@ -1,6 +1,5 @@
-﻿import { useNavigate } from 'react-router-dom';
-import { Form } from '@/react-ui';
-import { validators, getUrl, SIENAR_URLS } from '@/react-utils';
+﻿import { Form } from '@/react-ui';
+import { validators, SIENAR_URLS, useNavigate } from '@/react-utils';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -12,7 +11,7 @@ export default function Index() {
 			method='POST'
 			action='/api/account'
 			onSuccess={(result: boolean) => {
-				if (result) navigate(getUrl(SIENAR_URLS.REGISTER_SUCCESSFUL));
+				if (result) navigate(SIENAR_URLS.REGISTER_SUCCESSFUL);
 			}}
 		>
 			<Form.Textbox
