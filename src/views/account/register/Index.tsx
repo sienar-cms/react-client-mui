@@ -8,7 +8,7 @@ export default function Index() {
 	const [ email, setEmail ] = useState('');
 
 	return (
-		<Form.Form<boolean>
+		<Form.Form
 			id='register'
 			title='Index'
 			method='POST'
