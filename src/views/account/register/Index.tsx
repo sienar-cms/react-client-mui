@@ -1,8 +1,11 @@
-﻿import { Form } from '@/react-ui';
+﻿import { useState } from 'react';
+import { Form } from '@/react-ui';
 import { validators, SIENAR_URLS, useNavigate } from '@/react-utils';
 
 export default function Index() {
 	const navigate = useNavigate();
+	const [ username, setUsername ] = useState('');
+	const [ email, setEmail ] = useState('');
 
 	return (
 		<Form.Form<boolean>
@@ -11,12 +14,22 @@ export default function Index() {
 			method='POST'
 			action='/api/account'
 			onSuccess={(result: boolean) => {
-				if (result) navigate(SIENAR_URLS.REGISTER_SUCCESSFUL);
+				if (result) {
+					navigate(
+						SIENAR_URLS.REGISTER_SUCCESSFUL,
+						{
+							username,
+							email
+						}
+					);
+				}
 			}}
 		>
 			<Form.Textbox
 				name='username'
 				displayName='Username'
+				value={username}
+				onChange={setUsername}
 				validators={[
 					validators.required(),
 					validators.minLength(6),
@@ -27,6 +40,8 @@ export default function Index() {
 				name='email'
 				displayName='Email address'
 				type='email'
+				value={email}
+				onChange={setEmail}
 				validators={[
 					validators.required(),
 					validators.isEmail()
