@@ -82,39 +82,13 @@ export default function Card(props: CardProps) {
 }
 
 function mapThemeBackground(color: Color): string {
-	switch (color) {
-		case Color.Primary:
-			return 'primary.main';
-		case Color.Secondary:
-			return 'secondary.main';
-		case Color.Info:
-			return 'info.main';
-		case Color.Success:
-			return 'success.main';
-		case Color.Warning:
-			return 'warning.main';
-		case Color.Error:
-			return 'error.main';
-	}
-
-	return '';
+	return color === Color.Default
+		? ''
+		: `${color}.main`;
 }
 
 function mapThemeForeground(color: Color): string {
-	switch (color) {
-		case Color.Primary:
-			return 'primary.contrastText';
-		case Color.Secondary:
-			return 'secondary.contrastText';
-		case Color.Success:
-			return 'success.contrastText';
-		case Color.Info:
-			return 'info.contrastText';
-		case Color.Warning:
-			return 'warning.contrastText';
-		case Color.Error:
-			return 'error.contrastText';
-	}
-
-	return 'text.primary';
+	return color === Color.Default
+		? 'text.primary'
+		: `${color}.contrastText`;
 }
