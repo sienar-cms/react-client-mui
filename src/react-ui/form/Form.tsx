@@ -21,6 +21,8 @@ export type FormProps<T> = PropsWithChildren & {
 	showReset?: boolean
 	information?: ReactNode
 	additionalActions?: ReactNode
+	variant?: 'elevation'|'outlined'
+	elevation?: number
 }
 
 export default function Form<T>(props: FormProps<T>) {
@@ -40,7 +42,9 @@ export default function Form<T>(props: FormProps<T>) {
 		showReset = false,
 		information,
 		additionalActions,
-		children
+		children,
+		variant,
+		elevation
 	} = props;
 
 	const formRef = useRef<HTMLFormElement>(null);
@@ -139,6 +143,8 @@ export default function Form<T>(props: FormProps<T>) {
 				color={color}
 				headerBackgroundColor={headerBackgroundColor}
 				headerTextColor={headerTextColor}
+				variant={variant}
+				elevation={elevation}
 			>
 				{information}
 
