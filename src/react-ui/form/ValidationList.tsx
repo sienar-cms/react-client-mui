@@ -30,7 +30,7 @@ export default function ValidationList(props: ValidationListProps) {
 
 	if (hideIfAllValid) {
 		if (validations.every(v => v.valid)) {
-			filtered = context.hasInteracted
+			filtered = context.hasInteracted && validations.length > 0
 				?  [{ valid: true, message: allValidMessage }]
 				: [];
 		} else {
