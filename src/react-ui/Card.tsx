@@ -14,6 +14,8 @@ export type CardProps = PropsWithChildren & {
 	headerBackgroundColor?: string
 	headerTextColor?: string
 	actions?: ReactNode
+	variant?: 'elevation'|'outlined'
+	elevation?: number
 }
 
 export default function Card(props: CardProps) {
@@ -29,11 +31,16 @@ export default function Card(props: CardProps) {
 		titleComponent = 'h4',
 		subtitle,
 		subtitleTypography = 'body1',
-		subtitleComponent = 'h5'
+		subtitleComponent = 'h5',
+		variant = 'elevation',
+		elevation = 0
 	} = props;
 
 	return (
-		<MaterialCard variant='outlined'>
+		<MaterialCard
+			variant={variant}
+			elevation={elevation}
+		>
 			<Box sx={{
 				bgcolor: color !== undefined ? mapThemeBackground(color) : headerBackgroundColor,
 				color: color !== undefined ? mapThemeForeground(color) : headerTextColor,
