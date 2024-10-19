@@ -1,7 +1,7 @@
 ﻿import Card from '@/react-ui/Card';
 import type { HttpMethod, ValidationResult } from '@/react-utils';
 import { formValidationContext, sendRequest, Color } from '@/react-utils';
-import type { MouseEvent, PropsWithChildren, ReactNode } from 'react';
+import type { MouseEvent, PropsWithChildren, ReactNode, FormEvent } from 'react';
 import { useContext, useEffect, useRef } from 'react';
 import { Button } from '@mui/material';
 
@@ -23,6 +23,7 @@ export type FormProps<T> = PropsWithChildren & {
 	additionalActions?: ReactNode
 	variant?: 'elevation'|'outlined'
 	elevation?: number
+	immediate?: boolean
 }
 
 export default function Form<T>(props: FormProps<T>) {
@@ -44,13 +45,15 @@ export default function Form<T>(props: FormProps<T>) {
 		additionalActions,
 		children,
 		variant,
-		elevation
+		elevation,
+		immediate
 	} = props;
 
 	const formRef = useRef<HTMLFormElement>(null);
+	const submitButtonRef = useRef<HTMLButtonElement>(null);
 	const formContext = useContext(formValidationContext);
 
-	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		formContext.hasInteracted = true;
 
@@ -97,6 +100,10 @@ export default function Form<T>(props: FormProps<T>) {
 		await onReset?.();
 	}
 
+	useEffect(() => {
+		if (immediate) submitButtonRef.current!.click();
+	}, []);
+
 	// This effect does nothing on load, but when the component unmounts,
 	// it resets hasInteracted. Without this, revisiting a submitted form
 	// may cause validation to run on load, because
@@ -111,8 +118,8 @@ export default function Form<T>(props: FormProps<T>) {
 	const actions = (
 		<>
 			<Button
-				onClick={handleSubmit}
 				form={id}
+				ref={submitButtonRef}
 				// @ts-ignore
 				color={color}
 				type='submit'
@@ -151,6 +158,7 @@ export default function Form<T>(props: FormProps<T>) {
 				<form
 					id={id}
 					ref={formRef}
+					onSubmit={handleSubmit}
 				>
 					{children}
 				</form>
