@@ -1,6 +1,6 @@
 ﻿import type { ElementType, PropsWithChildren, ReactNode } from 'react';
 import { Box, Card as MaterialCard, CardActions, CardContent, Typography } from '@mui/material';
-import { Color } from '@/react-utils';
+import { Color } from '@/react-ui';
 
 export type CardProps = PropsWithChildren & {
 	title: string
