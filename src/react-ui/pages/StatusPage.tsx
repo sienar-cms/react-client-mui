@@ -19,7 +19,7 @@ export default function StatusPage(props: StatusPageProps) {
 		children
 	} = props;
 
-	const sx = Object.assign({ mb: 4}, titleSx);
+	const sx = Object.assign({ mb: 4 }, titleSx);
 
 	return (
 		<Narrow>
