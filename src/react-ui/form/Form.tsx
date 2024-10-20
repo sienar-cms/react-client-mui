@@ -124,7 +124,7 @@ export default function Form<T>(props: FormProps<T>) {
 			<Button
 				form={id}
 				ref={submitButtonRef}
-				// @ts-ignore
+				// @ts-ignore: Functionally, this will always work because the values provided from the Color enum line up with the values expected by Material UI. However, there's no way to tell Typescript this, AFAIK
 				color={color}
 				type='submit'
 				variant='contained'
