@@ -3,7 +3,7 @@ import type { HttpMethod, ValidationResult } from '@/react-utils';
 import { formValidationContext, sendRequest, Color } from '@/react-utils';
 import type { MouseEvent, PropsWithChildren, ReactNode, FormEvent } from 'react';
 import { useContext, useEffect, useRef } from 'react';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 export type FormProps<T> = PropsWithChildren & {
 	color?: Color
@@ -19,6 +19,7 @@ export type FormProps<T> = PropsWithChildren & {
 	submitText?: string
 	resetText?: string
 	showReset?: boolean
+	hideControls?: boolean
 	information?: ReactNode
 	additionalActions?: ReactNode
 	variant?: 'elevation'|'outlined'
@@ -41,6 +42,7 @@ export default function Form<T>(props: FormProps<T>) {
 		submitText = 'Submit',
 		resetText = 'Reset',
 		showReset = false,
+		hideControls = false,
 		information,
 		additionalActions,
 		children,
@@ -116,7 +118,9 @@ export default function Form<T>(props: FormProps<T>) {
 	}, []);
 
 	const actions = (
-		<>
+		<Box sx={{
+			display: hideControls ? 'none' : 'block'
+		}}>
 			<Button
 				form={id}
 				ref={submitButtonRef}
@@ -139,7 +143,7 @@ export default function Form<T>(props: FormProps<T>) {
 				</Button>
 			)}
 			{additionalActions}
-		</>
+		</Box>
 	);
 
 	return (
