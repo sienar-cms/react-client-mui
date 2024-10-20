@@ -10,7 +10,6 @@ export default function Index() {
 	return (
 		<Narrow>
 			<Form.Form
-				id='register'
 				title='Register'
 				method='POST'
 				action='/api/account'

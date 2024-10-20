@@ -2,14 +2,13 @@
 import type { HttpMethod, ValidationResult } from '@/react-utils';
 import { formValidationContext, sendRequest, Color } from '@/react-utils';
 import type { MouseEvent, PropsWithChildren, ReactNode, FormEvent } from 'react';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useId, useRef } from 'react';
 import { Box, Button } from '@mui/material';
 
 export type FormProps<T> = PropsWithChildren & {
 	color?: Color
 	headerBackgroundColor?: string
 	headerTextColor?: string
-	id: string
 	title: string
 	onSubmit?: (formValues: Record<string, any>) => boolean
 	onReset?: () => Promise<void> | void
@@ -32,7 +31,6 @@ export default function Form<T>(props: FormProps<T>) {
 		color,
 		headerBackgroundColor,
 		headerTextColor,
-		id,
 		title,
 		onSubmit,
 		onReset,
@@ -51,6 +49,7 @@ export default function Form<T>(props: FormProps<T>) {
 		immediate
 	} = props;
 
+	const id = useId();
 	const formRef = useRef<HTMLFormElement>(null);
 	const submitButtonRef = useRef<HTMLButtonElement>(null);
 	const formContext = useContext(formValidationContext);
