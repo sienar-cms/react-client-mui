@@ -34,10 +34,18 @@ export async function sendRequest<T>(args: SendRequestArgs): Promise<T|null> {
 	}
 
 	if (response.status === 422) {
+		const result = await response.json() as Record<string, any>;
+
+		// In this case, the result is a WebResult containing notifications about invalid fields
+		if (result['notifications'] && Array.isArray(result['notifications'])) {
+			for (let n of (result as WebResult<T>).notifications) notify(n);
+			return null;
+		}
+
+		// Otherwise, the result is a ValidationErrorWebResult
 		if (!onUnprocessable) return null;
 
-		const result = await response.json() as ValidationErrorWebResult;
-		onUnprocessable(result);
+		onUnprocessable(result as ValidationErrorWebResult);
 		return null;
 	}
 

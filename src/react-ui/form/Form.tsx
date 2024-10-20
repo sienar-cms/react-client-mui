@@ -1,11 +1,14 @@
 ﻿import Card from '@/react-ui/Card';
 import type { HttpMethod, ValidationResult } from '@/react-utils';
-import { formValidationContext, sendRequest } from '@/react-utils';
-import type { MouseEvent, PropsWithChildren, ReactNode } from 'react';
+import { formValidationContext, sendRequest, Color } from '@/react-utils';
+import type { MouseEvent, PropsWithChildren, ReactNode, FormEvent } from 'react';
 import { useContext, useEffect, useRef } from 'react';
 import { Button } from '@mui/material';
 
 export type FormProps<T> = PropsWithChildren & {
+	color?: Color
+	headerBackgroundColor?: string
+	headerTextColor?: string
 	id: string
 	title: string
 	onSubmit?: (formValues: Record<string, any>) => boolean
@@ -18,10 +21,16 @@ export type FormProps<T> = PropsWithChildren & {
 	showReset?: boolean
 	information?: ReactNode
 	additionalActions?: ReactNode
+	variant?: 'elevation'|'outlined'
+	elevation?: number
+	immediate?: boolean
 }
 
 export default function Form<T>(props: FormProps<T>) {
 	const {
+		color,
+		headerBackgroundColor,
+		headerTextColor,
 		id,
 		title,
 		onSubmit,
@@ -34,13 +43,17 @@ export default function Form<T>(props: FormProps<T>) {
 		showReset = false,
 		information,
 		additionalActions,
-		children
+		children,
+		variant,
+		elevation,
+		immediate
 	} = props;
 
 	const formRef = useRef<HTMLFormElement>(null);
+	const submitButtonRef = useRef<HTMLButtonElement>(null);
 	const formContext = useContext(formValidationContext);
 
-	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		formContext.hasInteracted = true;
 
@@ -87,6 +100,10 @@ export default function Form<T>(props: FormProps<T>) {
 		await onReset?.();
 	}
 
+	useEffect(() => {
+		if (immediate) submitButtonRef.current!.click();
+	}, []);
+
 	// This effect does nothing on load, but when the component unmounts,
 	// it resets hasInteracted. Without this, revisiting a submitted form
 	// may cause validation to run on load, because
@@ -101,9 +118,12 @@ export default function Form<T>(props: FormProps<T>) {
 	const actions = (
 		<>
 			<Button
-				onClick={handleSubmit}
 				form={id}
+				ref={submitButtonRef}
+				// @ts-ignore
+				color={color}
 				type='submit'
+				variant='contained'
 			>
 				{submitText}
 			</Button>
@@ -113,6 +133,7 @@ export default function Form<T>(props: FormProps<T>) {
 					onClick={handleReset}
 					color='secondary'
 					type='reset'
+					variant='outlined'
 				>
 					{resetText}
 				</Button>
@@ -126,12 +147,18 @@ export default function Form<T>(props: FormProps<T>) {
 			<Card
 				title={title}
 				actions={actions}
+				color={color}
+				headerBackgroundColor={headerBackgroundColor}
+				headerTextColor={headerTextColor}
+				variant={variant}
+				elevation={elevation}
 			>
 				{information}
 
 				<form
 					id={id}
 					ref={formRef}
+					onSubmit={handleSubmit}
 				>
 					{children}
 				</form>

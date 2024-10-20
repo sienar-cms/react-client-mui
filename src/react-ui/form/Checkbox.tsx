@@ -17,6 +17,8 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 		name,
 		displayName,
 		hideNonErrors,
+		hideValidationIfValid,
+		allValidMessage,
 		validators = [],
 		value,
 		checked = false,
@@ -55,7 +57,7 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 						id={htmlId}
 						name={name}
 						checked={currentChecked.current}
-						value={value ?? checked.toString()}
+						value={value ?? currentChecked.current.toString()}
 						onChange={handleChange}
 					/>
 				}
@@ -65,6 +67,8 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 			<ValidationList
 				validations={validations}
 				hideNonErrors={hideNonErrors}
+				hideIfAllValid={hideValidationIfValid}
+				allValidMessage={allValidMessage}
 			/>
 		</>
 	);

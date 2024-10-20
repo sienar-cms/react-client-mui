@@ -1,5 +1,6 @@
-﻿import type { PropsWithChildren, ReactNode, ElementType } from 'react';
+﻿import type { ElementType, PropsWithChildren, ReactNode } from 'react';
 import { Box, Card as MaterialCard, CardActions, CardContent, Typography } from '@mui/material';
+import { Color } from '@/react-utils';
 
 export type CardProps = PropsWithChildren & {
 	title: string
@@ -9,31 +10,40 @@ export type CardProps = PropsWithChildren & {
 	subtitleTypography?: string
 	subtitleComponent?: ElementType
 	headerIcon?: ReactNode
+	color?: Color
 	headerBackgroundColor?: string
 	headerTextColor?: string
 	actions?: ReactNode
+	variant?: 'elevation'|'outlined'
+	elevation?: number
 }
 
 export default function Card(props: CardProps) {
 	const {
 		actions,
 		children,
-		headerBackgroundColor = 'primary.main',
-		headerTextColor = '#ffffff',
+		color,
+		headerBackgroundColor,
+		headerTextColor,
 		headerIcon,
 		title,
 		titleTypography = 'h4',
 		titleComponent = 'h4',
 		subtitle,
 		subtitleTypography = 'body1',
-		subtitleComponent = 'h5'
+		subtitleComponent = 'h5',
+		variant = 'elevation',
+		elevation = 0
 	} = props;
 
 	return (
-		<MaterialCard variant='outlined'>
+		<MaterialCard
+			variant={variant}
+			elevation={elevation}
+		>
 			<Box sx={{
-				bgcolor: headerBackgroundColor,
-				color: headerTextColor,
+				bgcolor: color !== undefined ? mapThemeBackground(color) : headerBackgroundColor,
+				color: color !== undefined ? mapThemeForeground(color) : headerTextColor,
 				px: 3,
 				py: 2,
 				display: 'flex',
@@ -59,15 +69,33 @@ export default function Card(props: CardProps) {
 				{headerIcon}
 			</Box>
 
-			<CardContent>
+			<CardContent sx={{
+				px: 3,
+				py: 2
+			}}>
 				{children}
 			</CardContent>
 
 			{actions && (
-				<CardActions>
+				<CardActions sx={{
+					p: 3,
+					pt: 2
+				}}>
 					{actions}
 				</CardActions>
 			)}
 		</MaterialCard>
 	)
+}
+
+function mapThemeBackground(color: Color): string {
+	return color === Color.Default
+		? ''
+		: `${color}.main`;
+}
+
+function mapThemeForeground(color: Color): string {
+	return color === Color.Default
+		? 'text.primary'
+		: `${color}.contrastText`;
 }
