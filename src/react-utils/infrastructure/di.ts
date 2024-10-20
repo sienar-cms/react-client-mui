@@ -1,4 +1,6 @@
-﻿// @ts-ignore: The type in InjectionConstraint is unused, but it is required to be here because it is used when strongly typing services returned using the <code>inject</code> function below.
+﻿// This DI container is loosely inspired by VueJS' <code>provide</code>/<code>inject</code> functionality. For the most part, I just borrowed the *idea* to create this (much simpler) DI container; however, the interface <code>InjectionConstraint<T></code> and type <code>InjectionKey<T></code> are directly copied from the VueJS Inject API at https://github.com/vuejs/core/blob/v3.5.12/packages/runtime-core/src/apiInject.ts#L7-L9. The purpose of the copying was to facilitate explicit typing of injected services when using Typescript. The rest of this DI container is custom code that works fundamentally differently from the VueJS Inject API. VueJS is released under the MIT License.
+
+// @ts-ignore: The type in InjectionConstraint is unused, but it is required to be here because it is used when strongly typing services returned using the <code>inject</code> function below.
 interface InjectionConstraint<T> {}
 export type InjectionKey<T> = symbol & InjectionConstraint<T>;
 
