@@ -1,5 +1,6 @@
 ﻿import { useDispatch, useSelector } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useEffect } from 'react';
 
 import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { WebResult } from '@/react-utils/infrastructure';
@@ -163,6 +164,17 @@ export function useAuthorized(
 	// This might happen if, for example, a developer is not using Typescript
 	// and passes a non-string, non-array value to authRoles
 	return false;
+}
+
+/**
+ * Tells a layout to check if the user is logged in on initialization
+ */
+export function useAuthInitialization() {
+	const dispatch = useAuthDispatch();
+
+	useEffect(() => {
+		dispatch(loadUserData());
+	}, []);
 }
 
 // endregion

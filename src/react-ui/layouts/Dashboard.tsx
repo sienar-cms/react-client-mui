@@ -4,9 +4,10 @@ import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import SienarDrawer from '@/react-ui/drawer';
-import { useAppbarTextSelector } from '@/react-utils';
+import { useAppbarTextSelector, useAuthInitialization } from '@/react-utils';
 
 export default function Layout() {
+	useAuthInitialization();
 	const [open, setOpen] = useState(false);
 	const appbarText = useAppbarTextSelector();
 	const location = useLocation();
