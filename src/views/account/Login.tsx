@@ -1,8 +1,9 @@
 ﻿import { Form, Narrow } from '@/react-ui';
-import { useNavigate, SIENAR_URLS, validators } from '@/react-utils';
+import { useNavigate, SIENAR_URLS, validators, useAuthDispatch, loadUserData } from '@/react-utils';
 
 export default function Login() {
 	const navigate = useNavigate();
+	const dispatch = useAuthDispatch();
 
 	return (
 		<Narrow>
@@ -12,7 +13,10 @@ export default function Login() {
 				action='/api/account/login'
 				submitText='Log in'
 				onSuccess={(successful: boolean) => {
-					if (successful) navigate(SIENAR_URLS.DASHBOARD)
+					if (successful) {
+						dispatch(loadUserData());
+						navigate(SIENAR_URLS.DASHBOARD);
+					}
 				}}
 			>
 				<Form.Textbox
