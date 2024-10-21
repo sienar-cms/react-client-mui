@@ -1,7 +1,8 @@
 ﻿import { useDispatch, useSelector } from 'react-redux';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { WebResult } from '@/react-utils/infrastructure';
 
 // region Store
 
@@ -12,6 +13,22 @@ const initialState: AuthenticationState = {
 	username: null,
 	roles: []
 };
+
+export const loadUserData = createAsyncThunk(
+	`${AUTH_NAME}/loadUserData`,
+	async () => {
+		const response = await fetch('/api/account');
+		if (!response.ok) return null;
+
+		const userDataResult = await response.json() as WebResult<LoginPayload>;
+		if (!userDataResult.result) return null;
+
+		const userData = userDataResult.result;
+		if (!userData.username || !Array.isArray(userData.roles)) return null;
+
+		return userData;
+	}
+)
 
 export const authSlice = createSlice({
 	name: AUTH_NAME,
@@ -34,6 +51,14 @@ export const authSlice = createSlice({
 			state.username = action.payload.username;
 			state.roles = action.payload.roles as string[];
 		}
+	},
+	extraReducers: builder => {
+		builder.addCase(loadUserData.fulfilled, (state, action) => {
+			state.isLoggedIn = action.payload !== null;
+			if (action.payload === null) return;
+			state.username = action.payload.username;
+			state.roles = action.payload.roles as string[];
+		})
 	}
 });
 
