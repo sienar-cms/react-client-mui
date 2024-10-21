@@ -5,6 +5,7 @@ import Register from '@/views/account/register/Index';
 import RegisterSuccessful from '@/views/account/register/Successful';
 import Confirm from '@/views/account/confirm/Index';
 import ConfirmSuccessful from '@/views/account/confirm/Successful';
+import Login from '@/views/account/Login';
 
 registerRoutes(
 	Layouts.Dashboard,
@@ -27,5 +28,9 @@ registerRoutes(
 	{
 		path: getUrl(SIENAR_URLS.CONFIRM_SUCCESSFUL),
 		element: <ConfirmSuccessful/>
+	},
+	{
+		path: getUrl(SIENAR_URLS.LOGIN),
+		element: <Login/>
 	}
 )
