@@ -27,7 +27,7 @@ export default function DrawerFooter() {
 						component={Link}
 						sx={{ width: '100%' }}
 						variant='contained'
-						to='/'
+						to={getUrl(SIENAR_URLS.LOGIN)}
 					>
 						Log in
 					</Button>
