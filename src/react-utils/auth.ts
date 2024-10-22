@@ -56,9 +56,13 @@ export const authSlice = createSlice({
 	extraReducers: builder => {
 		builder.addCase(loadUserData.fulfilled, (state, action) => {
 			state.isLoggedIn = action.payload !== null;
-			if (action.payload === null) return;
-			state.username = action.payload.username;
-			state.roles = action.payload.roles as string[];
+			if (action.payload === null) {
+				state.username = null;
+				state.roles = [];
+			} else {
+				state.username = action.payload.username;
+				state.roles = action.payload.roles as string[];
+			}
 		})
 	}
 });
