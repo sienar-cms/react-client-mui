@@ -11,3 +11,4 @@ setUrl(SIENAR_URLS.CONFIRM_SUCCESSFUL, '/account/confirm/successful');
 setUrl(SIENAR_URLS.LOGIN, '/account/login');
 setUrl(SIENAR_URLS.FORGOT_PASSWORD, '/account/forgot-password');
 setUrl(SIENAR_URLS.FORGOT_PASSWORD_SUCCESSFUL, '/account/forgot-password/successful');
+setUrl(SIENAR_URLS.RESET_PASSWORD, '/account/reset-password');

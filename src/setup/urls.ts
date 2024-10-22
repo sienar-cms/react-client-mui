@@ -12,3 +12,4 @@ setUrl(SIENAR_URLS.CONFIRM_SUCCESSFUL, '/dashboard/account/confirm/successful', 
 setUrl(SIENAR_URLS.LOGIN, '/dashboard/account/login', false);
 setUrl(SIENAR_URLS.FORGOT_PASSWORD, '/dashboard/account/forgot-password', false);
 setUrl(SIENAR_URLS.FORGOT_PASSWORD_SUCCESSFUL, '/dashboard/account/forgot-password/successful', false);
+setUrl(SIENAR_URLS.RESET_PASSWORD, '/dashboard/account/reset-password', false);

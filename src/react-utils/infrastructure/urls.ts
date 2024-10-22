@@ -56,6 +56,7 @@ const sienarUrls = {
 	CONFIRM_SUCCESSFUL: 'confirm_successful',
 	FORGOT_PASSWORD: 'forgot_password',
 	FORGOT_PASSWORD_SUCCESSFUL: 'forgot_password_successful',
+	RESET_PASSWORD: 'reset_password',
 	UNAUTHORIZED: 'unauthorized'
 };
 
