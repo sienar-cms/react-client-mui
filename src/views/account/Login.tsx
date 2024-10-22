@@ -1,5 +1,7 @@
-﻿import { Form, Narrow } from '@/react-ui';
-import { useNavigate, SIENAR_URLS, validators, useAuthDispatch, loadUserData } from '@/react-utils';
+﻿import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Form, Narrow } from '@/react-ui';
+import { getUrl, useNavigate, SIENAR_URLS, validators, useAuthDispatch, loadUserData } from '@/react-utils';
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -18,6 +20,17 @@ export default function Login() {
 						navigate(SIENAR_URLS.DASHBOARD);
 					}
 				}}
+				additionalActions={(
+					<Button
+						component={Link}
+						to={getUrl(SIENAR_URLS.FORGOT_PASSWORD)}
+						sx={{ ml: 2 }}
+						color='secondary'
+						variant='outlined'
+					>
+						I forgot my password
+					</Button>
+				)}
 			>
 				<Form.Textbox
 					name='accountName'
