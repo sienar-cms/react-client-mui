@@ -1,9 +1,12 @@
 ﻿import Authorize from '@/react-ui/authorize';
-import { getUrl, SIENAR_URLS } from '@/react-utils';
+import ActionButton from '@/react-ui/buttons/ActionButton';
+import { getUrl, SIENAR_URLS, useAuthDispatch, loadUserData } from '@/react-utils';
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export default function DrawerFooter() {
+	const dispatch = useAuthDispatch();
+
 	return (
 		<Box sx={{
 			width: '100%',
@@ -33,14 +36,14 @@ export default function DrawerFooter() {
 					</Button>
 				</>
 			)}>
-				<Button
-					component={Link}
+				<ActionButton
+					action='/api/account/login'
+					method='DELETE'
+					label='Log out'
 					sx={{ width: '100%' }}
-					variant='contained'
-					to='/'
-				>
-					Log in
-				</Button>
+					color='error'
+					onSuccess={() => dispatch(loadUserData())}
+				/>
 			</Authorize.Content>
 
 
