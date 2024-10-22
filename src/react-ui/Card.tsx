@@ -1,6 +1,7 @@
 ﻿import type { ElementType, PropsWithChildren, ReactNode } from 'react';
 import { Box, Card as MaterialCard, CardActions, CardContent, Typography } from '@mui/material';
-import { Color } from '@/react-ui';
+
+import type { Color } from '@/react-ui/theme';
 
 export type CardProps = PropsWithChildren & {
 	title: string
@@ -42,8 +43,8 @@ export default function Card(props: CardProps) {
 			elevation={elevation}
 		>
 			<Box sx={{
-				bgcolor: color !== undefined ? mapThemeBackground(color) : headerBackgroundColor,
-				color: color !== undefined ? mapThemeForeground(color) : headerTextColor,
+				bgcolor: mapThemeBackground(headerBackgroundColor, color),
+				color: mapThemeForeground(headerTextColor, color),
 				px: 3,
 				py: 2,
 				display: 'flex',
@@ -88,14 +89,22 @@ export default function Card(props: CardProps) {
 	)
 }
 
-function mapThemeBackground(color: Color): string {
-	return color === Color.Default
-		? ''
-		: `${color}.main`;
+function mapThemeBackground(
+	explicitColor: string|undefined,
+	color: Color|undefined
+): string {
+	if (explicitColor) return explicitColor;
+	if (color === undefined || color === 'inherit') return 'inherit';
+	return `${color}.main`;
 }
 
-function mapThemeForeground(color: Color): string {
-	return color === Color.Default
-		? 'text.primary'
+function mapThemeForeground(
+	explicitColor: string|undefined,
+	color: Color|undefined
+): string {
+	if (explicitColor) return explicitColor;
+	if (color === undefined) return 'text.primary';
+	return color === 'inherit'
+		? 'inherit'
 		: `${color}.contrastText`;
 }

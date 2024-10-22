@@ -4,7 +4,7 @@ import { HttpMethod, sendRequest } from '@/react-utils';
 
 import type { FormEvent, PropsWithChildren, ReactNode } from 'react';
 import type { ButtonPropsColorOverrides, ButtonTypeMap, IconButtonTypeMap, SxProps, Theme } from '@mui/material';
-import type { OverridableStringUnion } from '@mui/types';
+import type { ExtensibleColor } from '@/react-ui/theme';
 
 export type ActionButtonProps = PropsWithChildren & {
 	onSuccess?: (successful: boolean) => any
@@ -14,10 +14,7 @@ export type ActionButtonProps = PropsWithChildren & {
 	icon?: ReactNode
 	variant?: 'outlined'|'contained'|'text',
 	sx?: SxProps<Theme>
-	color?: OverridableStringUnion<
-		'inherit'|'primary'|'secondary'|'success'|'error'|'info'|'warning',
-		ButtonPropsColorOverrides
-	>
+	color?: ExtensibleColor<ButtonPropsColorOverrides>
 }
 
 export default function ActionButton(props: ActionButtonProps) {

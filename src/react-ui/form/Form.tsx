@@ -1,10 +1,11 @@
 ﻿import Card from '@/react-ui/Card';
-import { Color } from '@/react-ui/themes';
 import type { HttpMethod, ValidationResult } from '@/react-utils';
 import { formValidationContext, sendRequest } from '@/react-utils';
 import type { MouseEvent, PropsWithChildren, ReactNode, FormEvent } from 'react';
 import { useContext, useEffect, useId, useRef } from 'react';
 import { Box, Button } from '@mui/material';
+
+import type { Color } from '@/react-ui/theme';
 
 export type FormProps<T> = PropsWithChildren & {
 	color?: Color
@@ -124,7 +125,6 @@ export default function Form<T>(props: FormProps<T>) {
 			<Button
 				form={id}
 				ref={submitButtonRef}
-				// @ts-ignore: Functionally, this will always work because the values provided from the Color enum line up with the values expected by Material UI. However, there's no way to tell Typescript this, AFAIK
 				color={color}
 				type='submit'
 				variant='contained'
