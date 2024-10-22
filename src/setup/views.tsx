@@ -7,6 +7,7 @@ import Confirm from '@/views/account/confirm/Index';
 import ConfirmSuccessful from '@/views/account/confirm/Successful';
 import Login from '@/views/account/Login';
 import ForgotPassword from '@/views/account/forgot-password/Index';
+import ForgotPasswordSuccessful from '@/views/account/forgot-password/Successful';
 
 registerRoutes(
 	Layouts.Dashboard,
@@ -37,5 +38,9 @@ registerRoutes(
 	{
 		path: getUrl(SIENAR_URLS.FORGOT_PASSWORD),
 		element: <ForgotPassword/>
+	},
+	{
+		path: getUrl(SIENAR_URLS.FORGOT_PASSWORD_SUCCESSFUL),
+		element: <ForgotPasswordSuccessful/>
 	}
 )
