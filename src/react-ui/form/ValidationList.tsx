@@ -38,7 +38,10 @@ export default function ValidationList(props: ValidationListProps) {
 	}
 
 	return filtered.length > 0 && (
-		<List dense>
+		<List
+			sx={{ pt: 0, pl: 2 }}
+			dense
+		>
 			{filtered.map(e => {
 				const validationColor = e.valid === true
 					? 'success.main'
@@ -52,6 +55,7 @@ export default function ValidationList(props: ValidationListProps) {
 					<ListItem
 						key={e.message}
 						sx={{color: validationColor}}
+						disablePadding
 					>
 						<ListItemIcon
 							sx={{ color: 'inherit' }}
