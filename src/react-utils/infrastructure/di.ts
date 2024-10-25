@@ -48,11 +48,3 @@ export function inject<T>(key: InjectionKey<T>, required: boolean = false): T {
 
 	return value;
 }
-
-export type Logger = {
-	(...messages: string[]): void
-}
-
-export const SERVICES = {
-	LOGGER: Symbol() as InjectionKey<Logger>
-}
