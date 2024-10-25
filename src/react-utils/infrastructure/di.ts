@@ -23,28 +23,28 @@ export function provide<T>(
 }
 
 /**
- * Injects a value from the Sienar DI container
- *
- * @param key The unique key that identifies the value in the container
- * @param required Whether to fail if the value is not found
- * @returns The value if it exists
- */
-export function inject<T>(key: InjectionKey<T>, required?: false): T|undefined;
-
-/**
  * Injects a required value from the Sienar DI container
  *
  * @param key The unique key that identifies the value in the container
- * @param required Whether to fail if the value is not found
+ * @param optional Whether to fail if the value is not found
+ * @returns The value if it exists
+ */
+export function inject<T>(key: InjectionKey<T>, optional?: false): T;
+
+/**
+ * Injects an optional value from the Sienar DI container
+ *
+ * @param key The unique key that identifies the value in the container
+ * @param optional Whether to fail if the value is not found
  * @returns The value
  *
  * @throws Error If no value is registered with the given key
  */
-export function inject<T>(key: InjectionKey<T>, required: true): T;
+export function inject<T>(key: InjectionKey<T>, optional: true): T|undefined;
 
-export function inject<T>(key: InjectionKey<T>, required: boolean = false): T {
+export function inject<T>(key: InjectionKey<T>, optional: boolean = true): T {
 	const value = di[key];
-	if (!value && required) throw new Error('Unable to locate value with the provided key');
+	if (!value && !optional) throw new Error('Unable to locate value with the provided key');
 
 	return value;
 }
