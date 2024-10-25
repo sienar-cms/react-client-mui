@@ -44,7 +44,7 @@ export function inject<T>(key: InjectionKey<T>, optional: true): T|undefined;
 
 export function inject<T>(key: InjectionKey<T>, optional: boolean = true): T {
 	const value = di[key];
-	if (!value && !optional) throw new Error('Unable to locate value with the provided key');
+	if (typeof value === 'undefined' && !optional) throw new Error('Unable to locate value with the provided key');
 
 	return value;
 }
