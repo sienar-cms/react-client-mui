@@ -1,6 +1,6 @@
 ﻿import Authorize from '@/react-ui/authorize';
 import ActionButton from '@/react-ui/buttons/ActionButton';
-import { getUrl, SIENAR_URLS, useAuthDispatch, loadUserData } from '@/react-utils';
+import { inject, SIENAR_URLS, useAuthDispatch, loadUserData } from '@/react-utils';
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ export default function DrawerFooter() {
 							mb: 2
 						}}
 						variant='outlined'
-						to={getUrl(SIENAR_URLS.REGISTER)}
+						to={inject(SIENAR_URLS.REGISTER)}
 						color='secondary'
 					>
 						Register
@@ -30,7 +30,7 @@ export default function DrawerFooter() {
 						component={Link}
 						sx={{ width: '100%' }}
 						variant='contained'
-						to={getUrl(SIENAR_URLS.LOGIN)}
+						to={inject(SIENAR_URLS.LOGIN)}
 					>
 						Log in
 					</Button>

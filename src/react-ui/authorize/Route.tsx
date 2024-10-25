@@ -1,6 +1,6 @@
 ﻿import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthorized, useIsLoggedInSelector, SIENAR_URLS, getUrl } from '@/react-utils';
+import { useAuthorized, useIsLoggedInSelector, SIENAR_URLS, inject } from '@/react-utils';
 import type { AuthorizeContentProps } from './Content';
 import type { PropsWithChildren, ReactNode } from 'react';
 
@@ -19,7 +19,7 @@ export default function Route(props: PropsWithChildren<AuthorizeRouteProps>) {
 		const routeName = mustBeLoggedOut
 			? SIENAR_URLS.DASHBOARD
 			: isLoggedIn ? SIENAR_URLS.UNAUTHORIZED : SIENAR_URLS.LOGIN;
-		if (!authorized) navigate(getUrl(routeName));
+		if (!authorized) navigate(inject(routeName));
 	}, [isAuthorized]);
 
 	let output: ReactNode|null;

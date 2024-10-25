@@ -1,15 +1,14 @@
 ﻿import { useNavigate as useNavigateBase } from 'react-router-dom';
+import { inject } from '@/react-utils/infrastructure/di';
+import type { InjectionKey } from '@/react-utils/infrastructure/di';
 
 export function useNavigate() {
 	const navigate = useNavigateBase();
 
-	return (destination: string, queryParams?: Record<string, any>|undefined) => {
-		let url: string;
-		try {
-			url = getUrl(destination);
-		} catch {
-			url = destination;
-		}
+	return (destination: string|InjectionKey<string>, queryParams?: Record<string, any>|undefined) => {
+		let url = typeof destination === 'string'
+			? destination
+			: inject(destination);
 
 		if (queryParams) {
 			const search = new URLSearchParams(queryParams);
@@ -20,45 +19,19 @@ export function useNavigate() {
 	}
 }
 
-const urls: Record<string, string> = {};
-
-/**
- * Sets a URL in the URL container
- *
- * @param name The name of the URL to set
- * @param value The URL value
- * @param override Whether to override a URL that already has a value or not
- */
-export function setUrl(name: string, value: string, override: boolean = true) {
-	if (override) urls[name] = value;
-	else urls[name] ??= value;
-}
-
-/**
- * Gets a URL from the URL container
- *
- * @param name The name of the URL to get
- * @param fallback A fallback value to use if the URL is not found
- */
-export function getUrl(name: string, fallback?: string|undefined): string {
-	if (!urls[name] && !fallback) throw new Error(`Unable to locate URL named ${name}`);
-
-	return urls[name] ?? fallback;
-}
-
 const sienarUrls = {
-	HOME: 'home',
-	DASHBOARD: 'dashboard',
-	LOGIN: 'login',
-	REGISTER: 'register',
-	REGISTER_SUCCESSFUL: 'register_successful',
-	CONFIRM: 'confirm',
-	CONFIRM_SUCCESSFUL: 'confirm_successful',
-	FORGOT_PASSWORD: 'forgot_password',
-	FORGOT_PASSWORD_SUCCESSFUL: 'forgot_password_successful',
-	RESET_PASSWORD: 'reset_password',
-	RESET_PASSWORD_SUCCESSFUL: 'reset_password_successful',
-	UNAUTHORIZED: 'unauthorized'
+	HOME: Symbol() as InjectionKey<string>,
+	DASHBOARD: Symbol() as InjectionKey<string>,
+	LOGIN: Symbol() as InjectionKey<string>,
+	REGISTER: Symbol() as InjectionKey<string>,
+	REGISTER_SUCCESSFUL: Symbol() as InjectionKey<string>,
+	CONFIRM: Symbol() as InjectionKey<string>,
+	CONFIRM_SUCCESSFUL: Symbol() as InjectionKey<string>,
+	FORGOT_PASSWORD: Symbol() as InjectionKey<string>,
+	FORGOT_PASSWORD_SUCCESSFUL: Symbol() as InjectionKey<string>,
+	RESET_PASSWORD: Symbol() as InjectionKey<string>,
+	RESET_PASSWORD_SUCCESSFUL: Symbol() as InjectionKey<string>,
+	UNAUTHORIZED: Symbol() as InjectionKey<string>
 };
 
 export const SIENAR_URLS = Object.freeze(sienarUrls);
