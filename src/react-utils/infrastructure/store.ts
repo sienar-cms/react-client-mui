@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SIENAR_MENUS } from './menus';
 
 import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { InjectionKey } from '@/react-utils/infrastructure/di';
+import type { MenuLinkProvider } from '@/react-utils/infrastructure/menus';
 
 export const INFRASTRUCTURE_NAME = 'infrastructure';
 
@@ -15,7 +17,7 @@ export const infrastructureSlice = createSlice({
 	name: INFRASTRUCTURE_NAME,
 	initialState,
 	reducers: {
-		setActiveMenu: (state, action: PayloadAction<string>) => {
+		setActiveMenu: (state, action: PayloadAction<InjectionKey<MenuLinkProvider>>) => {
 			state.activeMenu = action.payload;
 		},
 		setAppbarText: (state, action: PayloadAction<string>) => {
@@ -40,7 +42,7 @@ export type InfrastructureState = {
 	/**
 	 * The name of the currently active menu
 	 */
-	activeMenu: string
+	activeMenu: InjectionKey<MenuLinkProvider>
 
 	/**
 	 * The text to show in the app bar on the dashboard page

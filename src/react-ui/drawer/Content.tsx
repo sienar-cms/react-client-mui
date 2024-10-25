@@ -2,7 +2,7 @@
 import { Box, List, Toolbar } from '@mui/material';
 import DashboardMenuItem from './MenuLink';
 import DashboardMenuGroup from './MenuGroup';
-import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateMenuLinks, filterLinks, getPartial, SIENAR_PARTIALS } from '@/react-utils';
+import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateLinks, filterLinks, getPartial, SIENAR_PARTIALS } from '@/react-utils';
 
 export default function Content() {
 	const activeMenu = useActiveMenuSelector();
@@ -10,7 +10,7 @@ export default function Content() {
 	const roles = useRolesSelector();
 
 	const drawerItems = useMemo(() => {
-		const links = aggregateMenuLinks(activeMenu);
+		const links = aggregateLinks(activeMenu);
 		return filterLinks(links, isLoggedIn, roles);
 	}, [isLoggedIn, roles, activeMenu]);
 

@@ -1,7 +1,9 @@
 ﻿import { Dashboard, Home } from '@mui/icons-material';
-import { addMenuLinksWithPriority, inject, MenuPriority, SIENAR_MENUS, SIENAR_URLS } from '@/react-utils';
+import { addLinksWithPriority, createMenu, inject, MenuPriority, SIENAR_MENUS, SIENAR_URLS } from '@/react-utils';
 
-addMenuLinksWithPriority(
+createMenu(SIENAR_MENUS.DASHBOARD, 'Dashboard');
+
+addLinksWithPriority(
 	SIENAR_MENUS.DASHBOARD,
 	MenuPriority.Highest,
 	{
@@ -12,7 +14,7 @@ addMenuLinksWithPriority(
 	}
 );
 
-addMenuLinksWithPriority(
+addLinksWithPriority(
 	SIENAR_MENUS.DASHBOARD,
 	MenuPriority.Lowest,
 	{
