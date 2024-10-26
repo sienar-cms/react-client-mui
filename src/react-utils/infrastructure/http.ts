@@ -1,4 +1,5 @@
-import { Notification, NotificationType, notify } from './notifications';
+import { Notification, NotificationType, SIENAR_NOTIFICATIONS } from '@/react-utils/infrastructure/notifications';
+import { inject } from '@/react-utils/infrastructure/di';
 
 export type SendRequestArgs = {
 	url: string
@@ -20,15 +21,16 @@ export async function sendRequest<T>(args: SendRequestArgs): Promise<T|null> {
 	const init: RequestInit = Object.assign({ method, body }, options);
 	const request = new Request(url, init);
 
+	const notify = inject(SIENAR_NOTIFICATIONS.NOTIFIER);
 	let response: Response;
 
 	try {
 		response = await fetch(request);
 	} catch(e) {
-		notify({
-			message: 'A network error has occured. Are you connected to the internet?',
-			type: NotificationType.Error
-		});
+		notify(
+			'A network error has occured. Are you connected to the internet?',
+			NotificationType.Error
+		);
 
 		return null;
 	}
@@ -38,7 +40,7 @@ export async function sendRequest<T>(args: SendRequestArgs): Promise<T|null> {
 
 		// In this case, the result is a WebResult containing notifications about invalid fields
 		if (result['notifications'] && Array.isArray(result['notifications'])) {
-			for (let n of (result as WebResult<T>).notifications) notify(n);
+			for (let n of (result as WebResult<T>).notifications) notify(n.message, n.type);
 			return null;
 		}
 
@@ -52,7 +54,7 @@ export async function sendRequest<T>(args: SendRequestArgs): Promise<T|null> {
 	const result = await response.json() as WebResult<T>;
 
 	if (result.notifications && Array.isArray(result.notifications)) {
-		for (let n of result.notifications) notify(n);
+		for (let n of result.notifications) notify(n.message, n.type);
 	}
 
 	return result.result;
