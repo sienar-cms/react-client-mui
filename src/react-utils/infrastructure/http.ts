@@ -35,23 +35,36 @@ export async function sendRequest<T>(args: SendRequestArgs): Promise<T|null> {
 		return null;
 	}
 
-	if (response.status === 422) {
-		const result = await response.json() as Record<string, any>;
+	let result: WebResult<T>;
+	try {
+		if (response.status === 422) {
+			const result = await response.json() as Record<string, any>;
 
-		// In this case, the result is a WebResult containing notifications about invalid fields
-		if (result['notifications'] && Array.isArray(result['notifications'])) {
-			for (let n of (result as WebResult<T>).notifications) notify(n.message, n.type);
+			// In this case, the result is a WebResult containing notifications about invalid fields
+			if (result['notifications'] && Array.isArray(result['notifications'])) {
+				for (let n of (result as WebResult<T>).notifications) notify(n.message, n.type);
+				return null;
+			}
+
+			// Otherwise, the result is a ValidationErrorWebResult
+			if (!onUnprocessable) return null;
+
+			onUnprocessable(result as ValidationErrorWebResult);
 			return null;
 		}
 
-		// Otherwise, the result is a ValidationErrorWebResult
-		if (!onUnprocessable) return null;
+		// The status can be 500 and still return a WebResult<T>
+		result = await response.json() as WebResult<T>;
+	} catch {
+		// However, if the status is 500 and the response is blank,
+		// response.json() will throw
+		notify(
+			'An unknown error has occurred.',
+			NotificationType.Error
+		);
 
-		onUnprocessable(result as ValidationErrorWebResult);
 		return null;
 	}
-
-	const result = await response.json() as WebResult<T>;
 
 	if (result.notifications && Array.isArray(result.notifications)) {
 		for (let n of result.notifications) notify(n.message, n.type);
