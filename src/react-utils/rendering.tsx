@@ -2,10 +2,11 @@
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { SnackbarProvider } from 'notistack';
 import { createRouter } from './router';
 import { createStore } from './stores';
 import { buildProviderTree, registerProvider } from '@/react-utils/infrastructure/providers';
+import { inject } from '@/react-utils/infrastructure/di';
+import { SIENAR_NOTIFICATIONS } from '@/react-utils/infrastructure/notifications';
 
 import type { ReactElement } from 'react';
 
@@ -34,11 +35,12 @@ export function useId(defaultId?: string): string {
 }
 
 function createSienarRoot(): ReactElement {
+	const notificationProvider = inject(SIENAR_NOTIFICATIONS.NOTIFICATION_PROVIDER, true);
+	if (notificationProvider) registerProvider(notificationProvider);
+
 	return (
-		<SnackbarProvider>
-			<Provider store={ createStore() }>
-				<RouterProvider router={ createRouter() }/>
-			</Provider>
-		</SnackbarProvider>
+		<Provider store={ createStore() }>
+			<RouterProvider router={ createRouter() }/>
+		</Provider>
 	);
 }

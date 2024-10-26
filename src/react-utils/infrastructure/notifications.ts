@@ -1,10 +1,19 @@
 import { enqueueSnackbar } from 'notistack';
 
+import type { InjectionKey } from '@/react-utils/infrastructure/di';
+import type { ComponentType, PropsWithChildren } from 'react';
+
 export function notify(notification: Notification): void {
 	enqueueSnackbar(notification.message, {
 		variant: mapNotificationTypeToVariant(notification.type)
 	})
 }
+
+const sienarNotifications = {
+	NOTIFICATION_PROVIDER: Symbol() as InjectionKey<ComponentType<PropsWithChildren>>
+}
+
+export const SIENAR_NOTIFICATIONS = Object.freeze(sienarNotifications);
 
 function mapNotificationTypeToVariant(type: NotificationType): 'success' | 'warning' | 'info' | 'error' {
 	switch (type) {
