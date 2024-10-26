@@ -4,19 +4,16 @@ import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
 import { createRouter } from './router';
-import { createStore } from './stores.ts';
+import { createStore } from './stores';
+import { buildProviderTree, registerProvider } from '@/react-utils/infrastructure/providers';
+
+import type { ReactElement } from 'react';
+
+registerProvider(StrictMode);
 
 export function createApp(rootId: string = 'root') {
 	createRoot(document.getElementById(rootId)!)
-		.render(
-			<StrictMode>
-				<Provider store={ createStore() }>
-					<SnackbarProvider>
-						<RouterProvider router={ createRouter() }/>
-					</SnackbarProvider>
-				</Provider>
-			</StrictMode>
-		);
+		.render(buildProviderTree(createSienarRoot()));
 }
 
 let idCounter = 0;
@@ -34,4 +31,14 @@ export function useId(defaultId?: string): string {
 	}, [defaultId]);
 
 	return defaultId ?? id;
+}
+
+function createSienarRoot(): ReactElement {
+	return (
+		<SnackbarProvider>
+			<Provider store={ createStore() }>
+				<RouterProvider router={ createRouter() }/>
+			</Provider>
+		</SnackbarProvider>
+	);
 }
