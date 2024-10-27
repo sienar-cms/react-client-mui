@@ -1,4 +1,4 @@
-﻿import { StrictMode, useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -9,8 +9,6 @@ import { inject } from '@/react-utils/infrastructure/di';
 import { NOTIFICATION_PROVIDER_COMPONENT } from '@/react-utils/infrastructure/notifications';
 
 import type { ReactElement } from 'react';
-
-registerProvider(StrictMode);
 
 export function createApp(rootId: string = 'root') {
 	createRoot(document.getElementById(rootId)!)
