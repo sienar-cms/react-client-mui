@@ -1,4 +1,4 @@
-import { registerRoutes, inject } from '@/react-utils';
+import { registerRoutes, inject, provide } from '@/react-utils';
 import { Layouts } from '@/react-ui';
 import Dashboard from '@/views/Dashboard';
 import Register from '@/views/account/register/Index';
@@ -12,8 +12,11 @@ import ResetPassword from '@/views/account/reset-password/Index';
 import ResetPasswordSuccessful from '@/views/account/reset-password/Successful';
 import * as SIENAR_URLS from '@/keys/routes';
 import * as SIENAR_VIEWS from '@/keys/views';
+import { DASHBOARD_LAYOUT } from '@/keys';
 
 export default function() {
+	provide(DASHBOARD_LAYOUT, Layouts.Dashboard, false);
+
 	const DashboardView = inject(SIENAR_VIEWS.DASHBOARD_VIEW, true) ?? Dashboard;
 	const RegisterView = inject(SIENAR_VIEWS.REGISTER_VIEW, true) ?? Register;
 	const RegisterSuccessfulView = inject(SIENAR_VIEWS.REGISTER_SUCCESSFUL_VIEW, true) ?? RegisterSuccessful;
@@ -26,7 +29,7 @@ export default function() {
 	const ResetPasswordSuccessfulView = inject(SIENAR_VIEWS.RESET_PASSWORD_SUCCESSFUL_VIEW, true) ?? ResetPasswordSuccessful;
 
 	registerRoutes(
-		Layouts.Dashboard,
+		DASHBOARD_LAYOUT,
 		{
 			path: inject(SIENAR_URLS.DASHBOARD_ROUTE),
 			element: <DashboardView/>

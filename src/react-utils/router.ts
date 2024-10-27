@@ -5,16 +5,16 @@ import { inject } from '@/react-utils/infrastructure/di';
 
 import type { InjectionKey } from '@/react-utils/infrastructure/di';
 
-const routes = new Map<ReactNode, RouteObject[]>();
+const routes = new Map<InjectionKey<ReactNode>, RouteObject[]>();
 
 export const ERROR_VIEW = Symbol() as InjectionKey<ReactNode>;
 
-export function registerRoutes(layout: ReactNode, ...items: RouteObject[]): void {
-	if (!routes.has(layout)) {
-		routes.set(layout, []);
+export function registerRoutes(layoutKey: InjectionKey<ReactNode>, ...items: RouteObject[]): void {
+	if (!routes.has(layoutKey)) {
+		routes.set(layoutKey, []);
 	}
 
-	routes.get(layout)!.push(...items);
+	routes.get(layoutKey)!.push(...items);
 }
 
 export function createRouter() {
@@ -24,7 +24,7 @@ export function createRouter() {
 	for (let [layout, childRoutes] of routes) {
 		layoutRoutes.push({
 			path: '',
-			element: layout,
+			element: inject(layout),
 			errorElement: errorComponent,
 			children: childRoutes
 		});
