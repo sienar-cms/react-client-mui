@@ -1,6 +1,6 @@
-﻿import { useRef } from 'react';
+﻿import { useId, useRef } from 'react';
 import { Checkbox as MaterialCheckbox, FormControlLabel } from '@mui/material';
-import { useFormFieldValidation, useRerender, useId } from '@/react-utils';
+import { useFormFieldValidation, useRerender } from '@/react-utils';
 import ValidationList from './ValidationList';
 
 import type {ChangeEvent} from 'react';
@@ -13,7 +13,6 @@ export type CheckboxProps<T> = Omit<FormInputProps<boolean>, 'value'> & {
 
 export default function Checkbox<T>(props: CheckboxProps<T>) {
 	const {
-		id,
 		name,
 		displayName,
 		hideNonErrors,
@@ -27,7 +26,7 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 	} = props;
 
 	const isBoolean = !value;
-	const htmlId = useId(id);
+	const id = useId();
 	const currentChecked = useRef(checked);
 	const rerender = useRerender();
 	const [validations, interact] = useFormFieldValidation(name, displayName, currentChecked, validators);
@@ -51,10 +50,10 @@ export default function Checkbox<T>(props: CheckboxProps<T>) {
 	return (
 		<>
 			<FormControlLabel
-				htmlFor={htmlId}
+				htmlFor={id}
 				control={
 					<MaterialCheckbox
-						id={htmlId}
+						id={id}
 						name={name}
 						checked={currentChecked.current}
 						value={value ?? currentChecked.current.toString()}

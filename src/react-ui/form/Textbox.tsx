@@ -1,6 +1,6 @@
-﻿import { useRef } from 'react';
+﻿import { useId, useRef } from 'react';
 import { TextField } from '@mui/material';
-import { useFormFieldValidation, useRerender, useId } from '@/react-utils';
+import { useFormFieldValidation, useRerender } from '@/react-utils';
 import ValidationList from './ValidationList';
 
 import type { FormInputProps } from './shared';
@@ -14,7 +14,6 @@ export type TextInputProps<T extends string | number> = FormInputProps<T> & {
 
 export default function Textbox<T extends string | number>(props: TextInputProps<T>) {
 	const {
-		id,
 		name,
 		displayName,
 		value,
@@ -30,7 +29,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	} = props;
 
 	const isNumeric = type === 'number';
-	const htmlId = useId(id);
+	const id = useId();
 	const defaultValue = (isNumeric ? 0 : '') as T;
 	const currentValue = useRef(value || defaultValue);
 	const rerender = useRerender();
@@ -51,7 +50,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	return (
 		<>
 			<TextField
-				id={htmlId}
+				id={id}
 				name={name}
 				label={children ?? displayName}
 				value={currentValue.current}
