@@ -9,17 +9,21 @@ import type { InjectionKey } from '@/react-utils/infrastructure/di';
  * @param key
  * @param displayName
  */
-export function createMenu(
+export function nameMenu(
 	key: InjectionKey<MenuLinkProvider>,
 	displayName: string
 ) {
-	provide(
-		key,
-		{
-			displayName,
-			links: {} as LinkDictionary
-		}
-	);
+	let menu = inject(key, true);
+	if (menu) {
+		menu.displayName = displayName;
+		return;
+	}
+
+	menu = {
+		displayName,
+		links: {} as LinkDictionary
+	};
+	provide(key, menu);
 }
 
 /**
@@ -53,7 +57,15 @@ export function addLinksWithPriority(
 		link.roles ??= [];
 	});
 
-	const dictionary = inject(key);
+	let dictionary = inject(key, true);
+	if (!dictionary) {
+		dictionary = {
+			displayName: '',
+			links: {} as LinkDictionary
+		};
+		provide(key, dictionary);
+	}
+
 	dictionary.links[priority] ??= [];
 	dictionary.links[priority].push(...links);
 }

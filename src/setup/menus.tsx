@@ -1,10 +1,8 @@
 ﻿import { Dashboard, Home } from '@mui/icons-material';
-import { addLinksWithPriority, createMenu, DASHBOARD_MENU, inject, MenuPriority } from '@/react-utils';
+import { addLinksWithPriority, DASHBOARD_MENU, inject, MenuPriority } from '@/react-utils';
 import { DASHBOARD_ROUTE, HOME_ROUTE } from '@/keys/routes';
 
 export default function() {
-	createMenu(DASHBOARD_MENU, 'Dashboard');
-
 	addLinksWithPriority(
 		DASHBOARD_MENU,
 		MenuPriority.Highest,
