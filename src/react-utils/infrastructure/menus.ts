@@ -139,11 +139,7 @@ export function userIsAuthorized(
 	return link.allRolesRequired as boolean;
 }
 
-const sienarMenus = {
-	DASHBOARD: Symbol() as InjectionKey<MenuLinkProvider>
-}
-
-export const SIENAR_MENUS = Object.freeze(sienarMenus);
+export const DASHBOARD_MENU = Symbol() as InjectionKey<MenuLinkProvider>;
 
 /**
  * A container for {@link MenuLink} objects

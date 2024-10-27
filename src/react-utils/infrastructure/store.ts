@@ -1,6 +1,6 @@
 ﻿import { createSlice } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { SIENAR_MENUS } from './menus';
+import { DASHBOARD_MENU } from './menus';
 
 import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { InjectionKey } from '@/react-utils/infrastructure/di';
@@ -9,7 +9,7 @@ import type { MenuLinkProvider } from '@/react-utils/infrastructure/menus';
 export const INFRASTRUCTURE_NAME = 'infrastructure';
 
 const initialState: InfrastructureState = {
-	activeMenu: SIENAR_MENUS.DASHBOARD,
+	activeMenu: DASHBOARD_MENU,
 	appbarText: ''
 };
 
