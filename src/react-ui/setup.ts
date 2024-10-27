@@ -2,5 +2,7 @@
 import SnackbarProvider from './Snackbar';
 import { notify } from './utils';
 
-provide(NOTIFICATION_PROVIDER_COMPONENT, SnackbarProvider);
-provide(NOTIFIER, notify);
+export default function () {
+	provide(NOTIFICATION_PROVIDER_COMPONENT, SnackbarProvider);
+	provide(NOTIFIER, notify);
+}

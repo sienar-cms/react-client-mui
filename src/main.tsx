@@ -1,5 +1,1 @@
-import '@/setup/urls';
-import '@/setup/menus';
-import '@/setup/partials';
-import '@/setup/stores'
-import '@/setup/views';
+export { default as setup } from './setup';
