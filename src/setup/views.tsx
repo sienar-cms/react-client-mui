@@ -17,58 +17,47 @@ import { DASHBOARD_LAYOUT } from '@/keys';
 export default function() {
 	provide(DASHBOARD_LAYOUT, Layouts.Dashboard, false);
 
-	const DashboardView = inject(SIENAR_VIEWS.DASHBOARD_VIEW, true) ?? Dashboard;
-	const RegisterView = inject(SIENAR_VIEWS.REGISTER_VIEW, true) ?? Register;
-	const RegisterSuccessfulView = inject(SIENAR_VIEWS.REGISTER_SUCCESSFUL_VIEW, true) ?? RegisterSuccessful;
-	const ConfirmView = inject(SIENAR_VIEWS.CONFIRM_VIEW, true) ?? Confirm;
-	const ConfirmSuccessfulView = inject(SIENAR_VIEWS.CONFIRM_SUCCESSFUL_VIEW, true) ?? ConfirmSuccessful;
-	const LoginView = inject(SIENAR_VIEWS.LOGIN_VIEW, true) ?? Login;
-	const ForgotPasswordView = inject(SIENAR_VIEWS.FORGOT_PASSWORD_VIEW, true) ?? ForgotPassword;
-	const ForgotPasswordSuccessfulView = inject(SIENAR_VIEWS.FORGOT_PASSWORD_SUCCESSFUL_VIEW, true) ?? ForgotPasswordSuccessful;
-	const ResetPasswordView = inject(SIENAR_VIEWS.RESET_PASSWORD_VIEW, true) ?? ResetPassword;
-	const ResetPasswordSuccessfulView = inject(SIENAR_VIEWS.RESET_PASSWORD_SUCCESSFUL_VIEW, true) ?? ResetPasswordSuccessful;
-
 	registerRoutes(
 		DASHBOARD_LAYOUT,
 		{
 			path: inject(SIENAR_URLS.DASHBOARD_ROUTE),
-			element: <DashboardView/>
+			element: inject(SIENAR_VIEWS.DASHBOARD_VIEW, true) ?? <Dashboard/>
 		},
 		{
 			path: inject(SIENAR_URLS.REGISTER_ROUTE),
-			element: <RegisterView/>
+			element: inject(SIENAR_VIEWS.REGISTER_VIEW, true) ?? <Register/>
 		},
 		{
 			path: inject(SIENAR_URLS.REGISTER_SUCCESSFUL_ROUTE),
-			element: <RegisterSuccessfulView/>
+			element: inject(SIENAR_VIEWS.REGISTER_SUCCESSFUL_VIEW, true) ?? <RegisterSuccessful/>
 		},
 		{
 			path: inject(SIENAR_URLS.CONFIRM_ROUTE),
-			element: <ConfirmView/>
+			element: inject(SIENAR_VIEWS.CONFIRM_VIEW, true) ?? <Confirm/>
 		},
 		{
 			path: inject(SIENAR_URLS.CONFIRM_SUCCESSFUL_ROUTE),
-			element: <ConfirmSuccessfulView/>
+			element: inject(SIENAR_VIEWS.CONFIRM_SUCCESSFUL_VIEW, true) ?? <ConfirmSuccessful/>
 		},
 		{
 			path: inject(SIENAR_URLS.LOGIN_ROUTE),
-			element: <LoginView/>
+			element: inject(SIENAR_VIEWS.LOGIN_VIEW, true) ?? <Login/>
 		},
 		{
 			path: inject(SIENAR_URLS.FORGOT_PASSWORD_ROUTE),
-			element: <ForgotPasswordView/>
+			element: inject(SIENAR_VIEWS.FORGOT_PASSWORD_VIEW, true) ?? <ForgotPassword/>
 		},
 		{
 			path: inject(SIENAR_URLS.FORGOT_PASSWORD_SUCCESSFUL_ROUTE),
-			element: <ForgotPasswordSuccessfulView/>
+			element: inject(SIENAR_VIEWS.FORGOT_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ForgotPasswordSuccessful/>
 		},
 		{
 			path: inject(SIENAR_URLS.RESET_PASSWORD_ROUTE),
-			element: <ResetPasswordView/>
+			element: inject(SIENAR_VIEWS.RESET_PASSWORD_VIEW, true) ?? <ResetPassword/>
 		},
 		{
 			path: inject(SIENAR_URLS.RESET_PASSWORD_SUCCESSFUL_ROUTE),
-			element: <ResetPasswordSuccessfulView/>
+			element: inject(SIENAR_VIEWS.RESET_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ResetPasswordSuccessful/>
 		},
 	);
 }
