@@ -14,9 +14,7 @@ export function registerRoutes(layout: ReactNode, ...items: RouteObject[]): void
 		routes.set(layout, []);
 	}
 
-	// Add items to the beginning instead of the end so that routes can be overridden
-	// Don't bother to reverse the items - devs can override their own routes themselves
-	routes.get(layout)!.unshift(...items);
+	routes.get(layout)!.push(...items);
 }
 
 export function createRouter() {
