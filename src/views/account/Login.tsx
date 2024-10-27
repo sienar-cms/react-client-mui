@@ -1,7 +1,8 @@
 ﻿import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Form, Narrow } from '@/react-ui';
-import { inject, useNavigate, SIENAR_URLS, validators, useAuthDispatch, loadUserData } from '@/react-utils';
+import { inject, useNavigate, validators, useAuthDispatch, loadUserData } from '@/react-utils';
+import { DASHBOARD_ROUTE, FORGOT_PASSWORD_ROUTE } from '@/keys';
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -17,13 +18,13 @@ export default function Login() {
 				onSuccess={(successful: boolean) => {
 					if (successful) {
 						dispatch(loadUserData());
-						navigate(SIENAR_URLS.DASHBOARD);
+						navigate(DASHBOARD_ROUTE);
 					}
 				}}
 				additionalActions={(
 					<Button
 						component={Link}
-						to={inject(SIENAR_URLS.FORGOT_PASSWORD)}
+						to={inject(FORGOT_PASSWORD_ROUTE)}
 						sx={{ ml: 2 }}
 						color='secondary'
 						variant='outlined'

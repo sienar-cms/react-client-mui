@@ -1,18 +1,19 @@
-import { provide, SIENAR_URLS } from '@/react-utils';
+import { provide } from '@/react-utils';
+import * as SIENAR_URLS from '@/keys/routes';
 
 export default function() {
-	provide(SIENAR_URLS.HOME, '/', false);
-	provide(SIENAR_URLS.DASHBOARD, '/dashboard', false);
+	provide(SIENAR_URLS.HOME_ROUTE, '/', false);
+	provide(SIENAR_URLS.DASHBOARD_ROUTE, '/dashboard', false);
 
 // Account
 
-	provide(SIENAR_URLS.REGISTER, '/dashboard/account/register', false);
-	provide(SIENAR_URLS.REGISTER_SUCCESSFUL, '/dashboard/account/register/successful', false);
-	provide(SIENAR_URLS.CONFIRM, '/dashboard/account/confirm', false);
-	provide(SIENAR_URLS.CONFIRM_SUCCESSFUL, '/dashboard/account/confirm/successful', false);
-	provide(SIENAR_URLS.LOGIN, '/dashboard/account/login', false);
-	provide(SIENAR_URLS.FORGOT_PASSWORD, '/dashboard/account/forgot-password', false);
-	provide(SIENAR_URLS.FORGOT_PASSWORD_SUCCESSFUL, '/dashboard/account/forgot-password/successful', false);
-	provide(SIENAR_URLS.RESET_PASSWORD, '/dashboard/account/reset-password', false);
-	provide(SIENAR_URLS.RESET_PASSWORD_SUCCESSFUL, '/dashboard/account/reset-password/successful', false);
+	provide(SIENAR_URLS.REGISTER_ROUTE, '/dashboard/account/register', false);
+	provide(SIENAR_URLS.REGISTER_SUCCESSFUL_ROUTE, '/dashboard/account/register/successful', false);
+	provide(SIENAR_URLS.CONFIRM_ROUTE, '/dashboard/account/confirm', false);
+	provide(SIENAR_URLS.CONFIRM_SUCCESSFUL_ROUTE, '/dashboard/account/confirm/successful', false);
+	provide(SIENAR_URLS.LOGIN_ROUTE, '/dashboard/account/login', false);
+	provide(SIENAR_URLS.FORGOT_PASSWORD_ROUTE, '/dashboard/account/forgot-password', false);
+	provide(SIENAR_URLS.FORGOT_PASSWORD_SUCCESSFUL_ROUTE, '/dashboard/account/forgot-password/successful', false);
+	provide(SIENAR_URLS.RESET_PASSWORD_ROUTE, '/dashboard/account/reset-password', false);
+	provide(SIENAR_URLS.RESET_PASSWORD_SUCCESSFUL_ROUTE, '/dashboard/account/reset-password/successful', false);
 }

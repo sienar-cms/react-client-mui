@@ -1,7 +1,8 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Narrow, Form } from '@/react-ui';
-import { validators, useNavigate, SIENAR_URLS } from '@/react-utils';
+import { validators, useNavigate } from '@/react-utils';
+import { RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@/keys/routes';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function Index() {
 					</Typography>
 				)}
 				onSuccess={(successful: boolean) => {
-					if (successful) navigate(SIENAR_URLS.RESET_PASSWORD_SUCCESSFUL);
+					if (successful) navigate(RESET_PASSWORD_SUCCESSFUL_ROUTE);
 				}}
 			>
 				<input

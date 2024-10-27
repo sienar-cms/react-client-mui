@@ -1,6 +1,7 @@
 ﻿import { Form, Narrow } from '@/react-ui';
-import { useNavigate, SIENAR_URLS } from '@/react-utils';
+import { useNavigate } from '@/react-utils';
 import { useSearchParams } from 'react-router-dom';
+import { CONFIRM_SUCCESSFUL_ROUTE } from '@/keys/routes';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function Index() {
 				method='POST'
 				title='Confirming account'
 				onSuccess={(successful: boolean) => {
-					if (successful) navigate(SIENAR_URLS.CONFIRM_SUCCESSFUL);
+					if (successful) navigate(CONFIRM_SUCCESSFUL_ROUTE);
 				}}
 				hideControls
 				immediate

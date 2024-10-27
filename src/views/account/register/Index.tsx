@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react';
 import { Form, Narrow } from '@/react-ui';
-import { validators, SIENAR_URLS, useNavigate } from '@/react-utils';
+import { validators, useNavigate } from '@/react-utils';
+import { REGISTER_SUCCESSFUL_ROUTE } from '@/keys/routes';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function Index() {
 				onSuccess={(result: boolean) => {
 					if (result) {
 						navigate(
-							SIENAR_URLS.REGISTER_SUCCESSFUL,
+							REGISTER_SUCCESSFUL_ROUTE,
 							{
 								username,
 								email

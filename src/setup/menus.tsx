@@ -1,5 +1,6 @@
 ﻿import { Dashboard, Home } from '@mui/icons-material';
-import { addLinksWithPriority, createMenu, inject, MenuPriority, SIENAR_MENUS, SIENAR_URLS } from '@/react-utils';
+import { addLinksWithPriority, createMenu, inject, MenuPriority, SIENAR_MENUS } from '@/react-utils';
+import { DASHBOARD_ROUTE, HOME_ROUTE } from '@/keys/routes';
 
 export default function() {
 	createMenu(SIENAR_MENUS.DASHBOARD, 'Dashboard');
@@ -9,7 +10,7 @@ export default function() {
 		MenuPriority.Highest,
 		{
 			text: 'Dashboard',
-			href: inject(SIENAR_URLS.DASHBOARD),
+			href: inject(DASHBOARD_ROUTE),
 			icon: <Dashboard/>,
 			requireLoggedIn: false
 		}
@@ -20,7 +21,7 @@ export default function() {
 		MenuPriority.Lowest,
 		{
 			text: 'Return home',
-			href: inject(SIENAR_URLS.HOME),
+			href: inject(HOME_ROUTE),
 			icon: <Home/>
 		}
 	);
