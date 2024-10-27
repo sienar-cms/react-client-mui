@@ -2,7 +2,7 @@
 import { Box, List, Toolbar } from '@mui/material';
 import DashboardMenuItem from './MenuLink';
 import DashboardMenuGroup from './MenuGroup';
-import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateLinks, filterLinks, getPartial, SIENAR_PARTIALS } from '@/react-utils';
+import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
 
 export default function Content() {
 	const activeMenu = useActiveMenuSelector();
@@ -14,8 +14,8 @@ export default function Content() {
 		return filterLinks(links, isLoggedIn, roles);
 	}, [isLoggedIn, roles, activeMenu]);
 
-	const drawerHeaderContent = getPartial(SIENAR_PARTIALS.DRAWER_HEADER);
-	const drawerFooterContent = getPartial(SIENAR_PARTIALS.DRAWER_FOOTER);
+	const drawerHeaderContent = inject(DRAWER_HEADER_PARTIAL, true);
+	const drawerFooterContent = inject(DRAWER_FOOTER_PARTIAL, true);
 
 	return (
 		<Box
