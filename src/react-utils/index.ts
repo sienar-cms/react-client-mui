@@ -1,4 +1,6 @@
-﻿export * from './auth';
+﻿import './setup';
+
+export * from './auth';
 export * from './forms';
 export * from './infrastructure';
 export * from './router';

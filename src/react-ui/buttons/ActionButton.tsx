@@ -1,9 +1,10 @@
 ﻿import { useId, useRef } from 'react';
 import { Button, IconButton, ExtendButtonBase } from '@mui/material';
-import { HttpMethod, sendRequest } from '@/react-utils';
+import { API_CALLER, inject } from '@/react-utils';
 
 import type { FormEvent, PropsWithChildren, ReactNode } from 'react';
 import type { ButtonPropsColorOverrides, ButtonTypeMap, IconButtonTypeMap, SxProps, Theme } from '@mui/material';
+import type { HttpMethod } from '@/react-utils';
 import type { ExtensibleColor } from '@/react-ui/theme';
 
 export type ActionButtonProps = PropsWithChildren & {
@@ -40,11 +41,12 @@ export default function ActionButton(props: ActionButtonProps) {
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const result = await sendRequest<boolean>({
-			url: action,
+		const caller = inject(API_CALLER);
+		const result = await caller<boolean>(
+			action,
 			method,
-			body: new FormData(formRef.current!)
-		});
+			{ body: new FormData(formRef.current!) }
+		);
 
 		if (!result) return;
 		onSuccess?.(result);

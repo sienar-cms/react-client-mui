@@ -1,10 +1,10 @@
 ﻿import Card from '@/react-ui/Card';
 import type { HttpMethod, ValidationResult } from '@/react-utils';
-import { formValidationContext, sendRequest } from '@/react-utils';
-import type { MouseEvent, PropsWithChildren, ReactNode, FormEvent } from 'react';
+import { formValidationContext, inject, API_CALLER } from '@/react-utils';
 import { useContext, useEffect, useId, useRef } from 'react';
 import { Box, Button } from '@mui/material';
 
+import type { MouseEvent, PropsWithChildren, ReactNode, FormEvent } from 'react';
 import type { Color } from '@/react-ui/theme';
 
 export type FormProps<T> = PropsWithChildren & {
@@ -69,23 +69,27 @@ export default function Form<T>(props: FormProps<T>) {
 
 		if (onSubmit && !onSubmit(formContext.values)) return;
 
-		const result = await sendRequest<T>({
-			url: action,
+		const caller = inject(API_CALLER);
+		console.log('caller is ', caller);
+		const result = await caller<T>(
+			action,
 			method,
-			body: new FormData(formRef.current!),
-			onUnprocessable: e => {
-				for (let errored in e.errors) {
-					const validationErrors: ValidationResult[] = e.errors[errored].map(e => {
-						return {
-							valid: false,
-							message: e
-						}
-					});
+			{
+				body: new FormData(formRef.current!),
+				onUnprocessable: e => {
+					for (let errored in e.errors) {
+						const validationErrors: ValidationResult[] = e.errors[errored].map(e => {
+							return {
+								valid: false,
+								message: e
+							}
+						});
 
-					formContext.errorSetters[errored]?.(validationErrors);
+						formContext.errorSetters[errored]?.(validationErrors);
+					}
 				}
 			}
-		});
+		);
 
 		if (!result) return;
 
