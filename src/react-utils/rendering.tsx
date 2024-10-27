@@ -6,7 +6,7 @@ import { createRouter } from './router';
 import { createStore } from './stores';
 import { buildProviderTree, registerProvider } from '@/react-utils/infrastructure/providers';
 import { inject } from '@/react-utils/infrastructure/di';
-import { SIENAR_NOTIFICATIONS } from '@/react-utils/infrastructure/notifications';
+import { NOTIFICATION_PROVIDER_COMPONENT } from '@/react-utils/infrastructure/notifications';
 
 import type { ReactElement } from 'react';
 
@@ -35,7 +35,7 @@ export function useId(defaultId?: string): string {
 }
 
 function createSienarRoot(): ReactElement {
-	const notificationProvider = inject(SIENAR_NOTIFICATIONS.NOTIFICATION_PROVIDER, true);
+	const notificationProvider = inject(NOTIFICATION_PROVIDER_COMPONENT, true);
 	if (notificationProvider) registerProvider(notificationProvider);
 
 	return (

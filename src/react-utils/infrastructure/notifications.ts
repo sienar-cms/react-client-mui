@@ -1,12 +1,8 @@
 import type { InjectionKey } from '@/react-utils/infrastructure/di';
 import type { ComponentType, PropsWithChildren } from 'react';
 
-const sienarNotifications = {
-	NOTIFICATION_PROVIDER: Symbol() as InjectionKey<ComponentType<PropsWithChildren>>,
-	NOTIFIER: Symbol() as InjectionKey<Notifier>
-}
-
-export const SIENAR_NOTIFICATIONS = Object.freeze(sienarNotifications);
+export const NOTIFICATION_PROVIDER_COMPONENT = Symbol() as InjectionKey<ComponentType<PropsWithChildren>>;
+export const NOTIFIER = Symbol() as InjectionKey<Notifier>;
 
 export type Notification = {
 	message: string

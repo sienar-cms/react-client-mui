@@ -1,5 +1,5 @@
 ﻿import { inject } from '@/react-utils/infrastructure/di';
-import { NotificationType, SIENAR_NOTIFICATIONS } from '@/react-utils/infrastructure/notifications';
+import { NotificationType, NOTIFIER } from '@/react-utils/infrastructure/notifications';
 import type { ApiCallerOptions, HttpMethod, ValidationErrorWebResult, WebResult } from '@/react-utils/infrastructure/http';
 
 export async function sendRequest<T>(
@@ -16,7 +16,7 @@ export async function sendRequest<T>(
 	const init: RequestInit = Object.assign({ method, body }, requestOptions);
 	const request = new Request(url, init);
 
-	const notify = inject(SIENAR_NOTIFICATIONS.NOTIFIER);
+	const notify = inject(NOTIFIER);
 	let response: Response;
 
 	try {
