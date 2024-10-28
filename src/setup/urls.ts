@@ -22,4 +22,6 @@ export default function() {
 	provide(SIENAR_URLS.CHANGE_EMAIL_SUCCESSFUL_ROUTE, '/dashboard/account/change-email/successful', false);
 	provide(SIENAR_URLS.CHANGE_PASSWORD_ROUTE, '/dashboard/account/change-password', false);
 	provide(SIENAR_URLS.CHANGE_PASSWORD_SUCCESSFUL_ROUTE, '/dashboard/account/change-password/successful', false);
+	provide(SIENAR_URLS.PERSONAL_DATA_ROUTE, '/dashboard/account/personal-data', false);
+	provide(SIENAR_URLS.DOWNLOAD_PERSONAL_DATA_ROUTE, '/api/account/personal-data', false);
 }
