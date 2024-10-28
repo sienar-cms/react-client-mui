@@ -10,6 +10,8 @@ import ForgotPassword from '@/views/account/forgot-password/Index';
 import ForgotPasswordSuccessful from '@/views/account/forgot-password/Successful';
 import ResetPassword from '@/views/account/reset-password/Index';
 import ResetPasswordSuccessful from '@/views/account/reset-password/Successful';
+import ChangeEmail from '@/views/account/change-email/Index';
+import ChangeEmailRequested from '@/views/account/change-email/Requested';
 import * as SIENAR_URLS from '@/keys/routes';
 import * as SIENAR_VIEWS from '@/keys/views';
 import { DASHBOARD_LAYOUT } from '@/keys';
@@ -59,5 +61,13 @@ export default function() {
 			path: inject(SIENAR_URLS.RESET_PASSWORD_SUCCESSFUL_ROUTE),
 			element: inject(SIENAR_VIEWS.RESET_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ResetPasswordSuccessful/>
 		},
+		{
+			path: inject(SIENAR_URLS.CHANGE_EMAIL_ROUTE),
+			element: inject(SIENAR_VIEWS.CHANGE_EMAIL_VIEW, true) ?? <ChangeEmail/>
+		},
+		{
+			path: inject(SIENAR_URLS.CHANGE_EMAIL_REQUESTED_ROUTE),
+			element: inject(SIENAR_VIEWS.CHANGE_EMAIL_REQUESTED_VIEW, true) ?? <ChangeEmailRequested/>
+		}
 	);
 }
