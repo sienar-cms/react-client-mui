@@ -1,13 +1,13 @@
 ﻿import Authorize from '@/react-ui/authorize';
-import ActionButton from '@/react-ui/buttons/ActionButton';
-import { inject, useAuthDispatch, loadUserData } from '@/react-utils';
+import { inject  } from '@/react-utils';
 import { Box, Button } from '@mui/material';
+import UserBadge from '@/components/UserBadge';
 import { Link } from 'react-router-dom';
 import { REGISTER_ROUTE, LOGIN_ROUTE } from '@/keys/routes';
 
-export default function DrawerFooter() {
-	const dispatch = useAuthDispatch();
+import type { UserBadgeProps } from '@/components/UserBadge';
 
+export default function DrawerFooter(props: UserBadgeProps) {
 	return (
 		<Box sx={{
 			width: '100%',
@@ -37,17 +37,8 @@ export default function DrawerFooter() {
 					</Button>
 				</>
 			)}>
-				<ActionButton
-					action='/api/account/login'
-					method='DELETE'
-					label='Log out'
-					sx={{ width: '100%' }}
-					color='error'
-					onSuccess={() => dispatch(loadUserData())}
-				/>
+				<UserBadge {...props}/>
 			</Authorize.Content>
-
-
 		</Box>
 	)
 };
