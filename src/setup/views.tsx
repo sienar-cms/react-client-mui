@@ -17,6 +17,8 @@ import ChangeEmailSuccessful from '@/views/account/change-email/Successful';
 import ChangePassword from '@/views/account/change-password/Index';
 import ChangePasswordSuccessful from '@/views/account/change-password/Successful';
 import PersonalData from '@/views/account/PersonalData';
+import DeleteAccount from '@/views/account/Delete';
+import Deleted from '@/views/account/Deleted';
 import * as SIENAR_URLS from '@/keys/routes';
 import * as SIENAR_VIEWS from '@/keys/views';
 import { DASHBOARD_LAYOUT } from '@/keys';
@@ -93,6 +95,14 @@ export default function() {
 		{
 			path: inject(SIENAR_URLS.PERSONAL_DATA_ROUTE),
 			element: inject(SIENAR_VIEWS.PERSONAL_DATA_VIEW, true) ?? <PersonalData/>
+		},
+		{
+			path: inject(SIENAR_URLS.DELETE_ACCOUNT_ROUTE),
+			element: inject(SIENAR_VIEWS.DELETE_ACCOUNT_VIEW, true) ?? <DeleteAccount/>
+		},
+		{
+			path: inject(SIENAR_URLS.DELETED_ROUTE),
+			element: inject(SIENAR_VIEWS.DELETED_VIEW, true) ?? <Deleted/>
 		}
 	);
 }

@@ -18,4 +18,6 @@ export const CHANGE_EMAIL_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const CHANGE_PASSWORD_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const CHANGE_PASSWORD_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const PERSONAL_DATA_VIEW = Symbol() as InjectionKey<ReactNode>;
+export const DELETE_ACCOUNT_VIEW = Symbol() as InjectionKey<ReactNode>;
+export const DELETED_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const UNAUTHORIZED_VIEW = Symbol() as InjectionKey<ReactNode>

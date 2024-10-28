@@ -19,4 +19,6 @@ export const CHANGE_PASSWORD_ROUTE = Symbol() as InjectionKey<string>;
 export const CHANGE_PASSWORD_SUCCESSFUL_ROUTE = Symbol() as InjectionKey<string>;
 export const PERSONAL_DATA_ROUTE = Symbol() as InjectionKey<string>;
 export const DOWNLOAD_PERSONAL_DATA_ROUTE = Symbol() as InjectionKey<string>;
+export const DELETE_ACCOUNT_ROUTE = Symbol() as InjectionKey<string>;
+export const DELETED_ROUTE = Symbol() as InjectionKey<string>;
 export const UNAUTHORIZED_ROUTE = Symbol() as InjectionKey<string>
