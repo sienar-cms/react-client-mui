@@ -1,6 +1,6 @@
-﻿import { Dashboard, Email, Home } from '@mui/icons-material';
+﻿import { Dashboard, Email, Home, Lock } from '@mui/icons-material';
 import { addLinks, addLinksWithPriority, DASHBOARD_MENU, inject, MenuPriority } from '@/react-utils';
-import { CHANGE_EMAIL_ROUTE, DASHBOARD_ROUTE, HOME_ROUTE, USER_SETTINGS_MENU } from '@/keys';
+import { CHANGE_EMAIL_ROUTE, CHANGE_PASSWORD_ROUTE, DASHBOARD_ROUTE, HOME_ROUTE, USER_SETTINGS_MENU } from '@/keys';
 
 export default function() {
 	addLinksWithPriority(
@@ -30,6 +30,12 @@ export default function() {
 			text: 'Change email address',
 			href: inject(CHANGE_EMAIL_ROUTE),
 			icon: <Email/>,
+			requireLoggedIn: true
+		},
+		{
+			text: 'Change password',
+			href: inject(CHANGE_PASSWORD_ROUTE),
+			icon: <Lock/>,
 			requireLoggedIn: true
 		}
 	);

@@ -20,4 +20,6 @@ export default function() {
 	provide(SIENAR_URLS.CHANGE_EMAIL_REQUESTED_ROUTE, '/dashboard/account/change-email/requested', false);
 	provide(SIENAR_URLS.CHANGE_EMAIL_CONFIRM_ROUTE, '/dashboard/account/change-email/confirm', false);
 	provide(SIENAR_URLS.CHANGE_EMAIL_SUCCESSFUL_ROUTE, '/dashboard/account/change-email/successful', false);
+	provide(SIENAR_URLS.CHANGE_PASSWORD_ROUTE, '/dashboard/account/change-password', false);
+	provide(SIENAR_URLS.CHANGE_PASSWORD_SUCCESSFUL_ROUTE, '/dashboard/account/change-password/successful', false);
 }
