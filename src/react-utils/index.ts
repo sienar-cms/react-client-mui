@@ -7,7 +7,7 @@ export * from './partials';
 export * from './providers';
 export * from './rendering';
 export * from './router';
-export * from './store';
+export * from './infrastructure';
 export * from './stores';
 export * from './urls';
 export * from './utils';
