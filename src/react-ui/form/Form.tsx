@@ -70,7 +70,6 @@ export default function Form<T>(props: FormProps<T>) {
 		if (onSubmit && !onSubmit(formContext.values)) return;
 
 		const caller = inject(API_CALLER);
-		console.log('caller is ', caller);
 		const result = await caller<T>(
 			action,
 			method,
