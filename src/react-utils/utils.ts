@@ -5,7 +5,7 @@ import type { ApiCallerOptions, HttpMethod, ValidationErrorWebResult, WebResult 
 export async function sendRequest<T>(
 	url: string,
 	method: HttpMethod,
-	args: ApiCallerOptions
+	args: ApiCallerOptions = {}
 ): Promise<T|null> {
 	const {
 		body,
