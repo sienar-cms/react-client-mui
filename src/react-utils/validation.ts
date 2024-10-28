@@ -1,7 +1,7 @@
 ﻿import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { RefObject } from 'react';
-import type { FormValueValidator } from './validators';
+import type { FormValueValidator } from './validators.ts';
 
 export const formValidationContext = createContext<FormContext>({
 	hasInteracted: false,

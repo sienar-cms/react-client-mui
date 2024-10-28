@@ -1,13 +1,19 @@
-﻿import { createRoot } from 'react-dom/client';
+﻿import { useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createRouter } from './router';
 import { createStore } from './stores';
-import { buildProviderTree, registerProvider } from '@/react-utils/infrastructure/providers';
-import { inject } from '@/react-utils/infrastructure/di';
-import { NOTIFICATION_PROVIDER_COMPONENT } from '@/react-utils/infrastructure/notifications';
+import { buildProviderTree, registerProvider } from '@/react-utils/providers.tsx';
+import { inject } from '@/react-utils/di.ts';
+import { NOTIFICATION_PROVIDER_COMPONENT } from '@/react-utils/notifications.ts';
 
 import type { ReactElement } from 'react';
+
+export function useRerender() {
+	const [counter, setCounter] = useState(0);
+	return () => setCounter(counter + 1);
+}
 
 export function createApp(rootId: string = 'root') {
 	createRoot(document.getElementById(rootId)!)

@@ -1,6 +1,6 @@
-﻿import { inject } from '@/react-utils/infrastructure/di';
-import { NotificationType, NOTIFIER } from '@/react-utils/infrastructure/notifications';
-import type { ApiCallerOptions, HttpMethod, ValidationErrorWebResult, WebResult } from '@/react-utils/infrastructure/http';
+﻿import { inject } from '@/react-utils/di.ts';
+import { NotificationType, NOTIFIER } from '@/react-utils/notifications.ts';
+import type { ApiCallerOptions, HttpMethod, ValidationErrorWebResult, WebResult } from '@/react-utils/http.ts';
 
 export async function sendRequest<T>(
 	url: string,

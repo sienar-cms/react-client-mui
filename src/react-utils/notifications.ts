@@ -1,4 +1,4 @@
-import type { InjectionKey } from '@/react-utils/infrastructure/di';
+import type { InjectionKey } from '@/react-utils/di.ts';
 import type { ComponentType, PropsWithChildren } from 'react';
 
 export const NOTIFICATION_PROVIDER_COMPONENT = Symbol() as InjectionKey<ComponentType<PropsWithChildren>>;

@@ -1,9 +1,9 @@
 ﻿import type { ReactNode } from 'react'
 import type { RouteObject } from 'react-router-dom';
 import { createBrowserRouter } from 'react-router-dom';
-import { inject } from '@/react-utils/infrastructure/di';
+import { inject } from '@/react-utils/di.ts';
 
-import type { InjectionKey } from '@/react-utils/infrastructure/di';
+import type { InjectionKey } from '@/react-utils/di.ts';
 
 const routes = new Map<InjectionKey<ReactNode>, RouteObject[]>();
 

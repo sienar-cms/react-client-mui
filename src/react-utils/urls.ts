@@ -1,6 +1,6 @@
 ﻿import { useNavigate as useNavigateBase } from 'react-router-dom';
-import { inject } from '@/react-utils/infrastructure/di';
-import type { InjectionKey } from '@/react-utils/infrastructure/di';
+import { inject } from '@/react-utils/di.ts';
+import type { InjectionKey } from '@/react-utils/di.ts';
 
 export function useNavigate() {
 	const navigate = useNavigateBase();

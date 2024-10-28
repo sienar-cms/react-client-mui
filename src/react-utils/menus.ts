@@ -1,7 +1,7 @@
-﻿import { provide, inject } from '@/react-utils/infrastructure/di';
+﻿import { provide, inject } from '@/react-utils/di.ts';
 
 import type { ReactNode } from 'react';
-import type { InjectionKey } from '@/react-utils/infrastructure/di';
+import type { InjectionKey } from '@/react-utils/di.ts';
 
 /**
  * Creates a new menu in the DI container

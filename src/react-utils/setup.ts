@@ -1,7 +1,7 @@
-﻿import { provide } from '@/react-utils/infrastructure/di';
-import { API_CALLER } from '@/react-utils/infrastructure/http';
+﻿import { provide } from '@/react-utils/di.ts';
+import { API_CALLER } from '@/react-utils/http.ts';
 import { sendRequest } from '@/react-utils/utils';
-import { registerProvider } from '@/react-utils/infrastructure/providers';
+import { registerProvider } from '@/react-utils/providers.tsx';
 import { StrictMode } from 'react';
 
 

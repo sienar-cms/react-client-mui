@@ -1,10 +1,10 @@
 ﻿import { createSlice } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { DASHBOARD_MENU } from './menus';
+import { DASHBOARD_MENU } from './menus.ts';
 
 import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
-import type { InjectionKey } from '@/react-utils/infrastructure/di';
-import type { MenuLinkProvider } from '@/react-utils/infrastructure/menus';
+import type { InjectionKey } from '@/react-utils/di.ts';
+import type { MenuLinkProvider } from '@/react-utils/menus.ts';
 
 export const INFRASTRUCTURE_NAME = 'infrastructure';
 
