@@ -17,5 +17,7 @@ export default function() {
 	provide(SIENAR_URLS.RESET_PASSWORD_ROUTE, '/dashboard/account/reset-password', false);
 	provide(SIENAR_URLS.RESET_PASSWORD_SUCCESSFUL_ROUTE, '/dashboard/account/reset-password/successful', false);
 	provide(SIENAR_URLS.CHANGE_EMAIL_ROUTE, '/dashboard/account/change-email', false);
-	provide(SIENAR_URLS.CHANGE_EMAIL_REQUESTED_ROUTE, '/dashboard/account/change-email/requested', false)
+	provide(SIENAR_URLS.CHANGE_EMAIL_REQUESTED_ROUTE, '/dashboard/account/change-email/requested', false);
+	provide(SIENAR_URLS.CHANGE_EMAIL_CONFIRM_ROUTE, '/dashboard/account/change-email/confirm', false);
+	provide(SIENAR_URLS.CHANGE_EMAIL_SUCCESSFUL_ROUTE, '/dashboard/account/change-email/successful', false);
 }

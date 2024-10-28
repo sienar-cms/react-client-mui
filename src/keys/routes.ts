@@ -13,4 +13,6 @@ export const RESET_PASSWORD_ROUTE = Symbol() as InjectionKey<string>;
 export const RESET_PASSWORD_SUCCESSFUL_ROUTE = Symbol() as InjectionKey<string>;
 export const CHANGE_EMAIL_ROUTE = Symbol() as InjectionKey<string>;
 export const CHANGE_EMAIL_REQUESTED_ROUTE = Symbol() as InjectionKey<string>;
+export const CHANGE_EMAIL_CONFIRM_ROUTE = Symbol() as InjectionKey<string>;
+export const CHANGE_EMAIL_SUCCESSFUL_ROUTE = Symbol() as InjectionKey<string>;
 export const UNAUTHORIZED_ROUTE = Symbol() as InjectionKey<string>
