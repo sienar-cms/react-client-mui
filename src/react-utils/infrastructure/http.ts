@@ -1,7 +1,20 @@
 import type { Notification } from '@/react-utils/infrastructure/notifications';
-import type { InjectionKey } from '@/react-utils/infrastructure/di';
+import { inject, InjectionKey } from '@/react-utils/infrastructure/di';
 
 export const API_CALLER = Symbol() as InjectionKey<ApiCaller>
+
+export function createApiCall(
+	action: string,
+	method: HttpMethod,
+	onSuccess?: () => any,
+	options?: ApiCallerOptions
+) {
+	return async () => {
+		const caller = inject(API_CALLER);
+		const successful = await caller<boolean>(action, method, options);
+		if (successful && onSuccess) onSuccess();
+	}
+}
 
 export type ApiCallerOptions = {
 	body?: BodyInit
