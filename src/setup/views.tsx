@@ -19,6 +19,8 @@ import ChangePasswordSuccessful from '@/views/account/change-password/Successful
 import PersonalData from '@/views/account/PersonalData';
 import DeleteAccount from '@/views/account/Delete';
 import Deleted from '@/views/account/Deleted';
+import LockoutReasonIndex from '@/views/lockout-reasons/Index';
+import LockoutReasonUpsert from '@/views/lockout-reasons/Upsert';
 import * as SIENAR_URLS from '@/keys/routes';
 import * as SIENAR_VIEWS from '@/keys/views';
 import { DASHBOARD_LAYOUT } from '@/keys';
@@ -103,6 +105,18 @@ export default function() {
 		{
 			path: inject(SIENAR_URLS.DELETED_ROUTE),
 			element: inject(SIENAR_VIEWS.DELETED_VIEW, true) ?? <Deleted/>
+		},
+		{
+			path: inject(SIENAR_URLS.LOCKOUT_REASONS_ROUTE),
+			element: inject(SIENAR_VIEWS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonIndex/>
+		},
+		{
+			path: inject(SIENAR_URLS.LOCKOUT_REASONS_ADD_ROUTE),
+			element: inject(SIENAR_VIEWS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>
+		},
+		{
+			path: `${inject(SIENAR_URLS.LOCKOUT_REASONS_ROUTE)}/:id`,
+			element: inject(SIENAR_VIEWS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>
 		}
 	);
 }

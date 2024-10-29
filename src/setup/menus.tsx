@@ -1,6 +1,6 @@
 ﻿import { Dashboard, DeleteForever, Email, Home, Lock, Key } from '@mui/icons-material';
 import { addLinks, addLinksWithPriority, DASHBOARD_MENU, inject, MenuPriority } from '@/react-utils';
-import { CHANGE_EMAIL_ROUTE, CHANGE_PASSWORD_ROUTE, DASHBOARD_ROUTE, DELETE_ACCOUNT_ROUTE, HOME_ROUTE, PERSONAL_DATA_ROUTE, USER_SETTINGS_MENU } from '@/keys';
+import { CHANGE_EMAIL_ROUTE, CHANGE_PASSWORD_ROUTE, DASHBOARD_ROUTE, DELETE_ACCOUNT_ROUTE, HOME_ROUTE, LOCKOUT_REASONS_ROUTE, PERSONAL_DATA_ROUTE, USER_SETTINGS_MENU } from '@/keys';
 
 export default function() {
 	addLinksWithPriority(
@@ -13,6 +13,15 @@ export default function() {
 			requireLoggedIn: false
 		}
 	);
+
+	addLinks(
+		DASHBOARD_MENU,
+		{
+			text: 'Lockout reasons',
+			href: inject(LOCKOUT_REASONS_ROUTE),
+			// roles: ['Administrator']
+		}
+	)
 
 	addLinksWithPriority(
 		DASHBOARD_MENU,

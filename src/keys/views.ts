@@ -1,6 +1,7 @@
 ﻿import type { InjectionKey } from '@/react-utils';
 import { ReactNode } from 'react';
 
+// region Account
 export const DASHBOARD_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const LOGIN_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const REGISTER_VIEW = Symbol() as InjectionKey<ReactNode>;
@@ -21,3 +22,11 @@ export const PERSONAL_DATA_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const DELETE_ACCOUNT_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const DELETED_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const UNAUTHORIZED_VIEW = Symbol() as InjectionKey<ReactNode>
+
+// endregion
+
+// region Lockout reasons
+
+export const LOCKOUT_REASONS_UPSERT_VIEW = Symbol() as InjectionKey<ReactNode>;
+
+// endregion

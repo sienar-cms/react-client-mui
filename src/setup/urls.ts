@@ -5,7 +5,7 @@ export default function() {
 	provide(SIENAR_URLS.HOME_ROUTE, '/', false);
 	provide(SIENAR_URLS.DASHBOARD_ROUTE, '/dashboard', false);
 
-// Account
+	// region Account
 
 	provide(SIENAR_URLS.REGISTER_ROUTE, '/dashboard/account/register', false);
 	provide(SIENAR_URLS.REGISTER_SUCCESSFUL_ROUTE, '/dashboard/account/register/successful', false);
@@ -26,4 +26,13 @@ export default function() {
 	provide(SIENAR_URLS.DOWNLOAD_PERSONAL_DATA_ROUTE, '/api/account/personal-data', false);
 	provide(SIENAR_URLS.DELETE_ACCOUNT_ROUTE, '/dashboard/account/delete', false);
 	provide(SIENAR_URLS.DELETED_ROUTE, '/dashboard/account/deleted', false);
+
+	// endregion
+
+	// region Lockout reasons
+
+	provide(SIENAR_URLS.LOCKOUT_REASONS_ROUTE, '/dashboard/lockout-reasons', false);
+	provide(SIENAR_URLS.LOCKOUT_REASONS_ADD_ROUTE, '/dashboard/lockout-reasons/add', false);
+
+	// endregion
 }

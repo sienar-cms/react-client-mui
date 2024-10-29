@@ -1,5 +1,7 @@
 ﻿import type { InjectionKey } from '@/react-utils';
 
+// region Account
+
 export const HOME_ROUTE = Symbol() as InjectionKey<string>;
 export const DASHBOARD_ROUTE = Symbol() as InjectionKey<string>;
 export const LOGIN_ROUTE = Symbol() as InjectionKey<string>;
@@ -22,3 +24,12 @@ export const DOWNLOAD_PERSONAL_DATA_ROUTE = Symbol() as InjectionKey<string>;
 export const DELETE_ACCOUNT_ROUTE = Symbol() as InjectionKey<string>;
 export const DELETED_ROUTE = Symbol() as InjectionKey<string>;
 export const UNAUTHORIZED_ROUTE = Symbol() as InjectionKey<string>
+
+// endregion
+
+// region Lockout reasons
+
+export const LOCKOUT_REASONS_ROUTE = Symbol() as InjectionKey<string>;
+export const LOCKOUT_REASONS_ADD_ROUTE = Symbol() as InjectionKey<string>;
+
+// endregion
