@@ -8,6 +8,7 @@ export * from './providers';
 export * from './rendering';
 export * from './router';
 export * from './infrastructure';
+export * from './services';
 export * from './stores';
 export * from './urls';
 export * from './utils';

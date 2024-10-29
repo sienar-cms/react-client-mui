@@ -16,6 +16,27 @@ export function createApiCall(
 	}
 }
 
+export function appendSearchParams(baseUrl: string, query: object|undefined|null) {
+	if (!query) return baseUrl;
+
+	const params = new URLSearchParams();
+
+	for (let [k, v] of Object.entries(query)) {
+		if (v && Array.isArray(v)) {
+			for (let item of v) {
+				params.append(k, item);
+			}
+		} else {
+			params.append(k, v);
+		}
+	}
+
+	const queryString = params.toString();
+	return !!queryString
+		? `${baseUrl}?${queryString}`
+		: baseUrl;
+}
+
 export type ApiCallerOptions = {
 	body?: BodyInit
 	requestOptions?: Omit<RequestInit, 'method'|'body'>
