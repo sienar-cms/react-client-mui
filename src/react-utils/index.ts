@@ -14,5 +14,6 @@ export * from './urls';
 export * from './utils';
 export * from './validation';
 import * as internalValidators from './validators';
+export type { FormValueValidator } from './validators';
 export const validators = internalValidators;
 export { default as setup } from './setup';
