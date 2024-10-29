@@ -91,6 +91,34 @@ export class ApiCrudService<T> implements CrudService<T> {
 	}
 }
 
+/**
+ * A service that accepts input and returns output
+ *
+ * @param input The function input
+ * @returns The result of the operation, or <code>null</code> if the operation failed
+ */
+export interface Service<TRequest, TResult> {
+	(input: TRequest): Promise<TResult|null>
+}
+
+/**
+ * A service that accepts input and returns a <code>boolean</code> indicating the success status of the operation
+ *
+ * @param input The function input
+ */
+export interface StatusService<TRequest> {
+	(input: TRequest): Promise<boolean>
+}
+
+/**
+ * A service that accepts no input and returns the output of an operation
+ *
+ * @returns The result of the operation, or <code>null</code> if the operation failed
+ */
+export interface ResultService<TResult> {
+	(): Promise<TResult|null>
+}
+
 export type PagedQuery<T> = {
 	items: T[]
 	totalCount: number
