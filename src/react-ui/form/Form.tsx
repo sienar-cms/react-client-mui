@@ -4,41 +4,30 @@ import { formValidationContext, inject, API_CALLER } from '@/react-utils';
 import { useContext, useEffect, useId, useRef } from 'react';
 import { Box, Button } from '@mui/material';
 
-import type { MouseEvent, PropsWithChildren, ReactNode, FormEvent } from 'react';
-import type { Color } from '@/react-ui/theme';
+import type { MouseEvent, FormEvent } from 'react';
+import type { FormProps as BaseFormProps } from './shared';
 
-export type FormProps<T> = PropsWithChildren & {
-	color?: Color
-	headerBackgroundColor?: string
-	headerTextColor?: string
-	title: string
-	onSubmit?: (formValues: Record<string, any>) => boolean
-	onReset?: () => Promise<void> | void
-	onSuccess?: (result: T) => any
+export type FormProps<T> = BaseFormProps<T> & {
 	method: HttpMethod
 	action: string
-	submitText?: string
-	resetText?: string
-	showReset?: boolean
-	hideControls?: boolean
-	information?: ReactNode
-	additionalActions?: ReactNode
-	variant?: 'elevation'|'outlined'
-	elevation?: number
 	immediate?: boolean
 }
 
 export default function Form<T>(props: FormProps<T>) {
 	const {
+		title,
+		titleTypography,
+		titleComponent,
+		subtitle,
+		subtitleTypography,
+		subtitleComponent,
+		headerIcon,
 		color,
 		headerBackgroundColor,
 		headerTextColor,
-		title,
+		variant,
+		elevation,
 		onSubmit,
-		onReset,
-		onSuccess,
-		method,
-		action,
 		submitText = 'Submit',
 		resetText = 'Reset',
 		showReset = false,
@@ -46,8 +35,10 @@ export default function Form<T>(props: FormProps<T>) {
 		information,
 		additionalActions,
 		children,
-		variant,
-		elevation,
+		onReset,
+		onSuccess,
+		method,
+		action,
 		immediate
 	} = props;
 
@@ -153,6 +144,12 @@ export default function Form<T>(props: FormProps<T>) {
 		<formValidationContext.Provider value={formContext}>
 			<Card
 				title={title}
+				titleTypography={titleTypography}
+				titleComponent={titleComponent}
+				subtitle={subtitle}
+				subtitleTypography={subtitleTypography}
+				subtitleComponent={subtitleComponent}
+				headerIcon={headerIcon}
 				actions={actions}
 				color={color}
 				headerBackgroundColor={headerBackgroundColor}

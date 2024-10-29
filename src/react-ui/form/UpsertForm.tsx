@@ -1,41 +1,32 @@
 ﻿import Card from '@/react-ui/Card';
 import { formValidationContext  } from '@/react-utils';
 import { useContext, useEffect, useId, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 
-import type { PropsWithChildren, ReactNode, FormEvent } from 'react';
+import type { FormEvent } from 'react';
 import type { ICrudService } from '@/react-utils';
-import type { Color } from '@/react-ui/theme';
-import { useParams } from 'react-router-dom';
+import type { FormProps } from './shared';
 
-export type UpsertFormProps<T> = PropsWithChildren & {
-	id?: string
+export type UpsertFormProps<T> = FormProps<T> & {
 	service: ICrudService<T>
-	color?: Color
-	headerBackgroundColor?: string
-	headerTextColor?: string
-	title: string
-	onSubmit?: (formValues: Record<string, any>) => boolean
-	onReset?: () => Promise<void> | void
-	onSuccess?: (result: T) => any
-	submitText?: string
-	resetText?: string
-	showReset?: boolean
-	hideControls?: boolean
-	information?: ReactNode
-	additionalActions?: ReactNode
-	variant?: 'elevation'|'outlined'
-	elevation?: number
-	immediate?: boolean
 }
 
 export default function UpsertForm<T>(props: UpsertFormProps<T>) {
 	const {
-		service,
+		title,
+		titleTypography,
+		titleComponent,
+		subtitle,
+		subtitleTypography,
+		subtitleComponent,
+		headerIcon,
 		color,
 		headerBackgroundColor,
 		headerTextColor,
-		title,
+		variant,
+		elevation,
+		service,
 		onSubmit,
 		submitText = 'Submit',
 		resetText = 'Reset',
@@ -43,10 +34,7 @@ export default function UpsertForm<T>(props: UpsertFormProps<T>) {
 		hideControls = false,
 		information,
 		additionalActions,
-		children,
-		variant,
-		elevation,
-		immediate
+		children
 	} = props;
 
 	const params = useParams();
@@ -77,15 +65,7 @@ export default function UpsertForm<T>(props: UpsertFormProps<T>) {
 		}
 	};
 
-	useEffect(() => {
-		if (immediate) submitButtonRef.current!.click();
-	}, []);
-
-	// This effect does nothing on load, but when the component unmounts,
-	// it resets hasInteracted. Without this, revisiting a submitted form
-	// may cause validation to run on load, because
-	// a) React caches components for reuse
-	// b) the existing formContext.hasInteracted will therefore be true
+	// Reset hasInteracted so cached components load fresh
 	useEffect(() => {
 		return () => {
 			formContext.hasInteracted = false;
@@ -162,6 +142,12 @@ export default function UpsertForm<T>(props: UpsertFormProps<T>) {
 		<formValidationContext.Provider value={formContext}>
 			<Card
 				title={title}
+				titleTypography={titleTypography}
+				titleComponent={titleComponent}
+				subtitle={subtitle}
+				subtitleTypography={subtitleTypography}
+				subtitleComponent={subtitleComponent}
+				headerIcon={headerIcon}
 				actions={actions}
 				color={color}
 				headerBackgroundColor={headerBackgroundColor}
