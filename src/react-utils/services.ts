@@ -7,7 +7,7 @@ export type CrudServiceApiCallerOptions = Omit<ApiCallerOptions, 'body'>;
 /**
  * Represents a set of data operations that can be performed against an arbitrary data store
  */
-export interface ICrudService<T> {
+export interface CrudService<T> {
 	/**
 	 * Creates a new entry in a data store using the given form data
 	 *
@@ -50,7 +50,7 @@ export interface ICrudService<T> {
 	delete(id: string, options?: CrudServiceApiCallerOptions): Promise<boolean>
 }
 
-export class ApiCrudService<T> implements ICrudService<T> {
+export class ApiCrudService<T> implements CrudService<T> {
 	private readonly endpoint: string;
 
 	constructor(endpoint: string) {
