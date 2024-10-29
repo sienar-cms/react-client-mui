@@ -1,10 +1,9 @@
-﻿import { useId, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { TextField } from '@mui/material';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 import ValidationList from './ValidationList';
 
 import type { FormInputProps } from './shared';
-import type { ChangeEvent } from 'react';
 
 export type TextInputProps<T extends string | number> = FormInputProps<T> & {
 	type?: 'text' | 'password' | 'email' | 'number'
@@ -16,7 +15,6 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	const {
 		name,
 		displayName,
-		value,
 		hideNonErrors,
 		hideValidationIfValid = true,
 		allValidMessage,
@@ -29,16 +27,16 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	} = props;
 
 	const isNumeric = type === 'number';
-	const id = useId();
-	const defaultValue = (isNumeric ? 0 : '') as T;
-	const currentValue = useRef(value || defaultValue);
+	const currentValue = useRef<T>('' as T);
+	const fieldRef = useRef<HTMLInputElement|HTMLTextAreaElement>(null);
 	const rerender = useRerender();
 	const [validations, interact] = useFormFieldValidation(name, displayName, currentValue, validators);
 
-	const handleChange = async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = async (e: Event) => {
+		const target = e.target as HTMLInputElement|HTMLTextAreaElement;
 		const newValue = (isNumeric
-			? parseFloat(e.target.value)
-			: e.target.value) as T;
+			? parseFloat(target.value)
+			: target.value) as T;
 		if (currentValue.current !== newValue) {
 			currentValue.current = newValue;
 			interact();
@@ -47,14 +45,17 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		}
 	}
 
+	useEffect(() => {
+		fieldRef.current!.addEventListener('input', handleChange);
+		return () => fieldRef.current!.removeEventListener('input', handleChange);
+	});
+
 	return (
 		<>
 			<TextField
-				id={id}
+				inputRef={fieldRef}
 				name={name}
 				label={children ?? displayName}
-				value={currentValue.current}
-				onChange={handleChange}
 				type={type}
 				error={validations.filter(v => !v.valid).length > 0}
 				margin={margin}
