@@ -46,8 +46,9 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	}
 
 	useEffect(() => {
-		fieldRef.current!.addEventListener('input', handleChange);
-		return () => fieldRef.current!.removeEventListener('input', handleChange);
+		const ref = fieldRef.current!;
+		ref.addEventListener('input', handleChange);
+		return () => ref.removeEventListener('input', handleChange);
 	});
 
 	return (
