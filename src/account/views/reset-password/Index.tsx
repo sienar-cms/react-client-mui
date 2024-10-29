@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { Narrow, Form } from '@/react-ui';
 import { validators, useNavigate } from '@/react-utils';
-import { RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@/keys/routes';
+import { RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@account/keys';
 
 export default function Index() {
 	const navigate = useNavigate();

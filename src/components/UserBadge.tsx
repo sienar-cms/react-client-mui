@@ -3,7 +3,7 @@ import { Avatar, Box, Divider, IconButton, ListItemIcon, ListItemText, Menu, Men
 import { Link } from 'react-router-dom';
 import { Logout, Settings } from '@mui/icons-material';
 import { aggregateLinks, createApiCall, filterLinks, loadUserData, useAuthDispatch, useIsLoggedInSelector, useRolesSelector, useUsernameSelector } from '@/react-utils';
-import { USER_SETTINGS_MENU } from '@/keys';
+import { USER_SETTINGS_MENU } from '@account/keys';
 
 import type { ReactNode } from 'react';
 import type { InjectionKey, MenuLink, MenuLinkProvider } from '@/react-utils';

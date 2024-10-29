@@ -2,7 +2,8 @@
 import { Link } from 'react-router-dom';
 import { Form, Narrow } from '@/react-ui';
 import { inject, useNavigate, validators, useAuthDispatch, loadUserData } from '@/react-utils';
-import { DASHBOARD_ROUTE, FORGOT_PASSWORD_ROUTE } from '@/keys';
+import { DASHBOARD_ROUTE } from '@/keys';
+import { FORGOT_PASSWORD_ROUTE } from '@account/keys';
 
 export default function Login() {
 	const navigate = useNavigate();

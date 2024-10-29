@@ -1,7 +1,7 @@
 ﻿import { Card, Narrow } from '@/react-ui';
 import { Button, Typography } from '@mui/material';
 import { inject } from '@/react-utils';
-import { DOWNLOAD_PERSONAL_DATA_ROUTE } from '@/keys';
+import { DOWNLOAD_PERSONAL_DATA_ROUTE } from '@account/keys';
 
 export default function PersonalData() {
 	return (

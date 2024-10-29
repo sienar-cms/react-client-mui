@@ -1,6 +1,6 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { inject, useNavigate, validators } from '@/react-utils';
-import { CHANGE_EMAIL_REQUESTED_ROUTE } from '@/keys';
+import { CHANGE_EMAIL_REQUESTED_ROUTE } from '@account/keys';
 
 export default function Index() {
 	const navigate = useNavigate();

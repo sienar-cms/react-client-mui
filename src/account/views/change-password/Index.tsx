@@ -1,6 +1,6 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { inject, useNavigate, validators } from '@/react-utils';
-import { CHANGE_PASSWORD_SUCCESSFUL_ROUTE } from '@/keys';
+import { CHANGE_PASSWORD_SUCCESSFUL_ROUTE } from '@account//keys';
 
 export default function Index() {
 	const navigate = useNavigate();

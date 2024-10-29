@@ -1,7 +1,7 @@
 import { Pages } from '@/react-ui';
 import { inject } from '@/react-utils';
 import { Link } from 'react-router-dom';
-import { LOGIN_ROUTE } from '@/keys/routes';
+import { LOGIN_ROUTE } from '@account/keys';
 
 export default function Successful() {
 	return (

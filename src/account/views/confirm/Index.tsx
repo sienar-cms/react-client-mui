@@ -1,7 +1,7 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { useNavigate } from '@/react-utils';
 import { useSearchParams } from 'react-router-dom';
-import { CONFIRM_SUCCESSFUL_ROUTE } from '@/keys/routes';
+import { CONFIRM_SUCCESSFUL_ROUTE } from '@account/keys';
 
 export default function Index() {
 	const navigate = useNavigate();

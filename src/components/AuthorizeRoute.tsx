@@ -1,7 +1,8 @@
 ﻿import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthorized, useIsLoggedInSelector, inject } from '@/react-utils';
-import { DASHBOARD_ROUTE, LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@/keys/routes';
+import { DASHBOARD_ROUTE } from '@/keys';
+import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@/account/keys';
 import type { AuthorizeContentProps } from '../react-ui/authorize/Content.tsx';
 import type { PropsWithChildren, ReactNode } from 'react';
 

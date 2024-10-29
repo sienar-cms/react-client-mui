@@ -1,7 +1,7 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { Typography } from '@mui/material';
 import { logout, useAuthDispatch, useNavigate, validators } from '@/react-utils';
-import { DELETED_ROUTE } from '@/keys';
+import { DELETED_ROUTE } from '@account/keys';
 
 export default function Delete() {
 	const dispatch = useAuthDispatch();

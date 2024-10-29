@@ -8,7 +8,9 @@ export default defineConfig({
 	plugins: [react()],
 	resolve: {
 		alias: {
-			'@': resolve(__dirname, './src')
+			'@': resolve(__dirname, './src'),
+			'@account': resolve(__dirname, './src/account'),
+			'@lockoutReasons': resolve(__dirname, './src/lockout-reasons')
 		}
 	},
 	server: {

@@ -23,7 +23,9 @@
 		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"]
+			"@/*": ["src/*"],
+			"@account/*": ["src/account/*"],
+			"@lockoutReasons/*": ["src/lockout-reasons/*"]
 		}
 	},
 	"include": [
