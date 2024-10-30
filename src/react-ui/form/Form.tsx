@@ -69,6 +69,7 @@ export default function Form<T>(props: FormProps<T>) {
 	const isCreating = !!(upsert && !id);
 	const formRef = useRef<HTMLFormElement>(null);
 	const submitButtonRef = useRef<HTMLButtonElement>(null);
+	const resetButtonRef = useRef<HTMLButtonElement>(null);
 	const formContext = useContext(formValidationContext);
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -116,7 +117,7 @@ export default function Form<T>(props: FormProps<T>) {
 		if (!result) return;
 
 		if ((upsert && isCreating) || !upsert) {
-			formRef.current!.reset();
+			resetButtonRef.current!.click();
 		}
 
 		onSuccess?.(result);
@@ -184,17 +185,19 @@ export default function Form<T>(props: FormProps<T>) {
 				{generateSubmitText(props, isCreating)}
 			</Button>
 
-			{showReset && (
-				<Button
-					onClick={handleReset}
-					color='secondary'
-					type='reset'
-					variant='outlined'
-				>
-					{resetText}
-				</Button>
-			)}
-			{additionalActions}
+			<Button
+				form={formId}
+				ref={resetButtonRef}
+				color='secondary'
+				type='reset'
+				variant='outlined'
+				sx={{
+					display: showReset ? undefined : 'none'
+				}}
+			>
+				{resetText}
+			</Button>
+		{additionalActions}
 		</Box>
 	);
 
@@ -221,6 +224,7 @@ export default function Form<T>(props: FormProps<T>) {
 					id={formId}
 					ref={formRef}
 					onSubmit={handleSubmit}
+					onReset={handleReset}
 				>
 					{children}
 				</form>
