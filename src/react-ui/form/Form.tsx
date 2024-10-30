@@ -198,7 +198,7 @@ export default function Form<T>(props: FormProps<T>) {
 			>
 				{resetText}
 			</Button>
-		{additionalActions}
+			{additionalActions}
 		</Box>
 	);
 
