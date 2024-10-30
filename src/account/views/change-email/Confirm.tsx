@@ -11,7 +11,7 @@ export default function Index() {
 
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				serviceKey={CHANGE_EMAIL_CONFIRM_SERVICE}
 				title='Confirming new email'
 				onSuccess={(successful: boolean) => {
@@ -29,7 +29,7 @@ export default function Index() {
 					type='hidden'
 					value={ code ?? '' }
 					name='verificationCode'/>
-			</Form.Form>
+			</Form>
 		</Narrow>
 	)
 }

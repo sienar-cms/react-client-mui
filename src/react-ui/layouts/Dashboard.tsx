@@ -3,7 +3,7 @@ import {AppBar, Box, CssBaseline, Drawer, IconButton, Toolbar, Typography} from 
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-import SienarDrawer from '@/react-ui/drawer';
+import DrawerContent from '@/react-ui/drawer/DrawerContent';
 import { useAppbarTextSelector, useAuthInitialization } from '@/react-utils';
 
 export default function Layout() {
@@ -16,7 +16,7 @@ export default function Layout() {
 		setOpen(false)
 	}, [location]);
 
-	const drawerContent = <SienarDrawer.Content/>;
+	const drawerContent = <DrawerContent/>;
 
 	const drawerWidth = '20%';
 	const drawerMinWidth = '200px';

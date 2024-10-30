@@ -1,6 +1,6 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { Narrow, Form } from '@/react-ui';
+import { Narrow, Form, Textbox } from '@/react-ui';
 import { validators, useNavigate } from '@/react-utils';
 import { RESET_PASSWORD_SERVICE, RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@account/keys';
 
@@ -12,7 +12,7 @@ export default function Index() {
 
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				title='Reset password'
 				serviceKey={RESET_PASSWORD_SERVICE}
 				submitText='Reset password'
@@ -35,7 +35,7 @@ export default function Index() {
 					name='verificationCode'
 					value={code!}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='newPassword'
 					displayName='New password'
 					type='password'
@@ -48,7 +48,7 @@ export default function Index() {
 						validators.containsSpecialCharacter()
 					]}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='confirmNewPassword'
 					displayName='Confirm new password'
 					type='password'
@@ -56,7 +56,7 @@ export default function Index() {
 						validators.matches('New password')
 					]}
 				/>
-			</Form.Form>
+			</Form>
 		</Narrow>
 	);
 }

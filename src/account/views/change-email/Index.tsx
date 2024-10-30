@@ -1,4 +1,4 @@
-﻿import { Form, Narrow } from '@/react-ui';
+﻿import { Form, Narrow, Textbox } from '@/react-ui';
 import { inject, useNavigate, validators } from '@/react-utils';
 import { CHANGE_EMAIL_REQUESTED_ROUTE, CHANGE_EMAIL_SERVICE } from '@account/keys';
 
@@ -7,7 +7,7 @@ export default function Index() {
 
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				serviceKey={CHANGE_EMAIL_SERVICE}
 				title='Change email'
 				submitText='Change email'
@@ -15,7 +15,7 @@ export default function Index() {
 					if (successful) navigate(inject(CHANGE_EMAIL_REQUESTED_ROUTE));
 				}}
 			>
-				<Form.Textbox
+				<Textbox
 					name='email'
 					displayName='New email address'
 					validators={[
@@ -23,20 +23,20 @@ export default function Index() {
 						validators.isEmail()
 					]}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='confirmEmail'
 					displayName='Confirm new email address'
 					validators={[
 						validators.matches('New email address')
 					]}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='confirmPassword'
 					displayName='Confirm your password'
 					type='password'
 					validators={[validators.required()]}
 				/>
-			</Form.Form>
+			</Form>
 		</Narrow>
 	)
 }

@@ -5,7 +5,7 @@ import { API_CALLER, inject } from '@/react-utils';
 import type { FormEvent, PropsWithChildren, ReactNode } from 'react';
 import type { ButtonPropsColorOverrides, ButtonTypeMap, IconButtonTypeMap, SxProps, Theme } from '@mui/material';
 import type { HttpMethod } from '@/react-utils';
-import type { ExtensibleColor } from '@/react-ui/theme';
+import type { ExtensibleColor } from '@/react-ui/theme.ts';
 
 export type ActionButtonProps = PropsWithChildren & {
 	onSuccess?: (successful: boolean) => any

@@ -1,5 +1,5 @@
 ﻿import { Typography } from '@mui/material';
-import { Narrow, Form } from '@/react-ui';
+import { Narrow, Form, Textbox } from '@/react-ui';
 import { validators, useNavigate } from '@/react-utils';
 import { FORGOT_PASSWORD_SERVICE, FORGOT_PASSWORD_SUCCESSFUL_ROUTE} from '@account/keys';
 
@@ -8,7 +8,7 @@ export default function Index() {
 
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				serviceKey={FORGOT_PASSWORD_SERVICE}
 				title='Forgot password'
 				submitText='Request password reset'
@@ -21,15 +21,15 @@ export default function Index() {
 					if (successful) navigate(FORGOT_PASSWORD_SUCCESSFUL_ROUTE);
 				}}
 			>
-				<Form.Textbox
+				<Textbox
 					name='accountName'
 					displayName='Username or email address'
 					validators={[validators.required()]}
 					hideNonErrors
 				>
 					Username or email address
-				</Form.Textbox>
-			</Form.Form>
+				</Textbox>
+			</Form>
 		</Narrow>
 	);
 }

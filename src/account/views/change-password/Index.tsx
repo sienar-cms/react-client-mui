@@ -1,4 +1,4 @@
-﻿import { Form, Narrow } from '@/react-ui';
+﻿import { Form, Narrow, Textbox } from '@/react-ui';
 import { inject, useNavigate, validators } from '@/react-utils';
 import { CHANGE_PASSWORD_SUCCESSFUL_ROUTE, CHANGE_PASSWORD_SERVICE } from '@account//keys';
 
@@ -7,7 +7,7 @@ export default function Index() {
 
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				serviceKey={CHANGE_PASSWORD_SERVICE}
 				title='Change password'
 				submitText='Change password'
@@ -15,7 +15,7 @@ export default function Index() {
 					if (successful) navigate(inject(CHANGE_PASSWORD_SUCCESSFUL_ROUTE));
 				}}
 			>
-				<Form.Textbox
+				<Textbox
 					name='newPassword'
 					displayName='New password'
 					type='password'
@@ -28,19 +28,19 @@ export default function Index() {
 						validators.containsSpecialCharacter()
 					]}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='confirmNewPassword'
 					displayName='Confirm new password'
 					type='password'
 					validators={[validators.matches('New password')]}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='currentPassword'
 					displayName='Current password'
 					type='password'
 					validators={[validators.required()]}
 				/>
-			</Form.Form>
+			</Form>
 		</Narrow>
 	);
 }

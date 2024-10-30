@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthorized, useIsLoggedInSelector, inject } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
 import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@/account/keys';
-import type { AuthorizeContentProps } from '../react-ui/authorize/Content.tsx';
+import type { AuthorizeContentProps } from '@/react-ui';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 export type AuthorizeRouteProps = Pick<AuthorizeContentProps, 'any'|'roles'> & {

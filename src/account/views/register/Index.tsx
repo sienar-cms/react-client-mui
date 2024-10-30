@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react';
-import { Form, Narrow } from '@/react-ui';
+import { Form, Narrow, Textbox, Checkbox } from '@/react-ui';
 import { validators, useNavigate } from '@/react-utils';
 import { REGISTER_SERVICE, REGISTER_SUCCESSFUL_ROUTE } from '@account/keys';
 
@@ -10,7 +10,7 @@ export default function Index() {
 
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				title='Register'
 				serviceKey={REGISTER_SERVICE}
 				onSuccess={(result: boolean) => {
@@ -25,7 +25,7 @@ export default function Index() {
 					}
 				}}
 			>
-				<Form.Textbox
+				<Textbox
 					name='username'
 					displayName='Username'
 					value={username}
@@ -36,7 +36,7 @@ export default function Index() {
 						validators.maxLength(32)
 					]}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='email'
 					displayName='Email address'
 					type='email'
@@ -47,7 +47,7 @@ export default function Index() {
 						validators.isEmail()
 					]}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='password'
 					displayName='Password'
 					type='password'
@@ -60,7 +60,7 @@ export default function Index() {
 						validators.containsSpecialCharacter()
 					]}
 				/>
-				<Form.Textbox
+				<Textbox
 					name='confirmPassword'
 					displayName='Confirm password'
 					type='password'
@@ -68,7 +68,7 @@ export default function Index() {
 						validators.matches('Password')
 					]}
 				/>
-				<Form.Checkbox
+				<Checkbox
 					name='acceptTos'
 					displayName='Accept TOS'
 					validators={[
@@ -76,7 +76,7 @@ export default function Index() {
 					]}
 					hideNonErrors
 				/>
-			</Form.Form>
+			</Form>
 		</Narrow>
 	);
 }

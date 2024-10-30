@@ -4,7 +4,7 @@ import DashboardMenuItem from './MenuLink';
 import DashboardMenuGroup from './MenuGroup';
 import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
 
-export default function Content() {
+export default function DrawerContent() {
 	const activeMenu = useActiveMenuSelector();
 	const isLoggedIn = useIsLoggedInSelector();
 	const roles = useRolesSelector();

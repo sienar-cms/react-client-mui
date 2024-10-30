@@ -24,7 +24,7 @@ export type AuthorizeContentProps = {
 /**
  * Renders content if the user meets the provided authorization criteria. If the user does not, fallback content can be specified.
  */
-export default function Content(props: PropsWithChildren<AuthorizeContentProps>) {
+export default function AuthorizeContent(props: PropsWithChildren<AuthorizeContentProps>) {
 	const { roles, any = false, unauthorized, children } = props;
 	const isAuthorized = useAuthorized(roles, any);
 	return isAuthorized ? <>{children}</> : <>{unauthorized}</>;

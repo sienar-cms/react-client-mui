@@ -4,7 +4,7 @@ import { Dashboard, Home } from '@mui/icons-material';
 import * as KEYS from '@/keys';
 import DrawerFooter from '@/partials/DrawerFooter';
 import { DASHBOARD_LAYOUT } from '@/keys';
-import { Layouts } from '@/react-ui';
+import { Dashboard as DashboardLayout } from '@/react-ui';
 import DashboardView from '@/views/Dashboard';
 import { accountSetup } from '@account/index';
 import { lockoutReasonsSetup } from '@lockoutReasons/index';
@@ -44,7 +44,7 @@ export default function setup() {
 	);
 
 	// Views
-	provide(DASHBOARD_LAYOUT, Layouts.Dashboard, false);
+	provide(DASHBOARD_LAYOUT, <DashboardLayout/>, false);
 
 	registerRoutes(
 		DASHBOARD_LAYOUT,

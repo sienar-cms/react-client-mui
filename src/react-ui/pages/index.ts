@@ -1,5 +1,2 @@
-﻿import StatusPage from './StatusPage';
-
-export default {
-	StatusPage
-}
+﻿export type * from './StatusPage';
+export { default as StatusPage } from './StatusPage';

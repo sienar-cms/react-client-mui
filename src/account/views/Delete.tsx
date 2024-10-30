@@ -1,4 +1,4 @@
-﻿import { Form, Narrow } from '@/react-ui';
+﻿import { Form, Narrow, Textbox } from '@/react-ui';
 import { Typography } from '@mui/material';
 import { logout, useAuthDispatch, useNavigate, validators } from '@/react-utils';
 import { DELETE_ACCOUNT_SERVICE, DELETED_ROUTE } from '@account/keys';
@@ -9,7 +9,7 @@ export default function Delete() {
 
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				serviceKey={DELETE_ACCOUNT_SERVICE}
 				title='Delete account'
 				color='error'
@@ -27,14 +27,14 @@ export default function Delete() {
 					}
 				}}
 			>
-				<Form.Textbox
+				<Textbox
 					name='password'
 					displayName='Password'
 					type='password'
 					validators={[validators.required()]}
 					hideNonErrors
 				/>
-			</Form.Form>
+			</Form>
 		</Narrow>
 	);
 }

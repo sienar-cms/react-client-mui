@@ -1,6 +1,6 @@
 ﻿import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Form, Narrow } from '@/react-ui';
+import { Checkbox, Form, Narrow, Textbox } from '@/react-ui';
 import { inject, useNavigate, validators, useAuthDispatch, loadUserData } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
 import { FORGOT_PASSWORD_ROUTE, LOGIN_SERVICE } from '@account/keys';
@@ -11,7 +11,7 @@ export default function Login() {
 
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				serviceKey={LOGIN_SERVICE}
 				title='Log in'
 				submitText='Log in'
@@ -33,23 +33,23 @@ export default function Login() {
 					</Button>
 				)}
 			>
-				<Form.Textbox
+				<Textbox
 					name='accountName'
 					displayName='Username or email address'
 					validators={[validators.required()]}
 					hideNonErrors
 				/>
-				<Form.Textbox
+				<Textbox
 					name='password'
 					displayName='Password'
 					type='password'
 					validators={[validators.required()]}
 					hideNonErrors
 				/>
-				<Form.Checkbox name='rememberMe'>
+				<Checkbox name='rememberMe'>
 					Remember me
-				</Form.Checkbox>
-			</Form.Form>
+				</Checkbox>
+			</Form>
 		</Narrow>
 	)
 }

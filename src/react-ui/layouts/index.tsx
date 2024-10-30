@@ -1,8 +1,1 @@
-﻿import Dashboard from './Dashboard';
-
-export default {
-	Dashboard: <Dashboard/>,
-	raw: {
-		Dashboard
-	}
-};
+﻿export { default as Dashboard } from './Dashboard';

@@ -1,11 +1,11 @@
-﻿import { Form, Narrow } from '@/react-ui';
+﻿import { Form, Narrow, Textbox } from '@/react-ui';
 import { validators } from '@/react-utils';
 import { LOCKOUT_REASONS_SERVICE } from '@/lockout-reasons/keys';
 
 export default function Upsert() {
 	return (
 		<Narrow>
-			<Form.Form
+			<Form
 				serviceKey={LOCKOUT_REASONS_SERVICE}
 				createTitle='Create lockout reason'
 				createSubmitText='Add reason'
@@ -13,12 +13,12 @@ export default function Upsert() {
 				updateSubmitText='Update reason'
 				upsert
 			>
-				<Form.Textbox
+				<Textbox
 					name='reason'
 					displayName='Reason'
 					validators={[validators.required()]}
 				/>
-			</Form.Form>
+			</Form>
 		</Narrow>
 	);
 }

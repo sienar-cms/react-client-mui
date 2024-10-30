@@ -1,13 +1,10 @@
-﻿import ValidationList from './ValidationList';
-import Form from './Form';
-import Textbox from './Textbox';
-import Checkbox from './Checkbox';
+﻿export type * from './ValidationList';
+export { default as ValidationList } from './ValidationList';
+export type * from './Form';
+export { default as Form } from './Form';
+export type * from './Textbox';
+export { default as Textbox } from './Textbox';
+export type * from './Checkbox';
+export { default as Checkbox } from './Checkbox';
 
-export * from './shared';
-
-export default {
-	ValidationList,
-	Form,
-	Textbox,
-	Checkbox
-}
+export type * from './shared';
