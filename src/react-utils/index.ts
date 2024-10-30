@@ -1,5 +1,6 @@
 ﻿export * from './auth';
 export * from './di';
+export type * from './entities';
 export * from './http';
 export * from './menus';
 export * from './notifications';
