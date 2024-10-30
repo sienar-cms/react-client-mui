@@ -148,24 +148,12 @@ export default function Form<T>(props: FormProps<T>) {
 			const initial = await service.read(id!);
 			if (!initial) return;
 
+			const elements = formRef.current!.elements as Record<string, any>;
+
 			for (let [k, v] of Object.entries(initial)) {
-				// No need to do anything to IDs
-				if (k === 'id') continue;
-
-				const elements = formRef.current!.elements as Record<string, any>;
-
-				// Let's be nice and handle concurrency stamps for the devs
-				if (k === 'concurrencyStamp') {
-					if (elements['concurrencyStamp']) {
-						elements['concurrencyStamp'].value = v as string;
-						continue;
-					}
-
-					const input = document.createElement('input');
-					input.setAttribute('type', 'hidden');
-					input.setAttribute('name', 'concurrencyStamp');
-					input.setAttribute('value', v as string);
-					formRef.current!.appendChild(input);
+				// Let's be nice and handle IDs and concurrency stamps for the devs
+				if (k === 'id' || k === 'concurrencyStamp') {
+					createOrUpdateHiddenElement(formRef.current!, k, v as string);
 					continue;
 				}
 
@@ -236,6 +224,25 @@ export default function Form<T>(props: FormProps<T>) {
 			</Card>
 		</formValidationContext.Provider>
 	);
+}
+
+function createOrUpdateHiddenElement(
+	form: HTMLFormElement,
+	name: string,
+	value: string
+): void {
+	const elements = form.elements as Record<string, any>;
+
+	if (elements[name]) {
+		elements[name].value = value;
+		return;
+	}
+
+	const input = document.createElement('input');
+	input.setAttribute('type', 'hidden');
+	input.setAttribute('name', name);
+	input.setAttribute('value', value);
+	form.appendChild(input);
 }
 
 function generateSubmitText(
