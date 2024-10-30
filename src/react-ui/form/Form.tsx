@@ -115,7 +115,10 @@ export default function Form<T>(props: FormProps<T>) {
 
 		if (!result) return;
 
-		formRef.current!.reset();
+		if ((upsert && isCreating) || !upsert) {
+			formRef.current!.reset();
+		}
+
 		onSuccess?.(result);
 	};
 
