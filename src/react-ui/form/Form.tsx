@@ -173,7 +173,8 @@ export default function Form<T>(props: FormProps<T>) {
 
 	const actions = (
 		<Box sx={{
-			display: hideControls ? 'none' : 'block'
+			display: hideControls ? 'none' : 'block',
+			'& .MuiButtonBase-root': { mr: 2 }
 		}}>
 			<Button
 				form={formId}

@@ -25,7 +25,6 @@ export default function Login() {
 					<Button
 						component={Link}
 						to={inject(FORGOT_PASSWORD_ROUTE)}
-						sx={{ ml: 2 }}
 						color='secondary'
 						variant='outlined'
 					>
