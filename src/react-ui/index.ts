@@ -1,5 +1,6 @@
 export { default as Authorize } from './authorize'
 export { default as Buttons } from './buttons';
+export type * from './Card';
 export { default as Card } from './Card';
 export { default as Drawer } from './drawer';
 export { default as Form } from './form';

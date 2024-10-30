@@ -1,30 +1,43 @@
 ﻿import Card from '@/react-ui/Card';
 import { formValidationContext, inject } from '@/react-utils';
-import { useContext, useEffect, useId, useRef } from 'react';
+import { type ReactNode, useContext, useEffect, useId, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 
 import type { FormEvent } from 'react';
 import type { CrudService, CrudServiceApiCallerOptions, InjectionKey, StatusService, ValidationResult } from '@/react-utils';
-import type { FormProps as BaseFormProps } from './shared';
+import type { CardProps } from '@/react-ui';
 
 export type UpsertFormProps<T> = {
-	upsert: true,
+	upsert: true
 	serviceKey: InjectionKey<CrudService<T>>
+	createTitle: string
+	createSubmitText?: string
+	updateTitle: string
+	updateSubmitText?: string
 }
 
 export type StatusFormProps = {
-	upsert?: false,
+	upsert?: false
 	serviceKey: InjectionKey<StatusService<FormData>>
+	title: string
+	submitText?: string
 }
 
-export type FormProps<T> = BaseFormProps<T> & {
+export type FormProps<T> = Omit<CardProps, 'actions'|'title'> & {
+	onSubmit?: (formValues: Record<string, any>) => boolean
+	onReset?: () => any
+	onSuccess?: (result: T) => any
+	resetText?: string
+	showReset?: boolean
+	hideControls?: boolean
+	information?: ReactNode
+	additionalActions?: ReactNode;
 	immediate?: boolean
 } & ( UpsertFormProps<T> | StatusFormProps);
 
 export default function Form<T>(props: FormProps<T>) {
 	const {
-		title,
 		titleTypography,
 		titleComponent,
 		subtitle,
@@ -37,7 +50,6 @@ export default function Form<T>(props: FormProps<T>) {
 		variant,
 		elevation,
 		onSubmit,
-		submitText = 'Submit',
 		resetText = 'Reset',
 		showReset = false,
 		hideControls = false,
@@ -54,7 +66,7 @@ export default function Form<T>(props: FormProps<T>) {
 	const formId = useId();
 	const params = useParams();
 	const id = params['id'];
-	const isCreating = upsert && !id;
+	const isCreating = !!(upsert && !id);
 	const formRef = useRef<HTMLFormElement>(null);
 	const submitButtonRef = useRef<HTMLButtonElement>(null);
 	const formContext = useContext(formValidationContext);
@@ -178,7 +190,7 @@ export default function Form<T>(props: FormProps<T>) {
 				type='submit'
 				variant='contained'
 			>
-				{submitText}
+				{generateSubmitText(props, isCreating)}
 			</Button>
 
 			{showReset && (
@@ -198,7 +210,7 @@ export default function Form<T>(props: FormProps<T>) {
 	return (
 		<formValidationContext.Provider value={formContext}>
 			<Card
-				title={title}
+				title={generateCardTitle(props, isCreating)}
 				titleTypography={titleTypography}
 				titleComponent={titleComponent}
 				subtitle={subtitle}
@@ -224,4 +236,32 @@ export default function Form<T>(props: FormProps<T>) {
 			</Card>
 		</formValidationContext.Provider>
 	);
+}
+
+function generateSubmitText(
+	props: UpsertFormProps<unknown>|StatusFormProps,
+	isCreating: boolean
+): string {
+	const defaultText = 'Submit';
+
+	if (props.upsert) {
+		return isCreating
+			? props.createSubmitText ?? defaultText
+			: props.updateSubmitText ?? defaultText;
+	}
+
+	return props.submitText ?? defaultText;
+}
+
+function generateCardTitle(
+	props: UpsertFormProps<unknown>|StatusFormProps,
+	isCreating: boolean
+): string {
+	if (props.upsert) {
+		return isCreating
+			? props.createTitle
+			: props.updateTitle;
+	}
+
+	return props.title;
 }

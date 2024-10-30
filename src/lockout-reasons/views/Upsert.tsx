@@ -7,8 +7,10 @@ export default function Upsert() {
 		<Narrow>
 			<Form.Form
 				serviceKey={LOCKOUT_REASONS_SERVICE}
-				title='Create lockout reason'
-				submitText='Add reason'
+				createTitle='Create lockout reason'
+				createSubmitText='Add reason'
+				updateTitle='Update lockout reason'
+				updateSubmitText='Update reason'
 				upsert
 			>
 				<Form.Textbox
