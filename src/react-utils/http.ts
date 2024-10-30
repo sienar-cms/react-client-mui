@@ -1,5 +1,6 @@
-import type { Notification } from '@/react-utils/notifications.ts';
-import { inject, InjectionKey } from '@/react-utils/di.ts';
+import { inject } from '@/react-utils/di.ts';
+import type { Notification } from '@/react-utils/notifications.tsx';
+import type { InjectionKey } from '@/react-utils/di.ts';
 
 export const API_CALLER = Symbol() as InjectionKey<ApiCaller>
 

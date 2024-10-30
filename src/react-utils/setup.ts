@@ -1,6 +1,6 @@
 ﻿import { provide } from '@/react-utils/di.ts';
 import { API_CALLER } from '@/react-utils/http.ts';
-import { sendRequest } from '@/react-utils/utils';
+import { sendRequest } from '@/react-utils/utils.ts';
 import { registerProvider } from '@/react-utils/providers.tsx';
 import { StrictMode } from 'react';
 

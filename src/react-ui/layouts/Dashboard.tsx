@@ -3,7 +3,7 @@ import {AppBar, Box, CssBaseline, Drawer, IconButton, Toolbar, Typography} from 
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-import DrawerContent from '@/react-ui/drawer/DrawerContent';
+import DrawerContent from '@/react-ui/drawer/DrawerContent.tsx';
 import { useAppbarTextSelector, useAuthInitialization } from '@/react-utils';
 
 export default function Layout() {

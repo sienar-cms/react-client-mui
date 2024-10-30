@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 
 import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
-import type { WebResult } from '@/react-utils/infrastructure';
+import type { WebResult } from '@/react-utils/http.ts';
 
 // region Store
 

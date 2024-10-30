@@ -1,2 +1,2 @@
-﻿export * from './keys';
-export { default as lockoutReasonsSetup } from './setup';
+﻿export * from './keys.ts';
+export { default as lockoutReasonsSetup } from './setup.tsx';

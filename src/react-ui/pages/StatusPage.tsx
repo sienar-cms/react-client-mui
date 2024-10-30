@@ -1,4 +1,4 @@
-﻿import Narrow from '@/react-ui/Narrow';
+﻿import Narrow from '@/react-ui/Narrow.tsx';
 import { Typography } from '@mui/material';
 import type { ElementType, PropsWithChildren } from 'react';
 import type { SxProps, Theme } from '@mui/material';

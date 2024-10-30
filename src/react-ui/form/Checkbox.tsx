@@ -1,10 +1,10 @@
 ﻿import { useId, useRef } from 'react';
 import { Checkbox as MaterialCheckbox, FormControlLabel } from '@mui/material';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
-import ValidationList from './ValidationList';
+import ValidationList from './ValidationList.tsx';
 
 import type {ChangeEvent} from 'react';
-import type {FormInputProps} from './shared';
+import type {FormInputProps} from './shared.ts';
 
 export type CheckboxProps<T> = Omit<FormInputProps<boolean>, 'value'> & {
 	value?: T

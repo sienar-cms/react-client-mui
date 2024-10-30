@@ -1,11 +1,11 @@
-﻿import AuthorizeContent from '@/react-ui/AuthorizeContent';
+﻿import AuthorizeContent from '@/react-ui/AuthorizeContent.tsx';
 import { inject  } from '@/react-utils';
 import { Box, Button } from '@mui/material';
-import UserBadge from '@/components/UserBadge';
+import UserBadge from '@/components/UserBadge.tsx';
 import { Link } from 'react-router-dom';
-import { REGISTER_ROUTE, LOGIN_ROUTE } from '@account/keys';
+import { REGISTER_ROUTE, LOGIN_ROUTE } from '@account/keys.ts';
 
-import type { UserBadgeProps } from '@/components/UserBadge';
+import type { UserBadgeProps } from '@/components/UserBadge.tsx';
 
 export default function DrawerFooter(props: UserBadgeProps) {
 	return (

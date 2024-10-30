@@ -1,7 +1,7 @@
 ﻿import { useState } from 'react';
 import { Collapse, List } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import MenuLink from './MenuLink';
+import MenuLink from './MenuLink.tsx';
 
 import type { MenuLink as Link } from '@/react-utils';
 

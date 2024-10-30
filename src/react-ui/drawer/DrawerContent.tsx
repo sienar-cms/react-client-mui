@@ -1,7 +1,7 @@
 ﻿import { useMemo } from 'react';
 import { Box, List, Toolbar } from '@mui/material';
-import DashboardMenuItem from './MenuLink';
-import DashboardMenuGroup from './MenuGroup';
+import DashboardMenuItem from './MenuLink.tsx';
+import DashboardMenuGroup from './MenuGroup.tsx';
 import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
 
 export default function DrawerContent() {

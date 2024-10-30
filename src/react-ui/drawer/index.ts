@@ -1,6 +1,6 @@
-﻿export type * from './DrawerContent';
-export { default as DrawerContent } from './DrawerContent';
-export type * from './MenuGroup';
-export { default as MenuGroup } from './MenuGroup'
-export type * from './MenuLink';
-export { default as MenuLink } from './MenuLink';
+﻿export type * from './DrawerContent.tsx';
+export { default as DrawerContent } from './DrawerContent.tsx';
+export type * from './MenuGroup.tsx';
+export { default as MenuGroup } from './MenuGroup.tsx';
+export type * from './MenuLink.tsx';
+export { default as MenuLink } from './MenuLink.tsx';

@@ -1,2 +1,2 @@
-﻿export * from './keys';
-export { default as accountSetup } from './setup';
+﻿export * from './keys.ts';
+export { default as accountSetup } from './setup.tsx';

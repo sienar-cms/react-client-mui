@@ -1,9 +1,9 @@
 ﻿import { useEffect, useRef } from 'react';
 import { TextField } from '@mui/material';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
-import ValidationList from './ValidationList';
+import ValidationList from './ValidationList.tsx';
 
-import type { FormInputProps } from './shared';
+import type { FormInputProps } from './shared.ts';
 
 export type TextInputProps<T extends string | number> = FormInputProps<T> & {
 	type?: 'text' | 'password' | 'email' | 'number'

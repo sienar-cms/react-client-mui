@@ -1,10 +1,10 @@
-﻿export type * from './ValidationList';
-export { default as ValidationList } from './ValidationList';
-export type * from './Form';
-export { default as Form } from './Form';
-export type * from './Textbox';
-export { default as Textbox } from './Textbox';
-export type * from './Checkbox';
-export { default as Checkbox } from './Checkbox';
+﻿export type * from './ValidationList.tsx';
+export { default as ValidationList } from './ValidationList.tsx';
+export type * from './Form.tsx';
+export { default as Form } from './Form.tsx';
+export type * from './Textbox.tsx';
+export { default as Textbox } from './Textbox.tsx';
+export type * from './Checkbox.tsx';
+export { default as Checkbox } from './Checkbox.tsx';
 
-export type * from './shared';
+export type * from './shared.ts';

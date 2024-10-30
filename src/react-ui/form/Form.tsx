@@ -1,4 +1,4 @@
-﻿import Card from '@/react-ui/Card';
+﻿import Card from '@/react-ui/Card.tsx';
 import { formValidationContext, inject } from '@/react-utils';
 import { type ReactNode, useContext, useEffect, useId, useRef } from 'react';
 import { useParams } from 'react-router-dom';

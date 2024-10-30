@@ -1,8 +1,8 @@
 ﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes } from '@/react-utils';
-import * as KEYS from './keys';
+import * as KEYS from './keys.ts';
 import { DASHBOARD_LAYOUT } from '@/keys';
-import LockoutReasonIndex from './views/Index';
-import LockoutReasonUpsert from './views/Upsert';
+import LockoutReasonIndex from './views/Index.tsx';
+import LockoutReasonUpsert from './views/Upsert.tsx';
 import { ApiCrudService } from '@/react-utils';
 import type { LockoutReason } from '@lockoutReasons/types';
 

@@ -1,6 +1,6 @@
-﻿import { sendRequest } from '@/react-utils/utils';
-import { appendSearchParams } from '@/react-utils/http';
-import type { ApiCallerOptions } from '@/react-utils/http';
+﻿import { sendRequest } from '@/react-utils/utils.ts';
+import { appendSearchParams } from '@/react-utils/http.ts';
+import type { ApiCallerOptions } from '@/react-utils/http.ts';
 
 export type CrudServiceApiCallerOptions = Omit<ApiCallerOptions, 'body'>;
 

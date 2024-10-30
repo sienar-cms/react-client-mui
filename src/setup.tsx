@@ -1,13 +1,13 @@
 ﻿import { addReducer, authReducer, AUTH_NAME, infrastructureReducer, INFRASTRUCTURE_NAME, addLinksWithPriority, DASHBOARD_MENU, MenuPriority, inject, provide, DRAWER_FOOTER_PARTIAL, registerRoutes } from '@/react-utils';
 
 import { Dashboard, Home } from '@mui/icons-material';
-import * as KEYS from '@/keys';
-import DrawerFooter from '@/partials/DrawerFooter';
-import { DASHBOARD_LAYOUT } from '@/keys';
+import * as KEYS from '@/keys.ts';
+import DrawerFooter from '@/partials/DrawerFooter.tsx';
+import { DASHBOARD_LAYOUT } from '@/keys.ts';
 import { Dashboard as DashboardLayout } from '@/react-ui';
-import DashboardView from '@/views/Dashboard';
-import { accountSetup } from '@account/index';
-import { lockoutReasonsSetup } from '@lockoutReasons/index';
+import DashboardView from '@/views/Dashboard.tsx';
+import { accountSetup } from '@account/index.ts';
+import { lockoutReasonsSetup } from '@lockoutReasons/index.ts';
 
 export default function setup() {
 	// Global setup not linked to a specific vertical slice

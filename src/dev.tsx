@@ -1,7 +1,7 @@
 ﻿import { createApp, setup as reactUtilsSetup } from '@/react-utils';
 import { setup as reactUiSetup } from '@/react-ui';
-import './overrides';
-import { setup } from './main';
+import './overrides.ts';
+import { setup } from './main.tsx';
 
 reactUtilsSetup();
 reactUiSetup();
