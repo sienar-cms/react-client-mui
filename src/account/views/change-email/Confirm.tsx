@@ -1,7 +1,7 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { useNavigate } from '@/react-utils';
 import { useSearchParams } from 'react-router-dom';
-import { CHANGE_EMAIL_SUCCESSFUL_ROUTE } from '@account/keys';
+import { CHANGE_EMAIL_SUCCESSFUL_ROUTE, CHANGE_EMAIL_CONFIRM_SERVICE } from '@account/keys';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -12,8 +12,7 @@ export default function Index() {
 	return (
 		<Narrow>
 			<Form.Form
-				action='/api/account/email'
-				method='PATCH'
+				serviceKey={CHANGE_EMAIL_CONFIRM_SERVICE}
 				title='Confirming new email'
 				onSuccess={(successful: boolean) => {
 					if (successful) navigate(CHANGE_EMAIL_SUCCESSFUL_ROUTE);

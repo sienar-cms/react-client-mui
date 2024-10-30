@@ -1,7 +1,7 @@
 ﻿import { useState } from 'react';
 import { Form, Narrow } from '@/react-ui';
 import { validators, useNavigate } from '@/react-utils';
-import { REGISTER_SUCCESSFUL_ROUTE } from '@account/keys';
+import { REGISTER_SERVICE, REGISTER_SUCCESSFUL_ROUTE } from '@account/keys';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -12,8 +12,7 @@ export default function Index() {
 		<Narrow>
 			<Form.Form
 				title='Register'
-				method='POST'
-				action='/api/account'
+				serviceKey={REGISTER_SERVICE}
 				onSuccess={(result: boolean) => {
 					if (result) {
 						navigate(

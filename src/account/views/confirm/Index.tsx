@@ -1,7 +1,7 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { useNavigate } from '@/react-utils';
 import { useSearchParams } from 'react-router-dom';
-import { CONFIRM_SUCCESSFUL_ROUTE } from '@account/keys';
+import { CONFIRM_SUCCESSFUL_ROUTE, CONFIRM_SERVICE } from '@account/keys';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -12,8 +12,7 @@ export default function Index() {
 	return (
 		<Narrow>
 			<Form.Form
-				action='/api/account/confirm'
-				method='POST'
+				serviceKey={CONFIRM_SERVICE}
 				title='Confirming account'
 				onSuccess={(successful: boolean) => {
 					if (successful) navigate(CONFIRM_SUCCESSFUL_ROUTE);

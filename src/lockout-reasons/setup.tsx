@@ -3,6 +3,8 @@ import * as KEYS from './keys';
 import { DASHBOARD_LAYOUT } from '@/keys';
 import LockoutReasonIndex from './views/Index';
 import LockoutReasonUpsert from './views/Upsert';
+import { ApiCrudService } from '@/react-utils';
+import type { LockoutReason } from '@lockoutReasons/types';
 
 export default function lockoutReasonsSetup() {
 	// URLs
@@ -17,6 +19,13 @@ export default function lockoutReasonsSetup() {
 			href: inject(KEYS.LOCKOUT_REASONS_ROUTE),
 			// roles: ['Administrator']
 		}
+	);
+
+	// Services
+	provide(
+		KEYS.LOCKOUT_REASONS_SERVICE,
+		new ApiCrudService<LockoutReason>('/api/lockout-reasons'),
+		false
 	);
 
 	// Views

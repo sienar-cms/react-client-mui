@@ -1,7 +1,7 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { Typography } from '@mui/material';
 import { logout, useAuthDispatch, useNavigate, validators } from '@/react-utils';
-import { DELETED_ROUTE } from '@account/keys';
+import { DELETE_ACCOUNT_SERVICE, DELETED_ROUTE } from '@account/keys';
 
 export default function Delete() {
 	const dispatch = useAuthDispatch();
@@ -10,8 +10,7 @@ export default function Delete() {
 	return (
 		<Narrow>
 			<Form.Form
-				action='/api/account'
-				method='DELETE'
+				serviceKey={DELETE_ACCOUNT_SERVICE}
 				title='Delete account'
 				color='error'
 				submitText='Delete account forever!'

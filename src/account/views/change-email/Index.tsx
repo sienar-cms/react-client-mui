@@ -1,6 +1,6 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { inject, useNavigate, validators } from '@/react-utils';
-import { CHANGE_EMAIL_REQUESTED_ROUTE } from '@account/keys';
+import { CHANGE_EMAIL_REQUESTED_ROUTE, CHANGE_EMAIL_SERVICE } from '@account/keys';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -8,8 +8,7 @@ export default function Index() {
 	return (
 		<Narrow>
 			<Form.Form
-				action='/api/account/change-email'
-				method='POST'
+				serviceKey={CHANGE_EMAIL_SERVICE}
 				title='Change email'
 				submitText='Change email'
 				onSuccess={successful => {

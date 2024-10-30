@@ -1,6 +1,6 @@
 ﻿import { Form, Narrow } from '@/react-ui';
 import { inject, useNavigate, validators } from '@/react-utils';
-import { CHANGE_PASSWORD_SUCCESSFUL_ROUTE } from '@account//keys';
+import { CHANGE_PASSWORD_SUCCESSFUL_ROUTE, CHANGE_PASSWORD_SERVICE } from '@account//keys';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -8,8 +8,7 @@ export default function Index() {
 	return (
 		<Narrow>
 			<Form.Form
-				action='/api/account/change-password'
-				method='PATCH'
+				serviceKey={CHANGE_PASSWORD_SERVICE}
 				title='Change password'
 				submitText='Change password'
 				onSuccess={successful => {

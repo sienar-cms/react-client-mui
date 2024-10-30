@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { Narrow, Form } from '@/react-ui';
 import { validators, useNavigate } from '@/react-utils';
-import { RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@account/keys';
+import { RESET_PASSWORD_SERVICE, RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@account/keys';
 
 export default function Index() {
 	const navigate = useNavigate();
@@ -14,8 +14,7 @@ export default function Index() {
 		<Narrow>
 			<Form.Form
 				title='Reset password'
-				action='/api/account/password'
-				method='PATCH'
+				serviceKey={RESET_PASSWORD_SERVICE}
 				submitText='Reset password'
 				information={(
 					<Typography>

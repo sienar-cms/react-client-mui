@@ -1,28 +1,30 @@
 ﻿import { DeleteForever, Email, Key, Lock } from '@mui/icons-material';
-import { addLinks, inject, provide, registerRoutes } from '@/react-utils';
-import * as KEYS from './keys';
+import { addLinks, inject, provide, registerRoutes, sendRequest } from '@/react-utils';
+import * as KEYS from '@account/keys';
 import { DASHBOARD_LAYOUT } from '@/keys';
-import RegisterSuccessful from './views/register/Successful';
-import Confirm from './views/confirm/Index';
-import ConfirmSuccessful from './views/confirm/Successful';
-import Login from './views/Login';
-import ForgotPassword from './views/forgot-password/Index';
-import ForgotPasswordSuccessful from './views/forgot-password/Successful';
-import ResetPassword from './views/reset-password/Index';
-import ResetPasswordSuccessful from './views/reset-password/Successful';
-import ChangeEmail from './views/change-email/Index';
-import ChangeEmailRequested from './views/change-email/Requested';
-import ChangeEmailConfirm from './views/change-email/Confirm';
-import ChangeEmailSuccessful from './views/change-email/Successful';
-import ChangePassword from './views/change-password/Index';
-import ChangePasswordSuccessful from './views/change-password/Successful';
-import PersonalData from './views/PersonalData';
-import DeleteAccount from './views/Delete';
-import Deleted from './views/Deleted';
+import Register from '@account/views/register/Index';
+import RegisterSuccessful from '@account/views/register/Successful';
+import Confirm from '@account/views/confirm/Index';
+import ConfirmSuccessful from '@account/views/confirm/Successful';
+import Login from '@account/views/Login';
+import ForgotPassword from '@account/views/forgot-password/Index';
+import ForgotPasswordSuccessful from '@account/views/forgot-password/Successful';
+import ResetPassword from '@account/views/reset-password/Index';
+import ResetPasswordSuccessful from '@account/views/reset-password/Successful';
+import ChangeEmail from '@account/views/change-email/Index';
+import ChangeEmailRequested from '@account/views/change-email/Requested';
+import ChangeEmailConfirm from '@account/views/change-email/Confirm';
+import ChangeEmailSuccessful from '@account/views/change-email/Successful';
+import ChangePassword from '@account/views/change-password/Index';
+import ChangePasswordSuccessful from '@account/views/change-password/Successful';
+import PersonalData from '@account/views/PersonalData';
+import DeleteAccount from '@account/views/Delete';
+import Deleted from '@account/views/Deleted';
 
 export default function accountSetup() {
 	setupUrls();
 	setupMenus();
+	setupServices();
 	setupViews();
 }
 
@@ -78,9 +80,69 @@ function setupMenus() {
 	);
 }
 
+function setupServices() {
+	provide(
+		KEYS.CHANGE_EMAIL_SERVICE,
+		data => sendRequest('/api/account/change-email', 'POST', { body: data }),
+		false
+	);
+
+	provide(
+		KEYS.CHANGE_EMAIL_CONFIRM_SERVICE,
+		data => sendRequest('/api/account/email', 'PATCH', { body: data }),
+		false
+	);
+
+	provide(
+		KEYS.CHANGE_PASSWORD_SERVICE,
+		data => sendRequest('/api/account/change-password', 'PATCH', { body: data }),
+		false
+	);
+
+	provide(
+		KEYS.CONFIRM_SERVICE,
+		data => sendRequest('/api/account/confirm', 'POST', { body: data }),
+		false
+	);
+
+	provide(
+		KEYS.DELETE_ACCOUNT_SERVICE,
+		data => sendRequest('/api/account', 'DELETE', { body: data }),
+		false
+	);
+
+	provide(
+		KEYS.FORGOT_PASSWORD_SERVICE,
+		data => sendRequest('/api/account/password', 'DELETE', { body: data }),
+		false
+	);
+
+	provide(
+		KEYS.LOGIN_SERVICE,
+		data => sendRequest('/api/account/login', 'POST', { body: data }),
+		false
+	);
+
+	provide(
+		KEYS.REGISTER_SERVICE,
+		data => sendRequest('/api/account', 'POST', { body: data }),
+		false
+	);
+
+	provide(
+		KEYS.RESET_PASSWORD_SERVICE,
+		data => sendRequest('/api/account/password', 'PATCH', { body: data }),
+		false
+	);
+}
+
 function setupViews() {
 	registerRoutes(
 		DASHBOARD_LAYOUT,
+		{
+			path: inject(KEYS.REGISTER_ROUTE),
+			element: inject(KEYS.REGISTER_VIEW, true) ?? <Register/>
+		},
 		{
 			path: inject(KEYS.REGISTER_SUCCESSFUL_ROUTE),
 			element: inject(KEYS.REGISTER_SUCCESSFUL_VIEW, true) ?? <RegisterSuccessful/>

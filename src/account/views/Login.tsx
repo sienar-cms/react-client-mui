@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Form, Narrow } from '@/react-ui';
 import { inject, useNavigate, validators, useAuthDispatch, loadUserData } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
-import { FORGOT_PASSWORD_ROUTE } from '@account/keys';
+import { FORGOT_PASSWORD_ROUTE, LOGIN_SERVICE } from '@account/keys';
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -12,9 +12,8 @@ export default function Login() {
 	return (
 		<Narrow>
 			<Form.Form
+				serviceKey={LOGIN_SERVICE}
 				title='Log in'
-				method='POST'
-				action='/api/account/login'
 				submitText='Log in'
 				onSuccess={(successful: boolean) => {
 					if (successful) {
