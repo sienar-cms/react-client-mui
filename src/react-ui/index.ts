@@ -4,6 +4,8 @@ export type * from './AuthorizeContent.tsx';
 export { default as AuthorizeContent } from './AuthorizeContent.tsx';
 export type * from './Card.tsx';
 export { default as Card } from './Card.tsx';
+export type * from './ConfirmationDialog.tsx';
+export { default as ConfirmationDialog } from './ConfirmationDialog.tsx';
 export type * from './drawer/index.ts';
 export * from './drawer/index.ts';
 export type * from './form/index.ts';
