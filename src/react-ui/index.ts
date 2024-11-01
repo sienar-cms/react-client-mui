@@ -17,5 +17,7 @@ export { default as Narrow } from './Narrow.tsx';
 export type * from './pages/index.ts';
 export * from './pages/index.ts';
 export { default as setup } from './setup.ts';
+export type * from './Table.tsx';
+export { default as Table } from './Table.tsx';
 
 export * from './theme.ts';
