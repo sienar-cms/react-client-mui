@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box, IconButton, Input, Typography } from '@mui/material';
+import { Box, IconButton, TextField, Typography } from '@mui/material';
 import type { GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid';
 import { DataGrid } from '@mui/x-data-grid';
 import type { CrudService, EntityBase, Filter, InjectionKey } from '@/react-utils';
@@ -209,6 +209,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 		<Search
 			color='inherit'
 			sx={{ mr: 1 }}
+			fontSize='medium'
 		/>
 	);
 
@@ -218,7 +219,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 			color='inherit'
 			onClick={() => setSearchTerm('')}
 		>
-			<Close fontSize='inherit'/>
+			<Close fontSize='small'/>
 		</IconButton>
 	);
 
@@ -270,31 +271,35 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 				}}
 			>
 				<Typography color='common.white'>{title}</Typography>
-				<Box sx={{ display: 'flex' }}>
-					{!hideSearch && (
-						<Input
-							// @ts-ignore I know this causes an error. I *want* it to. I don't want
-							color='secondary'
-							disableUnderline
-							value={searchTerm}
-							onChange={e => setSearchTerm(e.target.value)}
-							startAdornment={searchIcon}
-							endAdornment={resetButton}
-							size='small'
-							sx={{
-								color: 'common.white',
-								my: 0,
-								px: 2,
-								minWidth: 300,
-								maxWidth: '45%',
-								'& .MuiInputBase-input': { p: 0	},
-								border: '1px solid white'
-							}}
-						/>
-					)}
-
-					{!hideActionButton && actionButtonContent}
-				</Box>
+				{!hideActionButton && actionButtonContent}
+			</Box>
+			<Box sx={{
+				display: 'flex',
+				justifyContent: 'end'
+			}}>
+				{!hideSearch && (
+					<TextField
+						color='primary'
+						value={searchTerm}
+						onChange={e => setSearchTerm(e.target.value)}
+						sx={{
+							my: 2,
+							minWidth: 300,
+							maxWidth: '45%',
+							'& .MuiInputBase-input': { p: 0	}
+						}}
+						slotProps={{
+							input: {
+								startAdornment: searchIcon,
+								endAdornment: resetButton,
+								sx: {
+									p: 2,
+									height: '40px'
+								}
+							}
+						}}
+					/>
+				)}
 			</Box>
 
 			{/* Main content */}
