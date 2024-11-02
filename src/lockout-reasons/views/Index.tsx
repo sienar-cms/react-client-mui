@@ -12,7 +12,7 @@ export default function Index() {
 				}
 			]}
 			serviceKey={LOCKOUT_REASONS_SERVICE}
-			entityTypeName='Lockout reason'
+			entityTypeName='lockout reason'
 		/>
 	);
 }
