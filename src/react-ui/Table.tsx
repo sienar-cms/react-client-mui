@@ -157,7 +157,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 			field: 'actions',
 			headerName: 'Actions',
 			sortable: false,
-			flex: 0,
+			flex: 1,
 			valueGetter: (_params, row) => row,
 			renderCell: ({ value }: GridRenderCellParams<any, T>) => {
 				const entityName = generateEntityName(value);
