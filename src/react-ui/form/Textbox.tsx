@@ -19,7 +19,6 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		hideValidationIfValid = true,
 		allValidMessage,
 		validators = [],
-		value,
 		onChange,
 		type = 'text',
 		margin = 'normal',
@@ -32,19 +31,6 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	const fieldRef = useRef<HTMLInputElement|HTMLTextAreaElement>(null);
 	const rerender = useRerender();
 	const [validations, interact] = useFormFieldValidation(name, displayName, currentValue, validators);
-
-	useEffect(() => {
-		if (fieldRef.current?.value) {
-			if (isNumeric) {
-				currentValue.current = parseFloat(fieldRef.current.value) as T;
-			} else {
-				currentValue.current = fieldRef.current.value as T;
-			}
-		} else {
-			currentValue.current = value ?? '' as T;
-		}
-		rerender();
-	}, []);
 
 	const handleChange = async (e: Event) => {
 		const target = e.target as HTMLInputElement|HTMLTextAreaElement;
@@ -71,9 +57,6 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 				inputRef={fieldRef}
 				name={name}
 				label={children ?? displayName}
-				value={currentValue.current}
-				// @ts-ignore because the handleChange signature is actually the same, but TypeScript doesn't know that as React uses synthetic event signatures
-				onChange={handleChange}
 				type={type}
 				error={validations.filter(v => !v.valid).length > 0}
 				margin={margin}
