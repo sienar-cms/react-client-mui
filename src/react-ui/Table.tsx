@@ -83,6 +83,7 @@ export type TableProps<T extends EntityBase> = {
 export default function Table<T extends EntityBase>(props: TableProps<T>) {
 	const {
 		title,
+		entityTypeName,
 		serviceKey,
 		hideSearch = false,
 		columns,
@@ -231,6 +232,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 				color='inherit'
 				sx={{ ml: 4 }}
 				onClick={handleAddClicked}
+				title={`Add new ${entityTypeName}`}
 			>
 				<Add/>
 			</IconButton>
@@ -325,7 +327,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 			/>
 			{!hideDelete && (
 				<ConfirmationDialog
-					title={`Delete ${props.entityTypeName}`}
+					title={`Delete ${entityTypeName}`}
 					open={modalOpen}
 					question={`Are you sure you want to delete ${props.generateEntityName(selectedItem.current)}? This cannot be undone!`}
 					confirmText="Yes, I'm sure"
