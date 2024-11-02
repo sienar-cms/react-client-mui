@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box, IconButton, TextField } from '@mui/material';
+import { Box, Button, IconButton, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { inject, NotificationType, NOTIFIER, useNavigate } from '@/react-utils';
 import { Add, Close, ContentCopy, DeleteForever, Edit, Search } from '@mui/icons-material';
@@ -237,14 +237,15 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 	const actionButtonContent = actionButtonRenderer
 		? actionButtonRenderer()
 		: (
-			<IconButton
-				color='inherit'
+			<Button
+				color={color === undefined ? 'primary' : 'inherit'}
 				sx={{ ml: 4 }}
 				onClick={handleAddClicked}
-				title={`Add new ${entityTypeName}`}
+				variant='outlined'
+				startIcon={<Add/>}
 			>
-				<Add/>
-			</IconButton>
+				Add new
+			</Button>
 		);
 
 	// All filter variables should trigger an immediate table reload...
