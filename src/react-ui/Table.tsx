@@ -1,14 +1,13 @@
+import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box, IconButton, Input, Typography } from '@mui/material';
+import type { GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid';
 import { DataGrid } from '@mui/x-data-grid';
-import { inject, useNavigate } from '@/react-utils';
-import { Add, Close, DeleteForever, Edit, Search } from '@mui/icons-material';
+import type { CrudService, EntityBase, Filter, InjectionKey } from '@/react-utils';
+import { inject, NotificationType, NOTIFIER, useNavigate } from '@/react-utils';
+import { Add, Close, ContentCopy, DeleteForever, Edit, Search } from '@mui/icons-material';
 import ConfirmationDialog from './ConfirmationDialog.tsx';
-
-import type { GridColDef, GridRenderCellParams, GridSortModel} from '@mui/x-data-grid';
-import type { ReactNode  } from 'react';
-import type { CrudService, Filter, InjectionKey, EntityBase } from '@/react-utils';
 
 export type TableProps<T extends EntityBase> = {
 	/**
@@ -40,6 +39,11 @@ export type TableProps<T extends EntityBase> = {
 	 * Whether to hide the actions that can be performed on an entity in the table
 	 */
 	hideActions?: boolean
+
+	/**
+	 * Whether to hide the copy ID action in the actions menu
+	 */
+	hideCopy?: boolean
 
 	/**
 	 * Whether to hide the edit button in the actions menu
@@ -90,6 +94,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 		columns,
 		hideActionButton = false,
 		hideActions = false,
+		hideCopy = false,
 		hideEdit = false,
 		hideDelete,
 		actionButtonRenderer,
@@ -146,16 +151,6 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 	}
 
 	// Set up columns
-	if (!columns.find(c => c.field === 'id')) {
-		columns.unshift({
-			field: 'id',
-			headerName: 'ID',
-			sortable: false,
-			minWidth: 300,
-			flex: 0
-		});
-	}
-
 	if (!hideActions) {
 		// Remove existing actions - we need this to be fresh
 		const i = columns.findIndex(c => c.field === 'actions')
@@ -172,6 +167,19 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 			renderCell: ({ value }: GridRenderCellParams<any, T>) => (
 				<>
 					{actionMenuRenderer?.(value!)}
+					{!hideCopy && (
+						<IconButton
+							color='primary'
+							onClick={async () => {
+								await navigator.clipboard.writeText(value!.id);
+								const notifier = inject(NOTIFIER);
+								notifier('ID copied to clipboard', NotificationType.Success);
+							}}
+							title='Copy ID to clipboard'
+						>
+							<ContentCopy/>
+						</IconButton>
+					)}
 					{!hideEdit && (
 						<IconButton
 							color='warning'
