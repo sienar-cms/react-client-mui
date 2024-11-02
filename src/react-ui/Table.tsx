@@ -25,16 +25,16 @@ export type TableProps<T extends EntityBase> = {
 	entityTypeName: string
 
 	/**
+	 * The service key of the {@link CrudService} that is used to interact with the entities displayed in the table
+	 */
+	serviceKey: InjectionKey<CrudService<T>>
+
+	/**
 	 * Generates the name of an entity for displaying to the user in the delete form
 	 *
 	 * @param item The item representing the current row of the table
 	 */
-	generateEntityName: (item: T|null|undefined) => string|null|undefined
-
-	/**
-	 * The service key of the {@link CrudService} that is used to interact with the entities displayed in the table
-	 */
-	serviceKey: InjectionKey<CrudService<T>>
+	generateEntityName?: (item: T|null|undefined) => string|null|undefined
 
 	/**
 	 * The color of the table header and controls
@@ -160,7 +160,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 			flex: 1,
 			valueGetter: (_params, row) => row,
 			renderCell: ({ value }: GridRenderCellParams<any, T>) => {
-				const entityName = generateEntityName(value);
+				const entityName = generateEntityName?.(value) ?? entityTypeName;
 
 				return (
 					<>
@@ -321,7 +321,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 					<ConfirmationDialog
 						title={`Delete ${entityTypeName}`}
 						open={modalOpen}
-						question={`Are you sure you want to delete ${props.generateEntityName(selectedItem.current)}? This cannot be undone!`}
+						question={`Are you sure you want to delete ${generateEntityName?.(selectedItem.current) ?? ` ${entityTypeName} with ID ${selectedItem.current?.id}`}? This cannot be undone!`}
 						confirmText="Yes, I'm sure"
 						cancelText='No, keep it'
 						color='error'
