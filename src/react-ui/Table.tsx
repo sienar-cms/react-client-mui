@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { inject, NotificationType, NOTIFIER, useNavigate } from '@/react-utils';
+import { Link } from 'react-router-dom';
+import { inject, NotificationType, NOTIFIER } from '@/react-utils';
 import { Add, Close, ContentCopy, DeleteForever, Edit, Search } from '@mui/icons-material';
 import Card from '@/react-ui/Card.tsx';
 import ConfirmationDialog from './ConfirmationDialog.tsx';
@@ -120,7 +121,6 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 	const [ modalOpen, setModalOpen ] = useState(false);
 	const selectedItem = useRef<T|null>(null);
 	const location = useLocation();
-	const navigate = useNavigate();
 
 	// Set up data loading
 	const loadResults = async () => {
@@ -138,16 +138,6 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 		setRowCount(result.totalCount)
 		setIsLoading(false);
 	};
-
-	const handleAddClicked = () => {
-		const currentUrl = location.pathname;
-		navigate(`${currentUrl}/add`);
-	}
-
-	const handleEditClicked = (item: T) => {
-		const currentUrl = location.pathname;
-		navigate(`${currentUrl}/${item.id}`);
-	}
 
 	const handleDeleteClicked = async (item: T) => {
 		// await onDeleteButtonClick?.(item);
@@ -190,8 +180,9 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 						)}
 						{!hideEdit && (
 							<IconButton
+								component={Link}
+								to={`${location.pathname}/${value!.id}`}
 								color='warning'
-								onClick={() => handleEditClicked(value!)}
 								title={`Edit ${entityName}`}
 							>
 								<Edit/>
@@ -238,9 +229,10 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 		? actionButtonRenderer()
 		: (
 			<Button
+				component={Link}
+				to={`${location.pathname}/add`}
 				color={color === undefined ? 'primary' : 'inherit'}
 				sx={{ ml: 4 }}
-				onClick={handleAddClicked}
 				variant='outlined'
 				startIcon={<Add/>}
 			>
