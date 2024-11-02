@@ -12,7 +12,6 @@ export default function Index() {
 				}
 			]}
 			serviceKey={LOCKOUT_REASONS_SERVICE}
-			generateEntityName={r => r?.reason}
 			entityTypeName='Lockout reason'
 		/>
 	);
