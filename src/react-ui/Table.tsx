@@ -16,6 +16,18 @@ export type TableProps<T extends EntityBase> = {
 	title: string
 
 	/**
+	 * The name of the entity type. Should essentially be a human-friendly version of the backing entity name on the server.
+	 */
+	entityTypeName: string
+
+	/**
+	 * Generates the name of an entity for displaying to the user in the delete form
+	 *
+	 * @param item The item representing the current row of the table
+	 */
+	generateEntityName: (item: T|null|undefined) => string|null|undefined
+
+	/**
 	 * The service key of the {@link CrudService} that is used to interact with the entities displayed in the table
 	 */
 	serviceKey: InjectionKey<CrudService<T>>
@@ -51,6 +63,11 @@ export type TableProps<T extends EntityBase> = {
 	hideEdit?: boolean
 
 	/**
+	 * Whether to hide the delete button in the actions menu
+	 */
+	hideDelete?: false
+
+	/**
 	 * A render function that can render a custom action button in the upper right corner of the table. If this renderer is present, its result replaces the default action button.
 	 */
 	actionButtonRenderer?: () => ReactNode
@@ -62,29 +79,6 @@ export type TableProps<T extends EntityBase> = {
 	 */
 	actionMenuRenderer?: (item: T) => ReactNode
 }
-& ({
-	/**
-	 * Whether to hide the delete button in the actions menu
-	 */
-	hideDelete?: false
-
-	/**
-	 * Generates the name of an entity for displaying to the user in the delete form
-	 *
-	 * @param item The item representing the current row of the table
-	 */
-	generateEntityName: (item: T|null) => string|null|undefined
-
-	/**
-	 * The name of the entity type. Should essentially be a human-friendly version of the backing entity name on the server.
-	 */
-	entityTypeName: string
-} | {
-	/**
-	 * Whether to hide the delete button in the actions menu
-	 */
-	hideDelete: true
-})
 
 export default function Table<T extends EntityBase>(props: TableProps<T>) {
 	const {
@@ -96,7 +90,8 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 		hideActions = false,
 		hideCopy = false,
 		hideEdit = false,
-		hideDelete,
+		hideDelete = false,
+		generateEntityName,
 		actionButtonRenderer,
 		actionMenuRenderer
 	} = props;
@@ -164,40 +159,46 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 			sortable: false,
 			flex: 0,
 			valueGetter: (_params, row) => row,
-			renderCell: ({ value }: GridRenderCellParams<any, T>) => (
-				<>
-					{actionMenuRenderer?.(value!)}
-					{!hideCopy && (
-						<IconButton
-							color='primary'
-							onClick={async () => {
-								await navigator.clipboard.writeText(value!.id);
-								const notifier = inject(NOTIFIER);
-								notifier('ID copied to clipboard', NotificationType.Success);
-							}}
-							title='Copy ID to clipboard'
-						>
-							<ContentCopy/>
-						</IconButton>
-					)}
-					{!hideEdit && (
-						<IconButton
-							color='warning'
-							onClick={() => handleEditClicked(value!)}
-						>
-							<Edit/>
-						</IconButton>
-					)}
-					{!hideDelete && (
-						<IconButton
-							color='error'
-							onClick={() => handleDeleteClicked(value!)}
-						>
-							<DeleteForever/>
-						</IconButton>
-					)}
-				</>
-			)
+			renderCell: ({ value }: GridRenderCellParams<any, T>) => {
+				const entityName = generateEntityName(value);
+
+				return (
+					<>
+						{actionMenuRenderer?.(value!)}
+						{!hideCopy && (
+							<IconButton
+								color='primary'
+								onClick={async () => {
+									await navigator.clipboard.writeText(value!.id);
+									const notifier = inject(NOTIFIER);
+									notifier('ID copied to clipboard', NotificationType.Success);
+								}}
+								title='Copy ID to clipboard'
+							>
+								<ContentCopy/>
+							</IconButton>
+						)}
+						{!hideEdit && (
+							<IconButton
+								color='warning'
+								onClick={() => handleEditClicked(value!)}
+								title={`Edit ${entityName}`}
+							>
+								<Edit/>
+							</IconButton>
+						)}
+						{!hideDelete && (
+							<IconButton
+								color='error'
+								onClick={() => handleDeleteClicked(value!)}
+								title={`Delete ${entityName}`}
+							>
+								<DeleteForever/>
+							</IconButton>
+						)}
+					</>
+				)
+			}
 		});
 	}
 
