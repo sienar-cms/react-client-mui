@@ -77,6 +77,11 @@ export type TableProps<T extends EntityBase> = {
 	hideDelete?: false
 
 	/**
+	 * The width of the action column in pixels
+	 */
+	actionsColumnWidth?: number,
+
+	/**
 	 * A render function that can render a custom action button in the upper right corner of the table. If this renderer is present, its result replaces the default action button.
 	 */
 	actionButtonRenderer?: () => ReactNode
@@ -102,6 +107,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 		hideCopy = false,
 		hideEdit = false,
 		hideDelete = false,
+		actionsColumnWidth = 170,
 		generateEntityName,
 		actionButtonRenderer,
 		actionMenuRenderer
@@ -157,7 +163,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 			field: 'actions',
 			headerName: 'Actions',
 			sortable: false,
-			flex: 1,
+			width: actionsColumnWidth,
 			valueGetter: (_params, row) => row,
 			renderCell: ({ value }: GridRenderCellParams<any, T>) => {
 				const entityName = generateEntityName?.(value) ?? entityTypeName;
@@ -202,8 +208,6 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 			}
 		});
 	}
-
-	columns.forEach(c => c.flex ??= 1);
 
 	// Search input adornments
 	const searchIcon = (
