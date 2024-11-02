@@ -8,6 +8,7 @@ import { Dashboard as DashboardLayout } from '@/react-ui';
 import DashboardView from '@/views/Dashboard.tsx';
 import { accountSetup } from '@account/index.ts';
 import { lockoutReasonsSetup } from '@lockoutReasons/index.ts';
+import { usersSetup } from '@users/index.ts';
 
 export default function setup() {
 	// Global setup not linked to a specific vertical slice
@@ -57,4 +58,5 @@ export default function setup() {
 	// Modules
 	accountSetup();
 	lockoutReasonsSetup();
+	usersSetup();
 }
