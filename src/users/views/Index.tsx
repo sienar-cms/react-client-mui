@@ -1,7 +1,27 @@
-﻿import { Table, TableBooleanCell } from '@/react-ui';
-import { USERS_SERVICE } from '@users/keys.ts';
+﻿import { Link } from 'react-router-dom';
+import { IconButton } from '@mui/material';
+import { AdminPanelSettings } from '@mui/icons-material';
+import { Table, TableBooleanCell } from '@/react-ui';
+import { inject } from '@/react-utils';
+import { USERS_SERVICE, USERS_ROUTE } from '@users/keys.ts';
+import type { User } from '@users/types.ts';
 
 export default function Index() {
+	const currentUrl = inject(USERS_ROUTE);
+
+	const actionMenuRenderer = (user?: User) => (
+		<>
+			<IconButton
+				component={Link}
+				color='warning'
+				title={`Update ${user!.username}'s roles`}
+				to={`${currentUrl}/${user!.id}/roles`}
+			>
+				<AdminPanelSettings/>
+			</IconButton>
+		</>
+	);
+
 	return (
 		<Table
 			title='Users'
@@ -33,6 +53,8 @@ export default function Index() {
 			serviceKey={USERS_SERVICE}
 			generateEntityName={u => u?.username}
 			entityTypeName='user'
+			actionMenuRenderer={actionMenuRenderer}
+			actionsColumnWidth={185}
 		/>
 	);
 }

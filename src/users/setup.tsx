@@ -1,10 +1,11 @@
-﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes } from '@/react-utils';
+﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes, sendRequest } from '@/react-utils';
 import * as KEYS from '@users/keys.ts';
 import { DASHBOARD_LAYOUT } from '@/keys.ts';
 import UserIndex from '@users/views/Index.tsx';
 import UserUpsert from '@users/views/Upsert.tsx';
+import UserRoles from '@users/views/Roles.tsx';
 import { ApiCrudService } from '@/react-utils';
-import type { User } from '@users/types.ts';
+import type { Role, User } from '@users/types.ts';
 
 export default function usersSetup() {
 	// URLs
@@ -28,6 +29,44 @@ export default function usersSetup() {
 		false
 	);
 
+	provide(
+		KEYS.ROLES_SERVICE,
+		new ApiCrudService<Role>('/api/roles'),
+		false
+	);
+
+	provide(
+		KEYS.ADD_USER_TO_ROLE_SERVICE,
+		data => {
+			const formData = new FormData();
+			formData.set('userId', data.userId);
+			formData.set('roleId', data.roleId);
+
+			return sendRequest(
+				'/api/users/roles',
+				'POST',
+				{ body: formData }
+			);
+		},
+		false
+	);
+
+	provide(
+		KEYS.REMOVE_USER_FROM_ROLE_SERVICE,
+		data => {
+			const formData = new FormData();
+			formData.set('userId', data.userId);
+			formData.set('roleId', data.roleId);
+
+			return sendRequest(
+				'/api/users/roles',
+				'DELETE',
+				{ body: formData }
+			);
+		},
+		false
+	);
+
 	// Views
 	registerRoutes(
 		DASHBOARD_LAYOUT,
@@ -42,6 +81,10 @@ export default function usersSetup() {
 		{
 			path: `${inject(KEYS.USERS_ROUTE)}/:id`,
 			element: inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserUpsert/>
+		},
+		{
+			path: `${inject(KEYS.USERS_ROUTE)}/:id/roles`,
+			element: inject(KEYS.USERS_ROLES_VIEW, true) ?? <UserRoles/>
 		}
 	)
 }

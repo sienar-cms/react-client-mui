@@ -62,3 +62,33 @@ export type Role = EntityBase & {
 	 */
 	name: string
 }
+
+/**
+ * The data required to add a user to a specific role
+ */
+export type AddUserToRoleRequest = {
+	/**
+	 * The ID of the user to add to a role
+	 */
+	userId: string
+
+	/**
+	 * The ID of the role to which to add the user
+	 */
+	roleId: string
+}
+
+/**
+ * The data required to remove a user from a specific role
+ */
+export type RemoveUserFromRoleRequest = {
+	/**
+	 * The ID of the user to remove from a role
+	 */
+	userId: string
+
+	/**
+	 * The ID of the role from which to remove the user
+	 */
+	roleId: string
+}
