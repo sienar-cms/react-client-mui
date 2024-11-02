@@ -57,36 +57,70 @@ export class ApiCrudService<T> implements CrudService<T> {
 		this.endpoint = endpoint;
 	}
 
-	create(data: FormData): Promise<string|null> {
+	create(
+		data: FormData,
+		options?: CrudServiceApiCallerOptions
+	): Promise<string|null> {
+		const requestOptions = Object.assign(
+			{ body: data },
+			options
+		);
+
 		return sendRequest<string>(
 			this.endpoint,
 			'POST',
-			{ body: data }
+			requestOptions
 		);
 	}
 
-	read(id: string, filter?: Filter): Promise<T|null> {
+	read(
+		id: string,
+		filter?: Filter,
+		options?: CrudServiceApiCallerOptions
+	): Promise<T|null> {
 		const url = appendSearchParams(`${this.endpoint}/${id}`, filter);
-		return sendRequest<T>(url, 'GET');
+		return sendRequest<T>(url, 'GET', options);
 	}
 
-	async readAll(filter?: Filter): Promise<PagedQuery<T>> {
+	async readAll(
+		filter?: Filter,
+		options?: CrudServiceApiCallerOptions
+	): Promise<PagedQuery<T>> {
 		const url = appendSearchParams(this.endpoint, filter);
-		const result = await sendRequest<PagedQuery<T>>(url, 'GET');
+		const result = await sendRequest<PagedQuery<T>>(
+			url,
+			'GET',
+			options
+		);
 		return result ?? { items: [], totalCount: 0 };
 	}
 
-	async update(data: FormData): Promise<boolean> {
-		 const result = await sendRequest<boolean>(
+	async update(
+		data: FormData,
+		options?: CrudServiceApiCallerOptions
+	): Promise<boolean> {
+		const requestOptions = Object.assign(
+			{ body: data },
+			options
+		);
+
+		const result = await sendRequest<boolean>(
 			 this.endpoint,
 			 'PUT',
-			 { body: data }
+			 requestOptions
 		 );
 		 return !!result;
 	}
 
-	async delete(id: string): Promise<boolean> {
-		const result = await sendRequest<boolean>(`${this.endpoint}/${id}`, 'DELETE');
+	async delete(
+		id: string,
+		options?: CrudServiceApiCallerOptions
+	): Promise<boolean> {
+		const result = await sendRequest<boolean>(
+			`${this.endpoint}/${id}`,
+			'DELETE',
+			options
+		);
 		return !!result;
 	}
 }
