@@ -19,5 +19,7 @@ export * from './pages/index.ts';
 export { default as setup } from './setup.ts';
 export type * from './Table.tsx';
 export { default as Table } from './Table.tsx';
+export type * from './TableBooleanCell.tsx';
+export { default as TableBooleanCell } from './TableBooleanCell.tsx';
 
 export * from './theme.ts';
