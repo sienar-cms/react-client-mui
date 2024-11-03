@@ -61,6 +61,11 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 				error={validations.filter(v => !v.valid).length > 0}
 				margin={margin}
 				fullWidth={fullWidth}
+				slotProps={{
+					inputLabel: {
+						shrink: true
+					}
+				}}
 			/>
 
 			<ValidationList
