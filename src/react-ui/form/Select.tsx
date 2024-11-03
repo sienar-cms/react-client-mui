@@ -8,7 +8,8 @@ import type { FormInputProps } from './shared.ts';
 
 export type SelectProps = FormInputProps<string> & {
 	label?: ReactNode,
-	fullWidth?: boolean
+	fullWidth?: boolean,
+	hideDefaultOption?: boolean
 }
 
 export default function Select(props: SelectProps) {
@@ -22,7 +23,8 @@ export default function Select(props: SelectProps) {
 		allValidMessage,
 		validators = [],
 		onChange,
-		fullWidth = true
+		fullWidth = true,
+		hideDefaultOption = false
 	} = props;
 
 	const inputId = useId();
@@ -73,6 +75,8 @@ export default function Select(props: SelectProps) {
 					}}
 					sx={{ mb: 1 }}
 				>
+					{!hideDefaultOption && <option value='' disabled></option>}
+
 					{children}
 				</MaterialSelect>
 			</FormControl>
