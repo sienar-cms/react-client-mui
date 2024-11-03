@@ -34,7 +34,6 @@ export default function Select(props: SelectProps) {
 	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentValue, validators);
 
 	const handleChange = async (e: Event) => {
-		console.log(e.target);
 		const target = e.target as HTMLSelectElement;
 		const newValue = target.value;
 		if (currentValue.current !== newValue) {
