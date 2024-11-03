@@ -5,6 +5,8 @@
 			// Damn you, JavaScript. You and your 'truthiness'
 			if (typeof input === 'number' && input === 0) return true;
 
+			if (Array.isArray(input) && input.length === 0) return false;
+
 			// Bless you, JavaScript. You and your 'truthiness'
 			return !!input;
 		}
