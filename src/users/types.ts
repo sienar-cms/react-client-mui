@@ -64,14 +64,19 @@ export type Role = EntityBase & {
 }
 
 /**
- * The data required to add a user to a specific role
+ * A base request used to make modifications to a specific user account
  */
-export type AddUserToRoleRequest = {
+export type UserIdRequest = {
 	/**
-	 * The ID of the user to add to a role
+	 * The ID of the user on which to act
 	 */
 	userId: string
+}
 
+/**
+ * The data required to add a user to a specific role
+ */
+export type AddUserToRoleRequest = UserIdRequest & {
 	/**
 	 * The ID of the role to which to add the user
 	 */
@@ -81,14 +86,14 @@ export type AddUserToRoleRequest = {
 /**
  * The data required to remove a user from a specific role
  */
-export type RemoveUserFromRoleRequest = {
-	/**
-	 * The ID of the user to remove from a role
-	 */
-	userId: string
-
+export type RemoveUserFromRoleRequest = UserIdRequest & {
 	/**
 	 * The ID of the role from which to remove the user
 	 */
 	roleId: string
 }
+
+/**
+ * The data required to unlock a user's account from the admin UI
+ */
+export type UnlockUserAccountRequest = UserIdRequest;

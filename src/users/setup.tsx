@@ -78,6 +78,20 @@ export default function usersSetup() {
 		false
 	);
 
+	provide(
+		KEYS.UNLOCK_USER_ACCOUNT_SERVICE,
+		data => {
+			const formData = new FormData();
+			formData.set('userId', data.userId);
+
+			return sendRequest(
+				'/api/users/lock',
+				'DELETE',
+				{ body: formData }
+			)
+		}
+	)
+
 	// Views
 	registerRoutes(
 		DASHBOARD_LAYOUT,
