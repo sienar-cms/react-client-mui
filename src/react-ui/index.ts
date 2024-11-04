@@ -17,6 +17,8 @@ export { default as Narrow } from './Narrow.tsx';
 export type * from './pages/index.ts';
 export * from './pages/index.ts';
 export { default as setup } from './setup.ts';
+export type  * from './Spacer.tsx';
+export { default as Spacer } from './Spacer.tsx';
 export type * from './Table.tsx';
 export { default as Table } from './Table.tsx';
 export type * from './TableBooleanCell.tsx';
