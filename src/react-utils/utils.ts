@@ -1,5 +1,5 @@
 ﻿import { inject } from '@/react-utils/di.ts';
-import { NotificationType, NOTIFIER } from '@/react-utils/notifications.ts';
+import { NOTIFIER } from '@/react-utils/notifications.ts';
 import type { ApiCallerOptions, HttpMethod, ValidationErrorWebResult, WebResult } from '@/react-utils/http.ts';
 
 export async function sendRequest<T>(
@@ -16,16 +16,13 @@ export async function sendRequest<T>(
 	const init: RequestInit = Object.assign({ method, body }, requestOptions);
 	const request = new Request(url, init);
 
-	const notify = inject(NOTIFIER);
+	const notifier = inject(NOTIFIER);
 	let response: Response;
 
 	try {
 		response = await fetch(request);
 	} catch(e) {
-		notify(
-			'A network error has occured. Are you connected to the internet?',
-			NotificationType.Error
-		);
+		notifier.error('A network error has occured. Are you connected to the internet?');
 
 		return null;
 	}
@@ -37,7 +34,7 @@ export async function sendRequest<T>(
 
 			// In this case, the result is a WebResult containing notifications about invalid fields
 			if (result['notifications'] && Array.isArray(result['notifications'])) {
-				for (let n of (result as WebResult<T>).notifications) notify(n.message, n.type);
+				for (let n of (result as WebResult<T>).notifications) notifier.notify(n);
 				return null;
 			}
 
@@ -53,16 +50,13 @@ export async function sendRequest<T>(
 	} catch {
 		// However, if the status is 500 and the response is blank,
 		// response.json() will throw
-		notify(
-			'An unknown error has occurred.',
-			NotificationType.Error
-		);
+		notifier.error('An unknown error has occurred.');
 
 		return null;
 	}
 
 	if (result.notifications && Array.isArray(result.notifications)) {
-		for (let n of result.notifications) notify(n.message, n.type);
+		for (let n of result.notifications) notifier.notify(n);
 	}
 
 	return result.result;

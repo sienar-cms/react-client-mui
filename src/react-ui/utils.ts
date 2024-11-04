@@ -1,5 +1,6 @@
 ﻿import { enqueueSnackbar } from 'notistack';
 import { NotificationType } from '@/react-utils';
+import type { Notification, Notifier } from '@/react-utils';
 
 /**
  * Renders a notification in the UI
@@ -13,6 +14,28 @@ export function notify(message: string, type: NotificationType) {
 			? null
 			: 5000
 	});
+}
+
+export const notifier: Notifier = {
+	success(message: string) {
+		notify(message, NotificationType.Success);
+	},
+	warning(message: string) {
+		notify(message, NotificationType.Warning);
+	},
+	info(message: string) {
+		notify(message, NotificationType.Info);
+	},
+	error(message: string) {
+		notify(message, NotificationType.Error);
+	},
+	notify(notification: Notification | string, type?: NotificationType) {
+		if (typeof notification === 'string') {
+			notify(notification, type!);
+		} else {
+			notify(notification.message, notification.type);
+		}
+	}
 }
 
 function mapNotificationTypeToVariant(type: NotificationType): 'success' | 'warning' | 'info' | 'error' {

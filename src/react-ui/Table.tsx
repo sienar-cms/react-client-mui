@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
-import { inject, NotificationType, NOTIFIER, useRerender } from '@/react-utils';
+import { inject, NOTIFIER, useRerender } from '@/react-utils';
 import { Add, Close, ContentCopy, DeleteForever, Edit, Search } from '@mui/icons-material';
 import Card from '@/react-ui/Card.tsx';
 import ConfirmationDialog from './ConfirmationDialog.tsx';
@@ -186,7 +186,7 @@ const Table: ForwardRefRenderFunction<TableHandle, TableProps<any>> = function T
 								onClick={async () => {
 									await navigator.clipboard.writeText(value!.id);
 									const notifier = inject(NOTIFIER);
-									notifier('ID copied to clipboard', NotificationType.Success);
+									notifier.success('ID copied to clipboard');
 								}}
 								title='Copy ID to clipboard'
 							>

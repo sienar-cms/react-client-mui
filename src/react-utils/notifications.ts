@@ -16,7 +16,48 @@ export type Notification = {
  * @param type The type of the notification to render
  */
 export interface Notifier {
-	(message: string, type: NotificationType): void
+	/**
+	 * Renders a success notification
+	 *
+	 * @param message The message to render
+	 */
+	success(message: string): void
+
+	/**
+	 * Renders a warning notification
+	 *
+	 * @param message The message to render
+	 */
+	warning(message: string): void
+
+	/**
+	 * Renders an informational notification
+	 *
+	 * @param message The message to render
+	 */
+	info(message: string): void
+
+	/**
+	 * Renders an error notification
+	 *
+	 * @param message The message to render
+	 */
+	error(message: string): void
+
+	/**
+	 * Renders a warning notification
+	 *
+	 * @param message The message to render
+	 * @param type The type of the notification
+	 */
+	notify(message: string, type: NotificationType): void
+
+	/**
+	 * Renders a warning notification
+	 *
+	 * @param notification The notification to render
+	 */
+	notify(notification: Notification): void
 }
 
 /**
