@@ -1,5 +1,5 @@
 ﻿import { DeleteForever, Email, Key, Lock } from '@mui/icons-material';
-import { addLinks, inject, provide, registerRoutes, sendRequest } from '@/react-utils';
+import { addLinks, inject, provide, registerRoutes, sendStatusServiceRequest } from '@/react-utils';
 import * as KEYS from '@account/keys.ts';
 import { DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
@@ -84,55 +84,100 @@ function setupMenus() {
 function setupServices() {
 	provide(
 		KEYS.CHANGE_EMAIL_SERVICE,
-		data => sendRequest('/api/account/change-email', 'POST', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account/change-email',
+			'POST',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.CHANGE_EMAIL_CONFIRM_SERVICE,
-		data => sendRequest('/api/account/email', 'PATCH', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account/email',
+			'PATCH',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.CHANGE_PASSWORD_SERVICE,
-		data => sendRequest('/api/account/change-password', 'PATCH', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account/change-password',
+			'PATCH',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.CONFIRM_SERVICE,
-		data => sendRequest('/api/account/confirm', 'POST', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account/confirm',
+			'POST',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.DELETE_ACCOUNT_SERVICE,
-		data => sendRequest('/api/account', 'DELETE', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account',
+			'DELETE',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.FORGOT_PASSWORD_SERVICE,
-		data => sendRequest('/api/account/password', 'DELETE', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account/password',
+			'DELETE',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.LOGIN_SERVICE,
-		data => sendRequest('/api/account/login', 'POST', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account/login',
+			'POST',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.REGISTER_SERVICE,
-		data => sendRequest('/api/account', 'POST', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account',
+			'POST',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.RESET_PASSWORD_SERVICE,
-		data => sendRequest('/api/account/password', 'PATCH', { body: data }),
+		(data, config) => sendStatusServiceRequest(
+			'/api/account/password',
+			'PATCH',
+			data,
+			config
+		),
 		false
 	);
 }

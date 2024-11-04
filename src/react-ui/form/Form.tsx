@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 
 import type { FormEvent } from 'react';
-import type { CrudService, CrudServiceApiCallerOptions, InjectionKey, StatusService, ValidationResult } from '@/react-utils';
+import type { CrudService, InjectionKey, StatusService } from '@/react-utils';
 import type { CardProps } from '@/react-ui';
 
 export type UpsertFormProps<T> = {
@@ -86,20 +86,7 @@ export default function Form<T>(props: FormProps<T>) {
 		if (onSubmit && !onSubmit(formContext.values)) return;
 
 		const formData = new FormData(formRef.current!);
-		const config: CrudServiceApiCallerOptions = {
-			onUnprocessable: e => {
-				for (let errored in e.errors) {
-					const validationErrors: ValidationResult[] = e.errors[errored].map(e => {
-						return {
-							valid: false,
-							message: e
-						}
-					});
-
-					formContext.errorSetters[errored]?.(validationErrors);
-				}
-			}
-		};
+		const config = { formContext };
 
 		let result: T;
 		if (upsert) {
@@ -111,7 +98,7 @@ export default function Form<T>(props: FormProps<T>) {
 			}
 		} else {
 			const service = inject(serviceKey);
-			result = await service(formData) as T;
+			result = await service(formData, config) as T;
 		}
 
 		if (!result) return;

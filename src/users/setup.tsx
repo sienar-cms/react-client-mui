@@ -1,4 +1,4 @@
-﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes, sendRequest } from '@/react-utils';
+﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes } from '@/react-utils';
 import * as KEYS from '@users/keys.ts';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
@@ -6,7 +6,7 @@ import UserIndex from '@users/views/Index.tsx';
 import UserUpsert from '@users/views/Upsert.tsx';
 import UserRoles from '@users/views/Roles.tsx';
 import UserLock from '@users/views/Lock.tsx';
-import { ApiCrudService } from '@/react-utils';
+import { ApiCrudService, sendStatusServiceRequest } from '@/react-utils';
 import { roles } from '@/constants.ts';
 import type { Role, User } from '@users/types.ts';
 
@@ -40,72 +40,57 @@ export default function usersSetup() {
 
 	provide(
 		KEYS.ADD_USER_TO_ROLE_SERVICE,
-		data => {
-			const formData = new FormData();
-			formData.set('userId', data.userId);
-			formData.set('roleId', data.roleId);
-
-			return sendRequest(
-				'/api/users/roles',
-				'POST',
-				{ body: formData }
-			);
-		},
+		(data, config) => sendStatusServiceRequest(
+			'/api/users/roles',
+			'POST',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.REMOVE_USER_FROM_ROLE_SERVICE,
-		data => {
-			const formData = new FormData();
-			formData.set('userId', data.userId);
-			formData.set('roleId', data.roleId);
-
-			return sendRequest(
-				'/api/users/roles',
-				'DELETE',
-				{ body: formData }
-			);
-		},
+		(data, config) => sendStatusServiceRequest(
+			'/api/users/roles',
+			'DELETE',
+			data,
+			config
+		),
 		false
 	);
 
 	provide(
 		KEYS.LOCK_USER_ACCOUNT_SERVICE,
-		formData => sendRequest(
+		(data, config) => sendStatusServiceRequest(
 			'/api/users/lock',
 			'PATCH',
-			{ body : formData }
+			data,
+			config
 		),
 		false
 	);
 
 	provide(
 		KEYS.UNLOCK_USER_ACCOUNT_SERVICE,
-		data => {
-			const formData = new FormData();
-			formData.set('userId', data.userId);
-
-			return sendRequest(
-				'/api/users/lock',
-				'DELETE',
-				{ body: formData }
-			);
-		}
+		(data, config) => sendStatusServiceRequest(
+			'/api/users/lock',
+			'DELETE',
+			data,
+			config
+		),
+		false
 	);
 
 	provide(
 		KEYS.MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE,
-		data => {
-			const formData = new FormData();
-			formData.set('userId', data.userId);
-
-			return sendRequest(
-				'/api/users/confirm',
-				'PATCH',
-				{ body: formData }
-			);
-		}
+		(data, config) => sendStatusServiceRequest(
+			'/api/users/confirm',
+			'PATCH',
+			data,
+			config
+		),
+		false
 	)
 
 	// Views
