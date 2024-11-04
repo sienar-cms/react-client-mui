@@ -32,7 +32,7 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 
 	const currentSelected = useRef<T|null>(null);
 	const selectedId = useRef<string|null>(null);
-	const rerender = useRerender();
+	const [ rerender ] = useRerender();
 	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected, validators);
 
 	const handleChange = async (e: Event) => {

@@ -31,7 +31,7 @@ export default function CheckboxGroup<T extends EntityBase>(props: CheckboxGroup
 	} = props;
 
 	const currentSelected = useRef<string[]>([]);
-	const rerender = useRerender();
+	const [ rerender ] = useRerender();
 
 	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected, validators);
 

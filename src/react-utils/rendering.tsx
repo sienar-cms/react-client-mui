@@ -10,9 +10,9 @@ import { NOTIFICATION_PROVIDER_COMPONENT } from '@/react-utils/notifications.ts'
 
 import type { ReactElement } from 'react';
 
-export function useRerender() {
-	const [counter, setCounter] = useState(0);
-	return () => setCounter(counter + 1);
+export function useRerender(): [() => void, boolean] {
+	const [trigger, setTrigger] = useState(false);
+	return [() => setTrigger(!trigger), trigger];
 }
 
 export function createApp(rootId: string = 'root') {

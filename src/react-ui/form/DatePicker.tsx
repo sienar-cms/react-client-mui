@@ -22,7 +22,7 @@ export default function DatePicker(props: DatePickerProps) {
 
 	const currentValue = useRef<Dayjs|null>(null);
 	const fieldRef = useRef<HTMLInputElement>(null);
-	const rerender = useRerender();
+	const [ rerender ] = useRerender();
 	const [ validations, interact ] = useFormFieldValidation(name, displayName,
 		currentValue, validators);
 

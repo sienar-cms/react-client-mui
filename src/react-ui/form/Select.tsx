@@ -30,7 +30,7 @@ export default function Select(props: SelectProps) {
 	const inputId = useId();
 	const currentValue = useRef('');
 	const fieldRef = useRef<HTMLSelectElement>(null);
-	const rerender = useRerender();
+	const [ rerender ] = useRerender();
 	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentValue, validators);
 
 	const handleChange = async (e: Event) => {
