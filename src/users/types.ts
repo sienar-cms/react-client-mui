@@ -84,6 +84,11 @@ export type AddUserToRoleRequest = UserIdRequest & {
 }
 
 /**
+ * The data required to manually confirm a user account
+ */
+export type ManuallyConfirmUserAccountRequest = UserIdRequest;
+
+/**
  * The data required to remove a user from a specific role
  */
 export type RemoveUserFromRoleRequest = UserIdRequest & {

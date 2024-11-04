@@ -1,10 +1,10 @@
 ﻿import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
-import { AdminPanelSettings, Lock, LockOpen } from '@mui/icons-material';
+import { AdminPanelSettings, CheckBox, Lock, LockOpen } from '@mui/icons-material';
 import { Table, TableBooleanCell } from '@/react-ui';
 import { inject } from '@/react-utils';
-import { UNLOCK_USER_ACCOUNT_SERVICE, USERS_SERVICE, USERS_ROUTE } from '@users/keys.ts';
+import { MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE, UNLOCK_USER_ACCOUNT_SERVICE, USERS_SERVICE, USERS_ROUTE } from '@users/keys.ts';
 import type { User } from '@users/types.ts';
 import ConfirmationDialog from '../../react-ui/ConfirmationDialog.tsx';
 
@@ -12,6 +12,7 @@ export default function Index() {
 	const currentUrl = inject(USERS_ROUTE);
 	const selectedUser = useRef<User|null>(null);
 	const [ unlockModalOpen, setUnlockModalOpen ] = useState(false);
+	const [ confirmModalOpen, setConfirmModalOpen ] = useState(false);
 
 	const actionMenuRenderer = (user?: User) => (
 		<>
@@ -37,6 +38,18 @@ export default function Index() {
 					<LockOpen/>
 				</IconButton>
 			)}
+
+			<IconButton
+				color={user!.emailConfirmed ? 'primary' : 'warning'}
+				title={user!.emailConfirmed ? `${user!.username}'s account is already confirmed` : `Confirm ${user!.username}'s account`}
+				onClick={() => {
+					if (user!.emailConfirmed) return;
+					selectedUser.current = user!;
+					setConfirmModalOpen(true);
+				}}
+			>
+				<CheckBox/>
+			</IconButton>
 
 			<IconButton
 				component={Link}
@@ -82,7 +95,7 @@ export default function Index() {
 				generateEntityName={u => u?.username}
 				entityTypeName='user'
 				actionMenuRenderer={actionMenuRenderer}
-				actionsColumnWidth={225}
+				actionsColumnWidth={270}
 			/>
 
 			<ConfirmationDialog
@@ -98,6 +111,21 @@ export default function Index() {
 					setUnlockModalOpen(false);
 				}}
 				onCancel={() => setUnlockModalOpen(false)}
+			/>
+
+			<ConfirmationDialog
+				title={`Confirm user account`}
+				open={confirmModalOpen}
+				question={`Are you sure you want to confirm user ${selectedUser.current?.username}'s account?? This cannot be undone!`}
+				confirmText="Yes, I'm sure"
+				cancelText='No, let them confirm themselves'
+				color='warning'
+				onConfirm={async () => {
+					const service = inject(MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE);
+					await service({ userId: selectedUser.current!.id });
+					setConfirmModalOpen(false);
+				}}
+				onCancel={() => setConfirmModalOpen(false)}
 			/>
 		</>
 	);

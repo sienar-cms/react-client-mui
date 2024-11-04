@@ -88,7 +88,21 @@ export default function usersSetup() {
 				'/api/users/lock',
 				'DELETE',
 				{ body: formData }
-			)
+			);
+		}
+	);
+
+	provide(
+		KEYS.MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE,
+		data => {
+			const formData = new FormData();
+			formData.set('userId', data.userId);
+
+			return sendRequest(
+				'/api/users/confirm',
+				'PATCH',
+				{ body: formData }
+			);
 		}
 	)
 
