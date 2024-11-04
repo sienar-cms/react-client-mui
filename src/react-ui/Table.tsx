@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
-import { inject, NotificationType, NOTIFIER } from '@/react-utils';
+import { inject, NotificationType, NOTIFIER, useRerender } from '@/react-utils';
 import { Add, Close, ContentCopy, DeleteForever, Edit, Search } from '@mui/icons-material';
 import Card from '@/react-ui/Card.tsx';
 import ConfirmationDialog from './ConfirmationDialog.tsx';
@@ -121,10 +121,10 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 	const [ sortName, setSortName ] = useState('');
 	const [ sortDescending, setSortDescending ] = useState(false);
 	const [ isLoading, setIsLoading ] = useState(false);
-	const [ triggerRender, setTriggerRender ] = useState(false);
 	const [ rows, setRows ] = useState<T[]>([]);
 	const [ rowCount, setRowCount ] = useState(0);
 	const [ modalOpen, setModalOpen ] = useState(false);
+	const [ rerender, trigger ] = useRerender();
 	const selectedItem = useRef<T|null>(null);
 	const location = useLocation();
 
@@ -245,7 +245,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 		);
 
 	// All filter variables should trigger an immediate table reload...
-	useEffect(() => {loadResults()}, [pageSize, sortName, page, sortDescending, triggerRender]);
+	useEffect(() => {loadResults()}, [pageSize, sortName, page, sortDescending, trigger]);
 
 	// ...except searchTerm, which is typed and should be debounced
 	useEffect(() => {
@@ -335,7 +335,7 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 
 							await service.delete(selectedItem.current.id);
 							setModalOpen(false);
-							setTriggerRender(!triggerRender);
+							rerender();
 						}}
 						onCancel={() => setModalOpen(false)}
 					/>
