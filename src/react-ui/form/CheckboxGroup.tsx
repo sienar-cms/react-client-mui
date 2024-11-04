@@ -42,18 +42,21 @@ export default function CheckboxGroup<T extends EntityBase>(props: CheckboxGroup
 		if (checked && currentSelected.current.includes(target.value) ||
 			!checked && !currentSelected.current.includes(target.value)) return;
 
-		if (checked && !currentSelected.current.includes(target.value)) {
-			currentSelected.current.push(target.value);
-		}
-
 		let index = currentSelected.current.findIndex(c => c === target.value);
-		if (index > -1) {
+		let changed = false;
+		if (checked && index === -1) {
+			currentSelected.current.push(target.value);
+			changed = true;
+		} else if (!checked && index > -1) {
 			currentSelected.current.splice(index, 1);
+			changed = true;
 		}
 
-		interact();
-		await onChange?.(currentSelected.current);
-		rerender();
+		if (changed) {
+			interact();
+			await onChange?.(currentSelected.current);
+			rerender();
+		}
 	}
 
 	const paperSx: SxProps = {
