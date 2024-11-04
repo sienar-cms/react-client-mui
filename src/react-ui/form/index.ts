@@ -8,6 +8,8 @@ export type * from './Textbox.tsx';
 export { default as Textbox } from './Textbox.tsx';
 export type * from './StandaloneCheckbox.tsx';
 export { default as StandaloneCheckbox } from './StandaloneCheckbox.tsx';
+export type * from './Checkbox.tsx';
+export { default as Checkbox } from './Checkbox.tsx';
 export type * from './CheckboxGroup.tsx';
 export { default as CheckboxGroup } from './CheckboxGroup.tsx';
 export type * from './Radio.tsx';

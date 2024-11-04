@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { CheckboxGroup, DatePicker, Form, LoadingPage, Narrow, Radio, RadioGroup, Spacer } from '@/react-ui';
+import { Checkbox, CheckboxGroup, DatePicker, Form, LoadingPage, Narrow, Radio, RadioGroup, Spacer } from '@/react-ui';
 import { inject, useNavigate, validators } from '@/react-utils';
 import { LOCK_USER_ACCOUNT_SERVICE, USERS_ROUTE, USERS_SERVICE } from '@users/keys.ts';
 import { LOCKOUT_REASONS_SERVICE } from '@lockoutReasons/keys.ts';
@@ -53,14 +53,18 @@ export default function Lock() {
 				/>
 
 				<CheckboxGroup
-					options={lockoutReasons}
 					label='Why should the user be locked out?'
-					labelRenderer={r => r.reason}
 					name='reasons'
 					displayName='lockout reasons'
 					validators={[validators.required('You must select one or more %name')]}
 					maxHeight={300}
-				/>
+				>
+					{lockoutReasons.map(r => (
+						<Checkbox value={r.id}>
+							{r.reason}
+						</Checkbox>
+					))}
+				</CheckboxGroup>
 
 				<Spacer spacing={3}/>
 

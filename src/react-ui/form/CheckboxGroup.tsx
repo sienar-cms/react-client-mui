@@ -1,26 +1,29 @@
-import { useRef } from 'react';
-import { Box, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Paper } from '@mui/material';
+import { createContext, useRef } from 'react';
+import { FormControl, FormGroup, FormLabel, Paper } from '@mui/material';
 import ValidationList from './ValidationList.tsx';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 
 import type { ReactNode } from 'react';
 import type { SxProps } from '@mui/material';
-import type { EntityBase } from '@/react-utils';
 import type { FormInputProps } from './shared.ts';
 
-export type CheckboxGroupProps<T extends EntityBase> = Omit<FormInputProps<string[]>, 'value'|'children'> & {
-	options: T[],
-	labelRenderer?: (option: T) => ReactNode,
+export const checkboxGroupContext = createContext<CheckboxGroupContext>({
+	selected: [],
+	selectedIds: [],
+	name: '',
+	handleChange: () => {}
+});
+
+export type CheckboxGroupProps = Omit<FormInputProps<string[]>, 'value'> & {
 	label?: ReactNode,
 	maxHeight?: number
 };
 
-export default function CheckboxGroup<T extends EntityBase>(props: CheckboxGroupProps<T>) {
+export default function CheckboxGroup(props: CheckboxGroupProps) {
 	const {
-		options,
-		labelRenderer,
 		name,
 		displayName,
+		children,
 		label,
 		maxHeight,
 		hideNonErrors,
@@ -31,6 +34,7 @@ export default function CheckboxGroup<T extends EntityBase>(props: CheckboxGroup
 	} = props;
 
 	const currentSelected = useRef<string[]>([]);
+	const selectedIds = useRef<string[]>([]);
 	const [ rerender ] = useRerender();
 
 	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected, validators);
@@ -46,9 +50,13 @@ export default function CheckboxGroup<T extends EntityBase>(props: CheckboxGroup
 		let changed = false;
 		if (checked && index === -1) {
 			currentSelected.current.push(target.value);
+			selectedIds.current.push(target.id);
 			changed = true;
 		} else if (!checked && index > -1) {
 			currentSelected.current.splice(index, 1);
+
+			const idIndex = selectedIds.current.findIndex(i => i === target.id);
+			selectedIds.current.splice(idIndex, 1);
 			changed = true;
 		}
 
@@ -67,7 +75,12 @@ export default function CheckboxGroup<T extends EntityBase>(props: CheckboxGroup
 	};
 
 	return (
-		<Box>
+		<checkboxGroupContext.Provider value={{
+			selected: currentSelected.current,
+			selectedIds: selectedIds.current,
+			name,
+			handleChange
+		}}>
 			<FormControl
 				component='fieldset'
 				error={validations.filter(v => !v.valid).length > 0}
@@ -79,24 +92,7 @@ export default function CheckboxGroup<T extends EntityBase>(props: CheckboxGroup
 					sx={paperSx}
 					elevation={0}
 				>
-					{options.map(o => (
-						<FormControlLabel
-							key={o.id}
-							htmlFor={o.id}
-							control={
-								<Checkbox
-									id={o.id}
-									name={name}
-									checked={currentSelected.current.includes(o.id)}
-									value={o.id}
-									// @ts-ignore
-									onChange={handleChange}
-								/>
-							}
-							label={labelRenderer?.(o) ?? o.toString()}
-							sx={{width: '100%'}}
-						/>
-					))}
+					{children}
 				</Paper>
 
 				<ValidationList
@@ -106,6 +102,13 @@ export default function CheckboxGroup<T extends EntityBase>(props: CheckboxGroup
 					allValidMessage={allValidMessage}
 				/>
 			</FormControl>
-		</Box>
+		</checkboxGroupContext.Provider>
 	);
+}
+
+export type CheckboxGroupContext = {
+	selected: string[],
+	selectedIds: string[],
+	name: string,
+	handleChange: (e: Event) => any
 }
