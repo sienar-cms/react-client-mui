@@ -1,6 +1,6 @@
 ﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes } from '@/react-utils';
 import * as KEYS from './keys.ts';
-import { DASHBOARD_LAYOUT } from '@/keys';
+import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys';
 import LockoutReasonIndex from './views/Index.tsx';
 import LockoutReasonUpsert from './views/Upsert.tsx';
 import { ApiCrudService } from '@/react-utils';
@@ -34,7 +34,11 @@ export default function lockoutReasonsSetup() {
 		{
 			path: inject(KEYS.LOCKOUT_REASONS_ROUTE),
 			element: inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonIndex/>
-		},
+		}
+	);
+
+	registerRoutes(
+		DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(KEYS.LOCKOUT_REASONS_ADD_ROUTE),
 			element: inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>
@@ -43,5 +47,5 @@ export default function lockoutReasonsSetup() {
 			path: `${inject(KEYS.LOCKOUT_REASONS_ROUTE)}/:id`,
 			element: inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>
 		}
-	)
+	);
 }

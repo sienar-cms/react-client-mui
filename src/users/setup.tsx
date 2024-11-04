@@ -1,6 +1,6 @@
 ﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes, sendRequest } from '@/react-utils';
 import * as KEYS from '@users/keys.ts';
-import { DASHBOARD_LAYOUT } from '@/keys.ts';
+import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import UserIndex from '@users/views/Index.tsx';
 import UserUpsert from '@users/views/Upsert.tsx';
 import UserRoles from '@users/views/Roles.tsx';
@@ -112,7 +112,11 @@ export default function usersSetup() {
 		{
 			path: inject(KEYS.USERS_ROUTE),
 			element: inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserIndex/>
-		},
+		}
+	);
+
+	registerRoutes(
+		DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(KEYS.USERS_ADD_ROUTE),
 			element: inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserUpsert/>
@@ -129,5 +133,5 @@ export default function usersSetup() {
 			path: `${inject(KEYS.USERS_ROUTE)}/:id/lock`,
 			element: inject(KEYS.USERS_LOCK_VIEW, true) ?? <UserLock/>
 		}
-	)
+	);
 }

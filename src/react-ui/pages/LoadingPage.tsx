@@ -1,5 +1,4 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
-import Narrow from '@/react-ui/Narrow.tsx';
 
 import type { ElementType, PropsWithChildren } from 'react';
 import type { SxProps } from '@mui/material';
@@ -22,7 +21,7 @@ export default function LoadingPage(props: LoadingPageProps) {
 	} = props;
 
 	return (
-		<Narrow>
+		<>
 			<Typography
 				component={messageComponent}
 				typography={messageTypography}
@@ -39,6 +38,6 @@ export default function LoadingPage(props: LoadingPageProps) {
 			}}>
 				<CircularProgress color={color}/>
 			</Box>
-		</Narrow>
+		</>
 	)
 }

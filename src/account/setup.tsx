@@ -1,7 +1,7 @@
 ﻿import { DeleteForever, Email, Key, Lock } from '@mui/icons-material';
 import { addLinks, inject, provide, registerRoutes, sendRequest } from '@/react-utils';
 import * as KEYS from '@account/keys.ts';
-import { DASHBOARD_LAYOUT } from '@/keys.ts';
+import { DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import Register from '@account/views/register/Index.tsx';
 import RegisterSuccessful from '@account/views/register/Successful.tsx';
 import Confirm from '@account/views/confirm/Index.tsx';
@@ -138,7 +138,7 @@ function setupServices() {
 
 function setupViews() {
 	registerRoutes(
-		DASHBOARD_LAYOUT,
+		DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(KEYS.REGISTER_ROUTE),
 			element: inject(KEYS.REGISTER_VIEW, true) ?? <Register/>

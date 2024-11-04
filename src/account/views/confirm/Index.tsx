@@ -1,4 +1,4 @@
-﻿import { Form, Narrow } from '@/react-ui';
+﻿import { Form } from '@/react-ui';
 import { useNavigate } from '@/react-utils';
 import { useSearchParams } from 'react-router-dom';
 import { CONFIRM_SUCCESSFUL_ROUTE, CONFIRM_SERVICE } from '@account/keys';
@@ -10,26 +10,24 @@ export default function Index() {
 	const code = search.get('code');
 
 	return (
-		<Narrow>
-			<Form
-				serviceKey={CONFIRM_SERVICE}
-				title='Confirming account'
-				onSuccess={(successful: boolean) => {
-					if (successful) navigate(CONFIRM_SUCCESSFUL_ROUTE);
-				}}
-				hideControls
-				immediate
-			>
-				Please wait while we confirm your account...
-				<input
-					type='hidden'
-					value={ userId ?? '' }
-					name='userId'/>
-				<input
-					type='hidden'
-					value={ code ?? '' }
-					name='verificationCode'/>
-			</Form>
-		</Narrow>
-	)
+		<Form
+			serviceKey={CONFIRM_SERVICE}
+			title='Confirming account'
+			onSuccess={(successful: boolean) => {
+				if (successful) navigate(CONFIRM_SUCCESSFUL_ROUTE);
+			}}
+			hideControls
+			immediate
+		>
+			Please wait while we confirm your account...
+			<input
+				type='hidden'
+				value={ userId ?? '' }
+				name='userId'/>
+			<input
+				type='hidden'
+				value={ code ?? '' }
+				name='verificationCode'/>
+		</Form>
+	);
 }
