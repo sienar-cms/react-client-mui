@@ -5,12 +5,12 @@ import ValidationList from './ValidationList.tsx';
 
 import type { FormInputProps } from './shared.ts';
 
-export type CheckboxProps<T> = Omit<FormInputProps<boolean>, 'value'> & {
+export type StandaloneCheckboxProps<T> = Omit<FormInputProps<boolean>, 'value'> & {
 	value?: T
 	checked?: boolean
 }
 
-export default function StandaloneCheckbox<T>(props: CheckboxProps<T>) {
+export default function StandaloneCheckbox<T>(props: StandaloneCheckboxProps<T>) {
 	const {
 		name,
 		displayName,
