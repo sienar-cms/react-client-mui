@@ -12,6 +12,8 @@ export type * from './form/index.ts';
 export * from './form/index.ts';
 export type * from './layouts/index.tsx';
 export * from './layouts/index.tsx';
+export * from './MuiDateLocalizationProvider.tsx';
+export { default as MuiDateLocalizationProvider } from './MuiDateLocalizationProvider.tsx';
 export type * from './Narrow.tsx';
 export { default as Narrow } from './Narrow.tsx';
 export type * from './pages/index.ts';

@@ -1,5 +1,7 @@
 ﻿export type * from './ValidationList.tsx';
 export { default as ValidationList } from './ValidationList.tsx';
+export type * from './DatePicker.tsx';
+export { default as DatePicker } from './DatePicker.tsx';
 export type * from './Form.tsx';
 export { default as Form } from './Form.tsx';
 export type * from './Textbox.tsx';

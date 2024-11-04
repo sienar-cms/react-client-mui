@@ -1,4 +1,5 @@
-﻿import { addReducer, authReducer, AUTH_NAME, infrastructureReducer, INFRASTRUCTURE_NAME, addLinksWithPriority, DASHBOARD_MENU, MenuPriority, inject, provide, DRAWER_FOOTER_PARTIAL, registerRoutes } from '@/react-utils';
+﻿import { addReducer, authReducer, AUTH_NAME, infrastructureReducer, INFRASTRUCTURE_NAME, addLinksWithPriority, DASHBOARD_MENU, MenuPriority, inject, provide, DRAWER_FOOTER_PARTIAL, registerProvider, registerRoutes } from '@/react-utils';
+import { MUI_DATE_LOCALIZATION_PROVIDER } from '@/react-ui';
 
 import { Dashboard, Home } from '@mui/icons-material';
 import * as KEYS from '@/keys.ts';
@@ -12,6 +13,9 @@ import { usersSetup } from '@users/index.ts';
 
 export default function setup() {
 	// Global setup not linked to a specific vertical slice
+
+	// Providers
+	registerProvider(inject(MUI_DATE_LOCALIZATION_PROVIDER));
 
 	// Routes
 	provide(KEYS.HOME_ROUTE, '/', false);
