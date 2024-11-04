@@ -8,6 +8,7 @@ import type { FormInputProps } from './shared.ts';
 
 export const radioGroupContext = createContext({
 	selected: null,
+	selectedId: null,
 	name: '',
 	handleChange: () => {}
 } as RadioGroupContext<any>);
@@ -30,6 +31,7 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 	} = props;
 
 	const currentSelected = useRef<T|null>(null);
+	const selectedId = useRef<string|null>(null);
 	const rerender = useRerender();
 	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected, validators);
 
@@ -38,6 +40,7 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 		const newValue = target.value as T;
 		if (currentSelected.current === newValue) return;
 
+		selectedId.current = target.id;
 		currentSelected.current = newValue;
 		interact();
 		await onChange?.(newValue);
@@ -45,32 +48,40 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 	}
 
 	return (
-		<FormControl
-			component='fieldset'
-			error={validations.filter(v => !v.valid).length > 0}
-		>
-			<FormLabel component='legend'>{label ?? displayName}</FormLabel>
-
-			<MaterialRadioGroup
-				name={name}
-				// @ts-ignore
-				onChange={handleChange}
+		<radioGroupContext.Provider value={{
+			selected: currentSelected.current,
+			selectedId: selectedId.current,
+			name,
+			handleChange
+		}}>
+			<FormControl
+				component='fieldset'
+				error={validations.filter(v => !v.valid).length > 0}
 			>
-				{children}
-			</MaterialRadioGroup>
+				<FormLabel component='legend'>{label ?? displayName}</FormLabel>
 
-			<ValidationList
-				validations={validations}
-				hideNonErrors={hideNonErrors}
-				hideIfAllValid={hideValidationIfValid}
-				allValidMessage={allValidMessage}
-			/>
-		</FormControl>
+				<MaterialRadioGroup
+					name={name}
+					// @ts-ignore
+					onChange={handleChange}
+				>
+					{children}
+				</MaterialRadioGroup>
+
+				<ValidationList
+					validations={validations}
+					hideNonErrors={hideNonErrors}
+					hideIfAllValid={hideValidationIfValid}
+					allValidMessage={allValidMessage}
+				/>
+			</FormControl>
+		</radioGroupContext.Provider>
 	);
 }
 
 export type RadioGroupContext<T> = {
 	selected: T|null,
+	selectedId: string|null,
 	name: string,
 	handleChange: (e: Event) => any
 }
