@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
@@ -8,7 +8,7 @@ import { Add, Close, ContentCopy, DeleteForever, Edit, Search } from '@mui/icons
 import Card from '@/react-ui/Card.tsx';
 import ConfirmationDialog from './ConfirmationDialog.tsx';
 
-import type { ReactNode } from 'react';
+import type { ForwardedRef, ForwardRefRenderFunction, ReactNode } from 'react';
 import type { GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid';
 import type { CrudService, EntityBase, Filter, InjectionKey } from '@/react-utils';
 import type { Color } from '@/react-ui/theme.ts';
@@ -94,7 +94,14 @@ export type TableProps<T extends EntityBase> = {
 	actionMenuRenderer?: (item: T) => ReactNode
 }
 
-export default function Table<T extends EntityBase>(props: TableProps<T>) {
+export type TableHandle = {
+	/**
+	 * Forces the table to reload its data internally
+	 */
+	reloadData: () => void
+}
+
+const Table: ForwardRefRenderFunction<TableHandle, TableProps<any>> = function Table<T extends EntityBase>(props: TableProps<T>, ref: ForwardedRef<TableHandle>) {
 	const {
 		title,
 		entityTypeName,
@@ -127,6 +134,8 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 	const [ rerender, trigger ] = useRerender();
 	const selectedItem = useRef<T|null>(null);
 	const location = useLocation();
+
+	useImperativeHandle(ref, () => ({ reloadData: () => rerender() }), []);
 
 	// Set up data loading
 	const loadResults = async () => {
@@ -344,3 +353,5 @@ export default function Table<T extends EntityBase>(props: TableProps<T>) {
 		</>
 	);
 }
+
+export default forwardRef<TableHandle, TableProps<any>>(Table);
