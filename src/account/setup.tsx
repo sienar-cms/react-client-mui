@@ -2,6 +2,7 @@
 import { addLinks, inject, provide, registerRoutes, sendRequest } from '@/react-utils';
 import * as KEYS from '@account/keys.ts';
 import { DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
+import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
 import Register from '@account/views/register/Index.tsx';
 import RegisterSuccessful from '@account/views/register/Successful.tsx';
 import Confirm from '@account/views/confirm/Index.tsx';
@@ -177,35 +178,67 @@ function setupViews() {
 		},
 		{
 			path: inject(KEYS.CHANGE_EMAIL_ROUTE),
-			element: inject(KEYS.CHANGE_EMAIL_VIEW, true) ?? <ChangeEmail/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.CHANGE_EMAIL_VIEW, true) ?? <ChangeEmail/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: inject(KEYS.CHANGE_EMAIL_REQUESTED_ROUTE),
-			element: inject(KEYS.CHANGE_EMAIL_REQUESTED_VIEW, true) ?? <ChangeEmailRequested/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.CHANGE_EMAIL_REQUESTED_VIEW, true) ?? <ChangeEmailRequested/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: inject(KEYS.CHANGE_EMAIL_CONFIRM_ROUTE),
-			element: inject(KEYS.CHANGE_EMAIL_CONFIRM_VIEW, true) ?? <ChangeEmailConfirm/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.CHANGE_EMAIL_CONFIRM_VIEW, true) ?? <ChangeEmailConfirm/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: inject(KEYS.CHANGE_EMAIL_SUCCESSFUL_ROUTE),
-			element: inject(KEYS.CHANGE_EMAIL_SUCCESSFUL_VIEW, true) ?? <ChangeEmailSuccessful/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.CHANGE_EMAIL_SUCCESSFUL_VIEW, true) ?? <ChangeEmailSuccessful/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: inject(KEYS.CHANGE_PASSWORD_ROUTE),
-			element: inject(KEYS.CHANGE_PASSWORD_VIEW, true) ?? <ChangePassword/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.CHANGE_PASSWORD_VIEW, true) ?? <ChangePassword/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: inject(KEYS.CHANGE_PASSWORD_SUCCESSFUL_ROUTE),
-			element: inject(KEYS.CHANGE_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ChangePasswordSuccessful/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.CHANGE_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ChangePasswordSuccessful/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: inject(KEYS.PERSONAL_DATA_ROUTE),
-			element: inject(KEYS.PERSONAL_DATA_VIEW, true) ?? <PersonalData/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.PERSONAL_DATA_VIEW, true) ?? <PersonalData/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: inject(KEYS.DELETE_ACCOUNT_ROUTE),
-			element: inject(KEYS.DELETE_ACCOUNT_VIEW, true) ?? <DeleteAccount/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.DELETE_ACCOUNT_VIEW, true) ?? <DeleteAccount/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: inject(KEYS.DELETED_ROUTE),

@@ -5,6 +5,7 @@ import { Dashboard, Home } from '@mui/icons-material';
 import * as KEYS from '@/keys.ts';
 import DrawerFooter from '@/partials/DrawerFooter.tsx';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
+import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
 import { Dashboard as DashboardLayout, DashboardNarrow as DashboardNarrowLayout } from '@/react-ui';
 import DashboardView from '@/views/Dashboard.tsx';
 import { accountSetup } from '@account/index.ts';
@@ -56,7 +57,11 @@ export default function setup() {
 		DASHBOARD_LAYOUT,
 		{
 			path: inject(KEYS.DASHBOARD_ROUTE),
-			element: inject(KEYS.DASHBOARD_VIEW, true) ?? <DashboardView/>
+			element: (
+				<AuthorizeRoute>
+					{inject(KEYS.DASHBOARD_VIEW, true) ?? <DashboardView/>}
+				</AuthorizeRoute>
+			)
 		}
 	)
 

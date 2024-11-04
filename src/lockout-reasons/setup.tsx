@@ -1,9 +1,11 @@
 ﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes } from '@/react-utils';
 import * as KEYS from './keys.ts';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys';
+import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
 import LockoutReasonIndex from './views/Index.tsx';
 import LockoutReasonUpsert from './views/Upsert.tsx';
 import { ApiCrudService } from '@/react-utils';
+import { roles } from '@/constants.ts';
 import type { LockoutReason } from '@lockoutReasons/types';
 
 export default function lockoutReasonsSetup() {
@@ -33,7 +35,11 @@ export default function lockoutReasonsSetup() {
 		DASHBOARD_LAYOUT,
 		{
 			path: inject(KEYS.LOCKOUT_REASONS_ROUTE),
-			element: inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonIndex/>
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonIndex/>}
+				</AuthorizeRoute>
+			)
 		}
 	);
 
@@ -41,11 +47,19 @@ export default function lockoutReasonsSetup() {
 		DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(KEYS.LOCKOUT_REASONS_ADD_ROUTE),
-			element: inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: `${inject(KEYS.LOCKOUT_REASONS_ROUTE)}/:id`,
-			element: inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>}
+				</AuthorizeRoute>
+			)
 		}
 	);
 }

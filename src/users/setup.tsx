@@ -1,11 +1,13 @@
 ﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes, sendRequest } from '@/react-utils';
 import * as KEYS from '@users/keys.ts';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
+import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
 import UserIndex from '@users/views/Index.tsx';
 import UserUpsert from '@users/views/Upsert.tsx';
 import UserRoles from '@users/views/Roles.tsx';
 import UserLock from '@users/views/Lock.tsx';
 import { ApiCrudService } from '@/react-utils';
+import { roles } from '@/constants.ts';
 import type { Role, User } from '@users/types.ts';
 
 export default function usersSetup() {
@@ -111,7 +113,11 @@ export default function usersSetup() {
 		DASHBOARD_LAYOUT,
 		{
 			path: inject(KEYS.USERS_ROUTE),
-			element: inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserIndex/>
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserIndex/>}
+				</AuthorizeRoute>
+			)
 		}
 	);
 
@@ -119,19 +125,35 @@ export default function usersSetup() {
 		DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(KEYS.USERS_ADD_ROUTE),
-			element: inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserUpsert/>
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserUpsert/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: `${inject(KEYS.USERS_ROUTE)}/:id`,
-			element: inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserUpsert/>
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserUpsert/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: `${inject(KEYS.USERS_ROUTE)}/:id/roles`,
-			element: inject(KEYS.USERS_ROLES_VIEW, true) ?? <UserRoles/>
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.USERS_ROLES_VIEW, true) ?? <UserRoles/>}
+				</AuthorizeRoute>
+			)
 		},
 		{
 			path: `${inject(KEYS.USERS_ROUTE)}/:id/lock`,
-			element: inject(KEYS.USERS_LOCK_VIEW, true) ?? <UserLock/>
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.USERS_LOCK_VIEW, true) ?? <UserLock/>}
+				</AuthorizeRoute>
+			)
 		}
 	);
 }
