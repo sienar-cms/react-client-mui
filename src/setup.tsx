@@ -4,8 +4,8 @@ import { MUI_DATE_LOCALIZATION_PROVIDER } from '@/react-ui';
 import { Dashboard, Home } from '@mui/icons-material';
 import * as KEYS from '@/keys.ts';
 import DrawerFooter from '@/partials/DrawerFooter.tsx';
-import { DASHBOARD_LAYOUT } from '@/keys.ts';
-import { Dashboard as DashboardLayout } from '@/react-ui';
+import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
+import { Dashboard as DashboardLayout, DashboardNarrow as DashboardNarrowLayout } from '@/react-ui';
 import DashboardView from '@/views/Dashboard.tsx';
 import { accountSetup } from '@account/index.ts';
 import { lockoutReasonsSetup } from '@lockoutReasons/index.ts';
@@ -50,6 +50,7 @@ export default function setup() {
 
 	// Views
 	provide(DASHBOARD_LAYOUT, <DashboardLayout/>, false);
+	provide(DASHBOARD_NARROW_LAYOUT, <DashboardNarrowLayout/>, false);
 
 	registerRoutes(
 		DASHBOARD_LAYOUT,

@@ -3,6 +3,7 @@ import type { InjectionKey } from '@/react-utils';
 
 // Layouts
 export const DASHBOARD_LAYOUT = Symbol() as InjectionKey<ReactNode>;
+export const DASHBOARD_NARROW_LAYOUT = Symbol() as InjectionKey<ReactNode>;
 
 // Routes
 export const HOME_ROUTE = Symbol() as InjectionKey<string>;
