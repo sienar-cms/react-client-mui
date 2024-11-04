@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react';
-import { Form, Narrow, Textbox, Checkbox } from '@/react-ui';
+import { Form, Narrow, Textbox, StandaloneCheckbox } from '@/react-ui';
 import { validators, useNavigate } from '@/react-utils';
 import { REGISTER_SERVICE, REGISTER_SUCCESSFUL_ROUTE } from '@account/keys';
 
@@ -68,7 +68,7 @@ export default function Index() {
 						validators.matches('Password')
 					]}
 				/>
-				<Checkbox
+				<StandaloneCheckbox
 					name='acceptTos'
 					displayName='Accept TOS'
 					validators={[

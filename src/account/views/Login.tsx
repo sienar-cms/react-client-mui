@@ -1,6 +1,6 @@
 ﻿import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Checkbox, Form, Narrow, Textbox } from '@/react-ui';
+import { StandaloneCheckbox, Form, Narrow, Textbox } from '@/react-ui';
 import { inject, useNavigate, validators, useAuthDispatch, loadUserData } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
 import { FORGOT_PASSWORD_ROUTE, LOGIN_SERVICE } from '@account/keys';
@@ -45,9 +45,9 @@ export default function Login() {
 					validators={[validators.required()]}
 					hideNonErrors
 				/>
-				<Checkbox name='rememberMe'>
+				<StandaloneCheckbox name='rememberMe'>
 					Remember me
-				</Checkbox>
+				</StandaloneCheckbox>
 			</Form>
 		</Narrow>
 	)

@@ -10,7 +10,7 @@ export type CheckboxProps<T> = Omit<FormInputProps<boolean>, 'value'> & {
 	checked?: boolean
 }
 
-export default function Checkbox<T>(props: CheckboxProps<T>) {
+export default function StandaloneCheckbox<T>(props: CheckboxProps<T>) {
 	const {
 		name,
 		displayName,
