@@ -18,7 +18,6 @@ export default function Index() {
 			{!user!.lockoutEnd && (
 				<IconButton
 					component={Link}
-					color='warning'
 					title={`Lock ${user!.username}'s account`}
 					to={`${currentUrl}/${user!.id}/lock`}
 				>
@@ -41,7 +40,7 @@ export default function Index() {
 
 			<IconButton
 				component={Link}
-				color='warning'
+				color='primary'
 				title={`Update ${user!.username}'s roles`}
 				to={`${currentUrl}/${user!.id}/roles`}
 			>
@@ -92,7 +91,7 @@ export default function Index() {
 				question={`Are you sure you want to unlock user ${selectedUser.current?.username}'s account?? This will take effect immediately!`}
 				confirmText="Yes, I'm sure"
 				cancelText='No, leave them locked'
-				// color='warning'
+				color='warning'
 				onConfirm={async () => {
 					const service = inject(UNLOCK_USER_ACCOUNT_SERVICE);
 					await service({ userId: selectedUser.current!.id });
