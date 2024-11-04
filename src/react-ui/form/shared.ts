@@ -2,7 +2,7 @@
 import type { FormValueValidator } from '@/react-utils';
 
 export type FormInputProps<T extends unknown> = PropsWithChildren & {
-	name?: string
+	name: string
 	displayName?: string
 	value?: T,
 	onChange?: (newValue: T) => Promise<any>|any
