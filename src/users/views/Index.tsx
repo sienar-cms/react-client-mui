@@ -1,6 +1,6 @@
 ﻿import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
-import { AdminPanelSettings } from '@mui/icons-material';
+import { AdminPanelSettings, Lock, LockOpen } from '@mui/icons-material';
 import { Table, TableBooleanCell } from '@/react-ui';
 import { inject } from '@/react-utils';
 import { USERS_SERVICE, USERS_ROUTE } from '@users/keys.ts';
@@ -11,6 +11,26 @@ export default function Index() {
 
 	const actionMenuRenderer = (user?: User) => (
 		<>
+			{!user!.lockoutEnd && (
+				<IconButton
+					component={Link}
+					color='warning'
+					title={`Lock ${user!.username}'s account`}
+					to={`${currentUrl}/${user!.id}/lock`}
+				>
+					<Lock/>
+				</IconButton>
+			)}
+
+			{user!.lockoutEnd && (
+				<IconButton
+					color='warning'
+					title={`Unlock ${user!.username}'s account`}
+				>
+					<LockOpen/>
+				</IconButton>
+			)}
+
 			<IconButton
 				component={Link}
 				color='warning'
@@ -34,7 +54,7 @@ export default function Index() {
 				{
 					field: 'email',
 					headerName: 'Email',
-					flex: 1
+					flex: 2
 				},
 				{
 					field: 'lockoutEnd',
@@ -54,7 +74,7 @@ export default function Index() {
 			generateEntityName={u => u?.username}
 			entityTypeName='user'
 			actionMenuRenderer={actionMenuRenderer}
-			actionsColumnWidth={185}
+			actionsColumnWidth={225}
 		/>
 	);
 }

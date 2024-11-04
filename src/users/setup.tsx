@@ -4,6 +4,7 @@ import { DASHBOARD_LAYOUT } from '@/keys.ts';
 import UserIndex from '@users/views/Index.tsx';
 import UserUpsert from '@users/views/Upsert.tsx';
 import UserRoles from '@users/views/Roles.tsx';
+import UserLock from '@users/views/Lock.tsx';
 import { ApiCrudService } from '@/react-utils';
 import type { Role, User } from '@users/types.ts';
 
@@ -67,6 +68,16 @@ export default function usersSetup() {
 		false
 	);
 
+	provide(
+		KEYS.LOCK_USER_ACCOUNT_SERVICE,
+		formData => sendRequest(
+			'/api/users/lock',
+			'PATCH',
+			{ body : formData }
+		),
+		false
+	);
+
 	// Views
 	registerRoutes(
 		DASHBOARD_LAYOUT,
@@ -85,6 +96,10 @@ export default function usersSetup() {
 		{
 			path: `${inject(KEYS.USERS_ROUTE)}/:id/roles`,
 			element: inject(KEYS.USERS_ROLES_VIEW, true) ?? <UserRoles/>
+		},
+		{
+			path: `${inject(KEYS.USERS_ROUTE)}/:id/lock`,
+			element: inject(KEYS.USERS_LOCK_VIEW, true) ?? <UserLock/>
 		}
 	)
 }

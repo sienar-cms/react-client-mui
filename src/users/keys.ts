@@ -13,8 +13,10 @@ export const USERS_SERVICE = Symbol() as InjectionKey<CrudService<User>>;
 export const ROLES_SERVICE = Symbol() as InjectionKey<CrudService<Role>>;
 export const ADD_USER_TO_ROLE_SERVICE = Symbol() as InjectionKey<StatusService<AddUserToRoleRequest>>;
 export const REMOVE_USER_FROM_ROLE_SERVICE = Symbol() as InjectionKey<StatusService<RemoveUserFromRoleRequest>>;
+export const LOCK_USER_ACCOUNT_SERVICE = Symbol() as InjectionKey<StatusService<FormData>>;
 
 // Views
 
 export const USERS_UPSERT_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const USERS_ROLES_VIEW = Symbol() as InjectionKey<ReactNode>;
+export const USERS_LOCK_VIEW = Symbol() as InjectionKey<ReactNode>;
