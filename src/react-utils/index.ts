@@ -24,8 +24,6 @@ export type * from './infrastructure.ts';
 export * from './infrastructure.ts';
 export type * from './services.ts';
 export * from './services.ts';
-export type * from './stores.ts';
-export * from './stores.ts';
 export type * from './urls.ts';
 export * from './urls.ts';
 export type * from './utils.ts';
