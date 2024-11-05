@@ -1,10 +1,10 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { Typography } from '@mui/material';
-import { logout, useAuthDispatch, useNavigate, validators } from '@/react-utils';
+import { useAuthContext, useNavigate, validators } from '@/react-utils';
 import { DELETE_ACCOUNT_SERVICE, DELETED_ROUTE } from '@account/keys';
 
 export default function Delete() {
-	const dispatch = useAuthDispatch();
+	const authContext = useAuthContext();
 	const navigate = useNavigate();
 
 	return (
@@ -21,7 +21,7 @@ export default function Delete() {
 			)}
 			onSuccess={successful => {
 				if (successful) {
-					dispatch(logout());
+					authContext.logout();
 					navigate(DELETED_ROUTE);
 				}
 			}}

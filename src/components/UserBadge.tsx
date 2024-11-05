@@ -2,7 +2,7 @@
 import { Avatar, Box, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Logout, Settings } from '@mui/icons-material';
-import { aggregateLinks, createApiCall, filterLinks, loadUserData, useAuthDispatch, useIsLoggedInSelector, useRolesSelector, useUsernameSelector } from '@/react-utils';
+import { aggregateLinks, createApiCall, filterLinks, useAuthContext } from '@/react-utils';
 import { USER_SETTINGS_MENU } from '@account/keys';
 
 import type { ReactNode } from 'react';
@@ -19,15 +19,18 @@ export default function UserBadge(props: UserBadgeProps) {
 
 	const [settingsOpen, setSettingsOpen] = useState(false);
 	const settingsButtonRef = useRef<HTMLButtonElement|null>(null);
-	const dispatch = useAuthDispatch();
+	const authContext = useAuthContext();
 	const logoutCall = createApiCall(
 		'/api/account/login',
 		'DELETE',
-		() => dispatch(loadUserData())
+		authContext.logout
 	);
-	const username = useUsernameSelector();
-	const roles = useRolesSelector();
-	const isLoggedIn = useIsLoggedInSelector();
+
+	const {
+		isLoggedIn,
+		username,
+		roles
+	} = authContext;
 
 	const settingsMenus = useMemo(() => {
 		const links: MenuLink[][] = [];

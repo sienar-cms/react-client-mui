@@ -2,12 +2,12 @@
 import { Box, List, Toolbar } from '@mui/material';
 import DashboardMenuItem from './MenuLink.tsx';
 import DashboardMenuGroup from './MenuGroup.tsx';
-import { useIsLoggedInSelector, useRolesSelector, useActiveMenuSelector, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
+import { useActiveMenuSelector, useAuthContext, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
 
 export default function DrawerContent() {
 	const activeMenu = useActiveMenuSelector();
-	const isLoggedIn = useIsLoggedInSelector();
-	const roles = useRolesSelector();
+	const authContext = useAuthContext();
+	const { isLoggedIn, roles } = authContext;
 
 	const drawerItems = useMemo(() => {
 		const links = aggregateLinks(activeMenu);

@@ -1,13 +1,13 @@
 ﻿import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { StandaloneCheckbox, Form, Textbox } from '@/react-ui';
-import { inject, useNavigate, validators, useAuthDispatch, loadUserData } from '@/react-utils';
+import { inject, useNavigate, validators, useAuthContext } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
 import { FORGOT_PASSWORD_ROUTE, LOGIN_SERVICE } from '@account/keys';
 
 export default function Login() {
 	const navigate = useNavigate();
-	const dispatch = useAuthDispatch();
+	const authContext = useAuthContext();
 
 	return (
 		<Form
@@ -16,7 +16,7 @@ export default function Login() {
 			submitText='Log in'
 			onSuccess={async (successful: boolean) => {
 				if (successful) {
-					await dispatch(loadUserData()).unwrap();
+					await authContext.loadUserData();
 					navigate(DASHBOARD_ROUTE);
 				}
 			}}

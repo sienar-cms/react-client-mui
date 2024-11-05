@@ -1,128 +1,15 @@
-﻿import { useDispatch, useSelector } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useEffect } from 'react';
+﻿import { createContext, useContext } from 'react';
 
-import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
-import type { WebResult } from '@/react-utils/http.ts';
-
-// region Store
-
-export const AUTH_NAME = 'auth';
-
-const initialState: AuthenticationState = {
+export const authContext = createContext<AuthContext>({
 	isLoggedIn: false,
 	username: null,
-	roles: []
-};
-
-export const loadUserData = createAsyncThunk(
-	`${AUTH_NAME}/loadUserData`,
-	async () => {
-		const response = await fetch('/api/account');
-		if (!response.ok) return null;
-
-		const userDataResult = await response.json() as WebResult<LoginPayload>;
-		if (!userDataResult.result) return null;
-
-		const userData = userDataResult.result;
-		if (!userData.username || !Array.isArray(userData.roles)) return null;
-
-		return userData;
-	}
-)
-
-export const authSlice = createSlice({
-	name: AUTH_NAME,
-	initialState,
-	reducers: {
-		/**
-		 * Informs the UI that the user has been logged out
-		 */
-		logout: state => {
-			state.isLoggedIn = false;
-			state.username = null;
-			state.roles = [];
-		},
-
-		/**
-		 * Informs the UI that the user has been logged in
-		 */
-		login: (state, action: PayloadAction<LoginPayload>) => {
-			state.isLoggedIn = true;
-			state.username = action.payload.username;
-			state.roles = action.payload.roles as string[];
-		}
-	},
-	extraReducers: builder => {
-		builder.addCase(loadUserData.fulfilled, (state, action) => {
-			state.isLoggedIn = action.payload !== null;
-			if (action.payload === null) {
-				state.username = null;
-				state.roles = [];
-			} else {
-				state.username = action.payload.username;
-				state.roles = action.payload.roles as string[];
-			}
-		})
-	}
+	roles: [],
+	login: () => {},
+	logout: () => {},
+	loadUserData: async () => {}
 });
 
-export const authReducer = authSlice.reducer;
-export const { logout, login } = authSlice.actions;
-export const useAuthDispatch = useDispatch.withTypes<ThunkDispatch<AuthenticationState, undefined, UnknownAction> & Dispatch>();
-export const useAuthSelector = useSelector.withTypes<AuthenticationRootState>();
-export const selectIsLoggedIn = (state: AuthenticationRootState) => state.auth.isLoggedIn;
-export const selectUsername = (state: AuthenticationRootState)=> state.auth.username;
-export const selectRoles = (state: AuthenticationRootState)=> state.auth.roles;
-export const useIsLoggedInSelector = () => useAuthSelector(selectIsLoggedIn);
-export const useUsernameSelector = () => useAuthSelector(selectUsername);
-export const useRolesSelector = () => useAuthSelector(selectRoles);
-
-/**
- * The current user's authentication state in the app store
- */
-export type AuthenticationState = {
-	/**
-	 * Whether the current user is logged in
-	 */
-	isLoggedIn: boolean
-
-	/**
-	 * The username of the current user, if any
-	 */
-	username: string|null
-
-	/**
-	 * The roles of the current user, if any
-	 */
-	roles: string[]
-};
-
-/**
- * The partial type of the store's root state that includes the authentication information
- */
-export type AuthenticationRootState = {
-	auth: AuthenticationState
-};
-
-/**
- * The payload describing to the data store what user is logging in and what roles they have
- */
-export type LoginPayload = {
-	/**
-	 * The username of the user currently logging in
-	 */
-	username: string
-
-	/**
-	 * The roles of the user currently logging in
-	 */
-	roles: readonly string[]
-}
-
-// endregion
-
-// region Hooks
+export const useAuthContext = () => useContext(authContext);
 
 /**
  * Determines whether the user is authorized according to the supplied auth criteria
@@ -138,8 +25,8 @@ export function useAuthorized(
 	authRoles: string|string[]|null = null,
 	any: boolean = false
 ): boolean {
-	const isLoggedIn = useIsLoggedInSelector();
-	const userRoles = useRolesSelector();
+	const authContext = useAuthContext();
+	const { isLoggedIn, roles: userRoles } = authContext;
 
 	if (!authRoles) return isLoggedIn;
 
@@ -171,14 +58,51 @@ export function useAuthorized(
 }
 
 /**
- * Tells a layout to check if the user is logged in on initialization
+ * The current user's auth state in the app store
  */
-export function useAuthInitialization() {
-	const dispatch = useAuthDispatch();
+export type AuthContext = {
+	/**
+	 * Whether the current user is logged in
+	 */
+	isLoggedIn: boolean
 
-	useEffect(() => {
-		dispatch(loadUserData());
-	}, []);
+	/**
+	 * The username of the current user, if any
+	 */
+	username: string|null
+
+	/**
+	 * The roles of the current user, if any
+	 */
+	roles: string[]
+
+	/**
+	 * Informs the UI that the user has been logged in
+	 */
+	login(data: LoginPayload): void
+
+	/**
+	 * Informs the UI that the user has been logged out
+	 */
+	logout(): void
+
+	/**
+	 * Loads the data of the currently logged in user from the server
+	 */
+	loadUserData(): Promise<void>
+};
+
+/**
+ * The payload describing to the data store what user is logging in and what roles they have
+ */
+export type LoginPayload = {
+	/**
+	 * The username of the user currently logging in
+	 */
+	username: string
+
+	/**
+	 * The roles of the user currently logging in
+	 */
+	roles: readonly string[]
 }
-
-// endregion

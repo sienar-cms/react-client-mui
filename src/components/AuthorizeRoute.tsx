@@ -1,6 +1,6 @@
 ﻿import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthorized, useIsLoggedInSelector, inject } from '@/react-utils';
+import { useAuthorized, useAuthContext, inject } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys.ts';
 import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@/account/keys.ts';
 import type { AuthorizeContentProps } from '@/react-ui';
@@ -13,7 +13,8 @@ export type AuthorizeRouteProps = Pick<AuthorizeContentProps, 'any'|'roles'> & {
 export default function AuthorizeRoute(props: PropsWithChildren<AuthorizeRouteProps>) {
 	const { roles, any, mustBeLoggedOut, children } = props;
 	const navigate = useNavigate();
-	const isLoggedIn = useIsLoggedInSelector();
+	const authContext = useAuthContext();
+	const { isLoggedIn } = authContext;
 	const isAuthorized = useAuthorized(roles, any);
 
 	useEffect(() => {
