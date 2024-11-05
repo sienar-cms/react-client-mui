@@ -1,18 +1,14 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { inject, useNavigate, validators } from '@/react-utils';
+import { validators } from '@/react-utils';
 import { CHANGE_EMAIL_REQUESTED_ROUTE, CHANGE_EMAIL_SERVICE } from '@account/keys';
 
 export default function Index() {
-	const navigate = useNavigate();
-
 	return (
 		<Form
 			serviceKey={CHANGE_EMAIL_SERVICE}
 			title='Change email'
 			submitText='Change email'
-			onSuccess={successful => {
-				if (successful) navigate(inject(CHANGE_EMAIL_REQUESTED_ROUTE));
-			}}
+			successRedirectRoute={CHANGE_EMAIL_REQUESTED_ROUTE}
 		>
 			<Textbox
 				name='email'

@@ -1,12 +1,11 @@
 ﻿import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Textbox, StandaloneCheckbox } from '@/react-ui';
-import { inject, validators, useNavigate } from '@/react-utils';
+import { inject, validators } from '@/react-utils';
 import { REGISTER_SERVICE, REGISTER_SUCCESSFUL_ROUTE } from '@account/keys';
 import { TOS_ROUTE, PRIVACY_POLICY_ROUTE } from '@/keys.ts';
 
 export default function Index() {
-	const navigate = useNavigate();
 	const [ username, setUsername ] = useState('');
 	const [ email, setEmail ] = useState('');
 
@@ -19,17 +18,8 @@ export default function Index() {
 		<Form
 			title='Register'
 			serviceKey={REGISTER_SERVICE}
-			onSuccess={(result: boolean) => {
-				if (result) {
-					navigate(
-						REGISTER_SUCCESSFUL_ROUTE,
-						{
-							username,
-							email
-						}
-					);
-				}
-			}}
+			successRedirectRoute={REGISTER_SUCCESSFUL_ROUTE}
+			successRedirectQueryParams={{ username, email }}
 		>
 			<Textbox
 				name='username'

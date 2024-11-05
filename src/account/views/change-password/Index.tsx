@@ -1,18 +1,14 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { inject, useNavigate, validators } from '@/react-utils';
+import { validators } from '@/react-utils';
 import { CHANGE_PASSWORD_SUCCESSFUL_ROUTE, CHANGE_PASSWORD_SERVICE } from '@account//keys';
 
 export default function Index() {
-	const navigate = useNavigate();
-
 	return (
 		<Form
 			serviceKey={CHANGE_PASSWORD_SERVICE}
 			title='Change password'
 			submitText='Change password'
-			onSuccess={successful => {
-				if (successful) navigate(inject(CHANGE_PASSWORD_SUCCESSFUL_ROUTE));
-			}}
+			successRedirectRoute={CHANGE_PASSWORD_SUCCESSFUL_ROUTE}
 		>
 			<Textbox
 				name='newPassword'

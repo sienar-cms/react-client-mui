@@ -1,10 +1,8 @@
 ﻿import { Form } from '@/react-ui';
-import { useNavigate } from '@/react-utils';
 import { useSearchParams } from 'react-router-dom';
 import { CHANGE_EMAIL_SUCCESSFUL_ROUTE, CHANGE_EMAIL_CONFIRM_SERVICE } from '@account/keys';
 
 export default function Index() {
-	const navigate = useNavigate();
 	const [ search ] = useSearchParams();
 	const userId = search.get('userId');
 	const code = search.get('code');
@@ -13,9 +11,7 @@ export default function Index() {
 		<Form
 			serviceKey={CHANGE_EMAIL_CONFIRM_SERVICE}
 			title='Confirming new email'
-			onSuccess={(successful: boolean) => {
-				if (successful) navigate(CHANGE_EMAIL_SUCCESSFUL_ROUTE);
-			}}
+			successRedirectRoute={CHANGE_EMAIL_SUCCESSFUL_ROUTE}
 			hideControls
 			immediate
 		>

@@ -1,11 +1,10 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Form, Textbox } from '@/react-ui';
-import { validators, useNavigate } from '@/react-utils';
+import { validators } from '@/react-utils';
 import { RESET_PASSWORD_SERVICE, RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@account/keys';
 
 export default function Index() {
-	const navigate = useNavigate();
 	const [ query ] = useSearchParams();
 	const userId = query.get('userId');
 	const code = query.get('code');
@@ -20,9 +19,7 @@ export default function Index() {
 					Please enter your new password. Your password should be at least 8 characters long and have at least one lowercase letter, one uppercase letter, one number, and one special character.
 				</Typography>
 			)}
-			onSuccess={(successful: boolean) => {
-				if (successful) navigate(RESET_PASSWORD_SUCCESSFUL_ROUTE);
-			}}
+			successRedirectRoute={RESET_PASSWORD_SUCCESSFUL_ROUTE}
 		>
 			<input
 				type='hidden'

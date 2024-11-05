@@ -1,11 +1,9 @@
 ﻿import { Typography } from '@mui/material';
 import { Form, Textbox } from '@/react-ui';
-import { validators, useNavigate } from '@/react-utils';
+import { validators } from '@/react-utils';
 import { FORGOT_PASSWORD_SERVICE, FORGOT_PASSWORD_SUCCESSFUL_ROUTE} from '@account/keys';
 
 export default function Index() {
-	const navigate = useNavigate();
-
 	return (
 		<Form
 			serviceKey={FORGOT_PASSWORD_SERVICE}
@@ -16,9 +14,7 @@ export default function Index() {
 					Please enter your username or email address. If your account exists, you should receive an email to reset your password shortly.
 				</Typography>
 			)}
-			onSuccess={(successful: boolean) => {
-				if (successful) navigate(FORGOT_PASSWORD_SUCCESSFUL_ROUTE);
-			}}
+			successRedirectRoute={FORGOT_PASSWORD_SUCCESSFUL_ROUTE}
 		>
 			<Textbox
 				name='accountName'
