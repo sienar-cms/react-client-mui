@@ -1,6 +1,6 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { validators } from '@/react-utils';
-import { USERS_SERVICE } from '@users/keys.ts';
+import { USERS_ROUTE, USERS_SERVICE } from '@users/keys.ts';
 
 export default function Upsert() {
 	return (
@@ -11,6 +11,7 @@ export default function Upsert() {
 			updateTitle='Update user'
 			updateSubmitText='Update reason'
 			upsert
+			successRedirectRoute={USERS_ROUTE}
 		>
 			<Textbox
 				name='username'
