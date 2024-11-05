@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Checkbox, CheckboxGroup, DatePicker, Form, LoadingPage, Radio, RadioGroup, Spacer } from '@/react-ui';
-import { inject, useNavigate, validators } from '@/react-utils';
+import { inject, validators } from '@/react-utils';
 import { LOCK_USER_ACCOUNT_SERVICE, USERS_ROUTE, USERS_SERVICE } from '@users/keys.ts';
 import { LOCKOUT_REASONS_SERVICE } from '@lockoutReasons/keys.ts';
 
@@ -13,7 +13,6 @@ import type { LockoutReason } from '@lockoutReasons/types.ts';
 export default function Lock() {
 	const [ lockoutReasons, setLockoutReasons ] = useState<LockoutReason[]>([]);
 	const [ user, setUser ] = useState<User|null>(null);
-	const navigate = useNavigate();
 	const params = useParams();
 	const userId = params['id'];
 	const now = useRef<Dayjs|null>(null);
@@ -43,7 +42,7 @@ export default function Lock() {
 			title={`Lock user ${user.username}'s account`}
 			serviceKey={LOCK_USER_ACCOUNT_SERVICE}
 			submitText='Lock account'
-			onSuccess={successful => {if (successful) navigate(USERS_ROUTE)}}
+			successRedirectRoute={USERS_ROUTE}
 		>
 			<input
 				type='hidden'
