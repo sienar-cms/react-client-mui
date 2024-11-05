@@ -1,12 +1,19 @@
 ﻿import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Textbox, StandaloneCheckbox } from '@/react-ui';
-import { validators, useNavigate } from '@/react-utils';
+import { inject, validators, useNavigate } from '@/react-utils';
 import { REGISTER_SERVICE, REGISTER_SUCCESSFUL_ROUTE } from '@account/keys';
+import { TOS_ROUTE, PRIVACY_POLICY_ROUTE } from '@/keys.ts';
 
 export default function Index() {
 	const navigate = useNavigate();
 	const [ username, setUsername ] = useState('');
 	const [ email, setEmail ] = useState('');
+
+	const tosRoute = inject(TOS_ROUTE, true);
+	const privacyPolicyRoute = inject(PRIVACY_POLICY_ROUTE, true);
+	const useHiddenField = !tosRoute && !privacyPolicyRoute;
+	const useBothAcceptLinks = !!(tosRoute && privacyPolicyRoute);
 
 	return (
 		<Form
@@ -67,14 +74,27 @@ export default function Index() {
 					validators.matches('Password')
 				]}
 			/>
-			<StandaloneCheckbox
-				name='acceptTos'
-				displayName='Accept TOS'
-				validators={[
-					validators.required()
-				]}
-				hideNonErrors
-			/>
+
+			{useHiddenField && (
+				<input
+					type='hidden'
+					name='acceptTos'
+					checked={true}
+					value='true'
+				/>
+			)}
+			{!useHiddenField && (
+				<StandaloneCheckbox
+					name='acceptTos'
+					displayName='accept terms'
+					validators={[
+						validators.required()
+					]}
+					hideNonErrors
+				>
+					I accept the {tosRoute && <Link to={tosRoute} target='_blank'>Terms of Service</Link>} {useBothAcceptLinks && 'and'} {privacyPolicyRoute && <Link to={privacyPolicyRoute} target='_blank'>Privacy Policy</Link>}
+				</StandaloneCheckbox>
+			)}
 		</Form>
 	);
 }
