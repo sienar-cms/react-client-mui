@@ -1,58 +1,26 @@
-﻿import { createSlice } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
-import { DASHBOARD_MENU } from './menus.ts';
-
-import type { PayloadAction, Dispatch, UnknownAction, ThunkDispatch } from '@reduxjs/toolkit';
+﻿import { createContext, useContext } from 'react';
 import type { InjectionKey } from '@/react-utils/di.ts';
 import type { MenuLinkProvider } from '@/react-utils/menus.ts';
 
-export const INFRASTRUCTURE_NAME = 'infrastructure';
-
-const initialState: InfrastructureState = {
-	activeMenu: DASHBOARD_MENU,
-	appbarText: ''
-};
-
-export const infrastructureSlice = createSlice({
-	name: INFRASTRUCTURE_NAME,
-	initialState,
-	reducers: {
-		setActiveMenu: (state, action: PayloadAction<InjectionKey<MenuLinkProvider>>) => {
-			state.activeMenu = action.payload;
-		},
-		setAppbarText: (state, action: PayloadAction<string>) => {
-			state.appbarText = action.payload;
-		}
-	}
+export const infrastructureContext = createContext<InfrastructureContext>({
+	activeMenu: Symbol(),
+	setActiveMenu: () => {}
 });
-
-export const infrastructureReducer = infrastructureSlice.reducer;
-export const { setActiveMenu, setAppbarText } = infrastructureSlice.actions;
-export const useInfrastructureDispatch = useDispatch.withTypes<ThunkDispatch<InfrastructureState, undefined, UnknownAction> & Dispatch>();
-export const useInfrastructureSelector = useSelector.withTypes<InfrastructureRootState>();
-export const selectActiveMenu = (state: InfrastructureRootState) => state.infrastructure.activeMenu;
-export const selectAppbarText = (state: InfrastructureRootState) => state.infrastructure.appbarText;
-export const useActiveMenuSelector = () => useInfrastructureSelector(selectActiveMenu);
-export const useAppbarTextSelector = () => useInfrastructureSelector(selectAppbarText);
+export const useInfrastructureContext = () => useContext(infrastructureContext);
 
 /**
  * The app's infrastructure-related state
  */
-export type InfrastructureState = {
+export type InfrastructureContext = {
 	/**
 	 * The name of the currently active menu
 	 */
 	activeMenu: InjectionKey<MenuLinkProvider>
 
 	/**
-	 * The text to show in the app bar on the dashboard page
+	 * Changes the active menu that should be rendered in the dashboard
+	 *
+	 * @param key The injection key of the menu that should be rendered
 	 */
-	appbarText: string
-}
-
-/**
- * The partial type of the store's root state that includes the infrastructure information
- */
-export type InfrastructureRootState = {
-	infrastructure: InfrastructureState
+	setActiveMenu: (key: InjectionKey<MenuLinkProvider>) => void
 }

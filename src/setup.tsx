@@ -1,4 +1,4 @@
-﻿import { addReducer, infrastructureReducer, INFRASTRUCTURE_NAME, addLinksWithPriority, DASHBOARD_MENU, MenuPriority, inject, provide, DRAWER_FOOTER_PARTIAL, registerProvider, registerRoutes } from '@/react-utils';
+﻿import { addLinksWithPriority, DASHBOARD_MENU, MenuPriority, inject, provide, DRAWER_FOOTER_PARTIAL, registerProvider, registerRoutes } from '@/react-utils';
 import { MUI_DATE_LOCALIZATION_PROVIDER } from '@/react-ui';
 
 import { Dashboard, Home } from '@mui/icons-material';
@@ -24,9 +24,7 @@ export default function setup() {
 
 	// Partials
 	provide(DRAWER_FOOTER_PARTIAL, <DrawerFooter/>, false);
-
-	// Redux
-	addReducer(INFRASTRUCTURE_NAME, infrastructureReducer);addLinksWithPriority(
+	addLinksWithPriority(
 		DASHBOARD_MENU,
 		MenuPriority.Highest,
 		{

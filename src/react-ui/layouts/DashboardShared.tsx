@@ -1,15 +1,13 @@
-import { AppBar, Box, CssBaseline, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, CssBaseline, Drawer, IconButton, Toolbar } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import DrawerContent from '@/react-ui/drawer/DrawerContent.tsx';
-import { useAppbarTextSelector } from '@/react-utils';
 
 import type { PropsWithChildren } from 'react';
 
 export default function DashboardShared({ children }: PropsWithChildren) {
 	const [open, setOpen] = useState(false);
-	const appbarText = useAppbarTextSelector();
 	const location = useLocation();
 
 	useEffect(() => {
@@ -48,14 +46,6 @@ export default function DashboardShared({ children }: PropsWithChildren) {
 					>
 						{open ? <CloseIcon/> : <MenuIcon/>}
 					</IconButton>
-
-					<Typography
-						variant='h6'
-						component='div'
-						sx={{ flexGrow: 1 }}
-					>
-						{ appbarText }
-					</Typography>
 				</Toolbar>
 			</AppBar>
 
