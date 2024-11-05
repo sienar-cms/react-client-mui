@@ -217,9 +217,7 @@ export async function sendStatusServiceRequest(
 	const requestOptions: ApiCallerOptions = {};
 	if (input instanceof FormData) {
 		requestOptions.body = input;
-		console.log('mapped: ', mapServiceConfigurationToApiCallerOptions(config, requestOptions))
 	} else if (input) {
-		console.log('not instanceof FormData')
 		const data = new FormData();
 		for (let [key, value] of Object.entries(input)) {
 			if (Array.isArray(value)) {
