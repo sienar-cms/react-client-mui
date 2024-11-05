@@ -1,4 +1,6 @@
-﻿export type * from './auth.ts';
+﻿export { default as AuthProvider } from './components/AuthProvider.tsx';
+
+export type * from './auth.ts';
 export * from './auth.ts';
 export type * from './di.ts';
 export * from './di.ts';
