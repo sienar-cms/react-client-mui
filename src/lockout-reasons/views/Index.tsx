@@ -8,7 +8,8 @@ export default function Index() {
 			columns={[
 				{
 					field: 'reason',
-					headerName: 'Reason'
+					headerName: 'Reason',
+					flex: 1
 				}
 			]}
 			serviceKey={LOCKOUT_REASONS_SERVICE}
