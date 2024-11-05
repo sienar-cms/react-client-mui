@@ -1,11 +1,12 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { validators } from '@/react-utils';
-import { LOCKOUT_REASONS_SERVICE } from '@/lockout-reasons/keys';
+import { LOCKOUT_REASONS_ROUTE, LOCKOUT_REASONS_SERVICE } from '@/lockout-reasons/keys';
 
 export default function Upsert() {
 	return (
 		<Form
 			serviceKey={LOCKOUT_REASONS_SERVICE}
+			successRedirectRoute={LOCKOUT_REASONS_ROUTE}
 			createTitle='Create lockout reason'
 			createSubmitText='Add reason'
 			updateTitle='Update lockout reason'
