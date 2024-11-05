@@ -1,5 +1,5 @@
 ﻿import Card from '@/react-ui/Card.tsx';
-import { formValidationContext, inject } from '@/react-utils';
+import { formValidationContext, inject, useNavigate } from '@/react-utils';
 import { type ReactNode, useContext, useEffect, useId, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
@@ -24,17 +24,30 @@ export type StatusFormProps = {
 	submitText?: string
 }
 
+export type HandleSuccessFormProps<T> = {
+	onSuccess: (result: T) => unknown
+	successRedirectRoute?: never
+	successRedirectQueryParams?: never
+}
+
+export type RedirectOnSuccessFormProps = {
+	successRedirectRoute: string|InjectionKey<string>
+	successRedirectQueryParams?: object
+	onSuccess?: never
+}
+
 export type FormProps<T> = Omit<CardProps, 'actions'|'title'> & {
 	onSubmit?: (formValues: Record<string, any>) => boolean
 	onReset?: () => any
-	onSuccess?: (result: T) => any
 	resetText?: string
 	showReset?: boolean
 	hideControls?: boolean
 	information?: ReactNode
 	additionalActions?: ReactNode;
 	immediate?: boolean
-} & ( UpsertFormProps<T> | StatusFormProps);
+}
+	& ( UpsertFormProps<T> | StatusFormProps)
+	& ( HandleSuccessFormProps<T> | RedirectOnSuccessFormProps);
 
 export default function Form<T>(props: FormProps<T>) {
 	const {
@@ -57,7 +70,6 @@ export default function Form<T>(props: FormProps<T>) {
 		additionalActions,
 		children,
 		onReset,
-		onSuccess,
 		immediate,
 		upsert,
 		serviceKey
@@ -71,6 +83,7 @@ export default function Form<T>(props: FormProps<T>) {
 	const submitButtonRef = useRef<HTMLButtonElement>(null);
 	const resetButtonRef = useRef<HTMLButtonElement>(null);
 	const formContext = useContext(formValidationContext);
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -107,7 +120,11 @@ export default function Form<T>(props: FormProps<T>) {
 			resetButtonRef.current!.click();
 		}
 
-		onSuccess?.(result);
+		if (props.onSuccess) {
+			props.onSuccess(result);
+		} else {
+			navigate(props.successRedirectRoute, props.successRedirectQueryParams);
+		}
 	};
 
 	const handleReset = async () => {
