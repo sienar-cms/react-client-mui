@@ -14,9 +14,9 @@ export default function Login() {
 			serviceKey={LOGIN_SERVICE}
 			title='Log in'
 			submitText='Log in'
-			onSuccess={(successful: boolean) => {
+			onSuccess={async (successful: boolean) => {
 				if (successful) {
-					dispatch(loadUserData());
+					await dispatch(loadUserData()).unwrap();
 					navigate(DASHBOARD_ROUTE);
 				}
 			}}
