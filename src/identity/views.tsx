@@ -28,6 +28,7 @@ import UserUpsert from '@identity/views/users/Upsert.tsx';
 import UserRoles from '@identity/views/users/Roles.tsx';
 import UserLock from '@identity/views/users/Lock.tsx';
 import LockoutReasonUpsert from '@identity/views/lockout-reasons/Upsert.tsx';
+import Unauthorized from '@identity/views/Unauthorized.tsx';
 
 import type { ReactNode } from 'react';
 import type { InjectionKey } from '@/react-utils';
@@ -232,6 +233,10 @@ export function setupIdentityViews() {
 					{inject(LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>}
 				</AuthorizeRoute>
 			)
+		},
+		{
+			path: `${inject(ROUTES.UNAUTHORIZED_ROUTE)}`,
+			element: inject(UNAUTHORIZED_VIEW, true) ?? <Unauthorized/>
 		}
 	);
 }
