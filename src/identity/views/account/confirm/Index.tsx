@@ -2,8 +2,11 @@
 import { useSearchParams } from 'react-router-dom';
 import { CONFIRM_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
 import { CONFIRM_SERVICE } from '@identity/services.ts';
+import { useDocumentTitle } from '@/react-utils';
 
 export default function Index() {
+	useDocumentTitle('Confirming account');
+
 	const [ search ] = useSearchParams();
 	const userId = search.get('userId');
 	const code = search.get('code');

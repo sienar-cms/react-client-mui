@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import { AdminPanelSettings, CheckBox, Lock, LockOpen } from '@mui/icons-material';
 import { ConfirmationDialog, Table, TableBooleanCell } from '@/react-ui';
-import { inject } from '@/react-utils';
+import { inject, useDocumentTitle } from '@/react-utils';
 import { MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE, UNLOCK_USER_ACCOUNT_SERVICE, USERS_SERVICE } from '@identity/services.ts';
 import { USERS_ROUTE } from '@identity/urls.ts';
 import type { User } from '@identity/types.ts';
 import type { TableHandle } from '@/react-ui';
 
 export default function Index() {
+	useDocumentTitle('Users');
+
 	const currentUrl = inject(USERS_ROUTE);
 	const selectedUser = useRef<User|null>(null);
 	const table = useRef<TableHandle>(null!);

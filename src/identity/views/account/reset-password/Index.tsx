@@ -1,11 +1,13 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Form, Textbox } from '@/react-ui';
-import { validators } from '@/react-utils';
+import { useDocumentTitle, validators } from '@/react-utils';
 import { RESET_PASSWORD_SERVICE } from '@identity/services.ts';
 import { RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
 
 export default function Index() {
+	useDocumentTitle('Reset password');
+
 	const [ query ] = useSearchParams();
 	const userId = query.get('userId');
 	const code = query.get('code');

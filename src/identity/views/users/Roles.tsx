@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, LoadingPage, Switch } from '@/react-ui';
-import { inject } from '@/react-utils';
+import { inject, useDocumentTitle } from '@/react-utils';
 import { ROLES_SERVICE, USERS_SERVICE, ADD_USER_TO_ROLE_SERVICE, REMOVE_USER_FROM_ROLE_SERVICE } from '@identity/services.ts';
 import type { Role, User } from '@identity/types.ts';
 
 export default function Roles() {
+	useDocumentTitle('Update user roles');
+
 	const params = useParams();
 	const userId = params['id'];
 	const [ user, setUser ] = useState<User|null>(null);

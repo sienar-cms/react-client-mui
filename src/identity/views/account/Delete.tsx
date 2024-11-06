@@ -1,10 +1,12 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { Typography } from '@mui/material';
-import { useAuthContext, useNavigate, validators } from '@/react-utils';
+import { useAuthContext, useDocumentTitle, useNavigate, validators } from '@/react-utils';
 import { DELETE_ACCOUNT_SERVICE } from '@identity/services.ts';
 import { DELETED_ROUTE } from '@identity/urls.ts';
 
 export default function Delete() {
+	useDocumentTitle('Delete account');
+
 	const authContext = useAuthContext();
 	const navigate = useNavigate();
 

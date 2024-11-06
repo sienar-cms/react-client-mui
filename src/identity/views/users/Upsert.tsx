@@ -1,9 +1,15 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { validators } from '@/react-utils';
+import { useDocumentTitle, validators } from '@/react-utils';
 import { USERS_ROUTE } from '@identity/urls.ts';
 import { USERS_SERVICE } from '@identity/services.ts';
+import { useParams } from 'react-router-dom';
 
 export default function Upsert() {
+	const params = useParams();
+	const id = params['id'];
+
+	useDocumentTitle(id ? 'Update user' : 'Create user');
+
 	return (
 		<Form
 			serviceKey={USERS_SERVICE}

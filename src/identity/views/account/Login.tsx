@@ -1,12 +1,13 @@
 ﻿import { Button } from '@mui/material';
 import { Link, useSearchParams } from 'react-router-dom';
 import { StandaloneCheckbox, Form, Textbox } from '@/react-ui';
-import { inject, useNavigate, validators, useAuthContext } from '@/react-utils';
+import { inject, useNavigate, validators, useAuthContext, useDocumentTitle } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
 import { FORGOT_PASSWORD_ROUTE } from '@identity/urls.ts';
 import { LOGIN_SERVICE } from '@identity/services.ts';
 
 export default function Login() {
+	useDocumentTitle('Log in');
 	const navigate = useNavigate();
 	const authContext = useAuthContext();
 	const [ params ] = useSearchParams();

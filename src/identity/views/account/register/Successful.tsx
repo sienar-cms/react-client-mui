@@ -1,7 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
 import { StatusPage } from '@/react-ui';
+import { useDocumentTitle } from '@/react-utils';
 
 export default function Successful() {
+	useDocumentTitle('Registered');
+
 	const [ params ] = useSearchParams();
 	const username = params.get('username');
 	const email = params.get('email');

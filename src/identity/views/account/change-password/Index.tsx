@@ -1,9 +1,11 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { validators } from '@/react-utils';
+import { useDocumentTitle, validators } from '@/react-utils';
 import { CHANGE_PASSWORD_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
 import { CHANGE_PASSWORD_SERVICE } from '@identity/services.ts';
 
 export default function Index() {
+	useDocumentTitle('Change password');
+
 	return (
 		<Form
 			serviceKey={CHANGE_PASSWORD_SERVICE}
