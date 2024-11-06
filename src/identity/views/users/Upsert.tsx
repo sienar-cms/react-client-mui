@@ -16,7 +16,7 @@ export default function Upsert() {
 			createTitle='Create user'
 			createSubmitText='Add user'
 			updateTitle='Update user'
-			updateSubmitText='Update reason'
+			updateSubmitText='Update user'
 			upsert
 			successRedirectRoute={USERS_ROUTE}
 		>
