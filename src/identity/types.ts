@@ -1,5 +1,6 @@
-﻿import type { EntityBase } from '@/react-utils';
-import type { LockoutReason } from '@lockoutReasons/types.ts';
+import type { EntityBase } from '@/react-utils';
+
+// region Users
 
 /**
  * Represents a reason why a user would be locked out of their account
@@ -102,3 +103,19 @@ export type RemoveUserFromRoleRequest = UserIdRequest & {
  * The data required to unlock a user's account from the admin UI
  */
 export type UnlockUserAccountRequest = UserIdRequest;
+
+// endregion
+
+// region Lockout reasons
+
+/**
+ * Represents a reason why a user would be locked out of their account
+ */
+export type LockoutReason = EntityBase & {
+	/**
+	 * The text of the reason why the user is locked out
+	 */
+	reason: string
+}
+
+// endregion

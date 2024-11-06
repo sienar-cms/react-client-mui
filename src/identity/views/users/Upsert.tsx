@@ -1,6 +1,6 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { validators } from '@/react-utils';
-import { USERS_ROUTE, USERS_SERVICE } from '@users/keys.ts';
+import { USERS_ROUTE, USERS_SERVICE } from '@identity/keys.ts';
 
 export default function Upsert() {
 	return (

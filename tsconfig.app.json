@@ -25,8 +25,7 @@
 		"paths": {
 			"@/*": ["src/*"],
 			"@account/*": ["src/account/*"],
-			"@lockoutReasons/*": ["src/lockout-reasons/*"],
-			"@users/*": ["src/users/*"],
+			"@identity/*": ["src/identity/*"],
 		}
 	},
 	"include": [

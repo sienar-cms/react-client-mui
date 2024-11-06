@@ -10,8 +10,7 @@ export default defineConfig({
 		alias: {
 			'@': resolve(__dirname, './src'),
 			'@account': resolve(__dirname, './src/account'),
-			'@lockoutReasons': resolve(__dirname, './src/lockout-reasons'),
-			'@users': resolve(__dirname, './src/users'),
+			'@identity': resolve(__dirname, './src/identity'),
 		}
 	},
 	server: {

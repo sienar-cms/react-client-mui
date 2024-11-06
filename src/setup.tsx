@@ -1,6 +1,5 @@
 ﻿import { addLinksWithPriority, DASHBOARD_MENU, MenuPriority, inject, provide, DRAWER_FOOTER_PARTIAL, registerProvider, registerRoutes } from '@/react-utils';
 import { MUI_DATE_LOCALIZATION_PROVIDER } from '@/react-ui';
-
 import { Dashboard, Home } from '@mui/icons-material';
 import * as KEYS from '@/keys.ts';
 import DrawerFooter from '@/partials/DrawerFooter.tsx';
@@ -9,8 +8,7 @@ import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
 import { Dashboard as DashboardLayout, DashboardNarrow as DashboardNarrowLayout } from '@/react-ui';
 import DashboardView from '@/views/Dashboard.tsx';
 import { accountSetup } from '@account/index.ts';
-import { lockoutReasonsSetup } from '@lockoutReasons/index.ts';
-import { usersSetup } from '@users/index.ts';
+import { identitySetup } from '@identity/index.ts';
 
 export default function setup() {
 	// Global setup not linked to a specific vertical slice
@@ -64,6 +62,5 @@ export default function setup() {
 
 	// Modules
 	accountSetup();
-	lockoutReasonsSetup();
-	usersSetup();
+	identitySetup();
 }

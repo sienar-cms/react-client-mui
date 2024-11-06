@@ -3,12 +3,10 @@ import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Checkbox, CheckboxGroup, DatePicker, Form, LoadingPage, Radio, RadioGroup, Spacer } from '@/react-ui';
 import { inject, validators } from '@/react-utils';
-import { LOCK_USER_ACCOUNT_SERVICE, USERS_ROUTE, USERS_SERVICE } from '@users/keys.ts';
-import { LOCKOUT_REASONS_SERVICE } from '@lockoutReasons/keys.ts';
+import { LOCK_USER_ACCOUNT_SERVICE, LOCKOUT_REASONS_SERVICE, USERS_ROUTE, USERS_SERVICE } from '@identity/keys.ts';
 
 import type { Dayjs } from 'dayjs';
-import type { User } from '@users/types.ts';
-import type { LockoutReason } from '@lockoutReasons/types.ts';
+import type { LockoutReason, User } from '@identity/types.ts';
 
 export default function Lock() {
 	const [ lockoutReasons, setLockoutReasons ] = useState<LockoutReason[]>([]);

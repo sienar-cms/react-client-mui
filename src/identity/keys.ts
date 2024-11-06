@@ -1,11 +1,13 @@
-﻿import type { CrudService, InjectionKey, StatusService } from '@/react-utils';
-import { ReactNode } from 'react';
-import type { Role, User, AddUserToRoleRequest, ManuallyConfirmUserAccountRequest, RemoveUserFromRoleRequest, UnlockUserAccountRequest } from '@users/types.ts';
+import type { ReactNode } from 'react';
+import type { CrudService, InjectionKey, StatusService } from '@/react-utils';
+import type { AddUserToRoleRequest, LockoutReason, ManuallyConfirmUserAccountRequest, RemoveUserFromRoleRequest, Role, UnlockUserAccountRequest, User } from '@identity/types.ts';
 
 // Routes
 
 export const USERS_ROUTE = Symbol() as InjectionKey<string>;
 export const USERS_ADD_ROUTE = Symbol() as InjectionKey<string>;
+export const LOCKOUT_REASONS_ROUTE = Symbol() as InjectionKey<string>;
+export const LOCKOUT_REASONS_ADD_ROUTE = Symbol() as InjectionKey<string>;
 
 // Services
 
@@ -16,9 +18,11 @@ export const REMOVE_USER_FROM_ROLE_SERVICE = Symbol() as InjectionKey<StatusServ
 export const LOCK_USER_ACCOUNT_SERVICE = Symbol() as InjectionKey<StatusService<FormData>>;
 export const UNLOCK_USER_ACCOUNT_SERVICE = Symbol() as InjectionKey<StatusService<UnlockUserAccountRequest>>;
 export const MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE = Symbol() as InjectionKey<StatusService<ManuallyConfirmUserAccountRequest>>;
+export const LOCKOUT_REASONS_SERVICE = Symbol() as InjectionKey<CrudService<LockoutReason>>
 
 // Views
 
 export const USERS_UPSERT_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const USERS_ROLES_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const USERS_LOCK_VIEW = Symbol() as InjectionKey<ReactNode>;
+export const LOCKOUT_REASONS_UPSERT_VIEW = Symbol() as InjectionKey<ReactNode>;

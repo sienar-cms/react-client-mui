@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, LoadingPage, Switch } from '@/react-ui';
 import { inject } from '@/react-utils';
-import { ROLES_SERVICE, USERS_SERVICE, ADD_USER_TO_ROLE_SERVICE, REMOVE_USER_FROM_ROLE_SERVICE } from '@users/keys.ts';
-import type { Role, User } from '@users/types.ts';
+import { ROLES_SERVICE, USERS_SERVICE, ADD_USER_TO_ROLE_SERVICE, REMOVE_USER_FROM_ROLE_SERVICE } from '@identity/keys.ts';
+import type { Role, User } from '@identity/types.ts';
 
 export default function Roles() {
 	const params = useParams();

@@ -1,21 +1,34 @@
-﻿import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes } from '@/react-utils';
-import * as KEYS from '@users/keys.ts';
-import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
+import { addLinks, DASHBOARD_MENU, inject, provide, registerRoutes } from '@/react-utils';
+import * as KEYS from '@identity/keys.ts';
+import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys';
+import UserIndex from '@identity/views/users/Index.tsx';
+import UserUpsert from '@identity/views/users/Upsert.tsx';
+import UserRoles from '@identity/views/users/Roles.tsx';
+import UserLock from '@identity/views/users/Lock.tsx';
 import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
-import UserIndex from '@users/views/Index.tsx';
-import UserUpsert from '@users/views/Upsert.tsx';
-import UserRoles from '@users/views/Roles.tsx';
-import UserLock from '@users/views/Lock.tsx';
+import LockoutReasonIndex from '@identity/views/lockout-reasons/Index.tsx';
+import LockoutReasonUpsert from '@identity/views/lockout-reasons/Upsert.tsx';
 import { ApiCrudService, sendStatusServiceRequest } from '@/react-utils';
 import { roles } from '@/constants.ts';
-import type { Role, User } from '@users/types.ts';
 
-export default function usersSetup() {
-	// URLs
+import type { LockoutReason, Role, User } from '@identity/types.ts';
+
+export default function identitySetup() {
+	setupUrls();
+	setupMenus();
+	setupServices();
+	setupRoutes();
+}
+
+function setupUrls() {
 	provide(KEYS.USERS_ROUTE, '/dashboard/users', false);
 	provide(KEYS.USERS_ADD_ROUTE, '/dashboard/users/add', false);
 
-	// Menus
+	provide(KEYS.LOCKOUT_REASONS_ROUTE, '/dashboard/lockout-reasons', false);
+	provide(KEYS.LOCKOUT_REASONS_ADD_ROUTE, '/dashboard/lockout-reasons/add', false);
+}
+
+function setupMenus() {
 	addLinks(
 		DASHBOARD_MENU,
 		{
@@ -25,7 +38,17 @@ export default function usersSetup() {
 		}
 	);
 
-	// Services
+	addLinks(
+		DASHBOARD_MENU,
+		{
+			text: 'Lockout reasons',
+			href: inject(KEYS.LOCKOUT_REASONS_ROUTE),
+			// roles: ['Administrator']
+		}
+	);
+}
+
+function setupServices() {
 	provide(
 		KEYS.USERS_SERVICE,
 		new ApiCrudService<User>('/api/users'),
@@ -91,9 +114,16 @@ export default function usersSetup() {
 			config
 		),
 		false
-	)
+	);
 
-	// Views
+	provide(
+		KEYS.LOCKOUT_REASONS_SERVICE,
+		new ApiCrudService<LockoutReason>('/api/lockout-reasons'),
+		false
+	);
+}
+
+function setupRoutes() {
 	registerRoutes(
 		DASHBOARD_LAYOUT,
 		{
@@ -101,6 +131,14 @@ export default function usersSetup() {
 			element: (
 				<AuthorizeRoute roles={roles.admin}>
 					{inject(KEYS.USERS_UPSERT_VIEW, true) ?? <UserIndex/>}
+				</AuthorizeRoute>
+			)
+		},
+		{
+			path: inject(KEYS.LOCKOUT_REASONS_ROUTE),
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonIndex/>}
 				</AuthorizeRoute>
 			)
 		}
@@ -137,6 +175,22 @@ export default function usersSetup() {
 			element: (
 				<AuthorizeRoute roles={roles.admin}>
 					{inject(KEYS.USERS_LOCK_VIEW, true) ?? <UserLock/>}
+				</AuthorizeRoute>
+			)
+		},
+		{
+			path: inject(KEYS.LOCKOUT_REASONS_ADD_ROUTE),
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>}
+				</AuthorizeRoute>
+			)
+		},
+		{
+			path: `${inject(KEYS.LOCKOUT_REASONS_ROUTE)}/:id`,
+			element: (
+				<AuthorizeRoute roles={roles.admin}>
+					{inject(KEYS.LOCKOUT_REASONS_UPSERT_VIEW, true) ?? <LockoutReasonUpsert/>}
 				</AuthorizeRoute>
 			)
 		}

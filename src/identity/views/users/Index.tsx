@@ -4,8 +4,8 @@ import { IconButton } from '@mui/material';
 import { AdminPanelSettings, CheckBox, Lock, LockOpen } from '@mui/icons-material';
 import { ConfirmationDialog, Table, TableBooleanCell } from '@/react-ui';
 import { inject } from '@/react-utils';
-import { MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE, UNLOCK_USER_ACCOUNT_SERVICE, USERS_SERVICE, USERS_ROUTE } from '@users/keys.ts';
-import type { User } from '@users/types.ts';
+import { MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE, UNLOCK_USER_ACCOUNT_SERVICE, USERS_SERVICE, USERS_ROUTE } from '@identity/keys.ts';
+import type { User } from '@identity/types.ts';
 import type { TableHandle } from '@/react-ui';
 
 export default function Index() {
