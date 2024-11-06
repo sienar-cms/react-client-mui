@@ -1,5 +1,5 @@
 ﻿import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { StandaloneCheckbox, Form, Textbox } from '@/react-ui';
 import { inject, useNavigate, validators, useAuthContext } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
@@ -9,18 +9,29 @@ import { LOGIN_SERVICE } from '@identity/services.ts';
 export default function Login() {
 	const navigate = useNavigate();
 	const authContext = useAuthContext();
+	const [ params ] = useSearchParams();
+
+	const onLogin = async (successful: boolean) => {
+		if (!successful) return;
+
+		await authContext.loadUserData();
+		const returnUrl = params.get('returnUrl');
+
+		if (returnUrl) {
+			params.delete('returnUrl');
+			const queryParams = params.toString();
+			navigate(`${returnUrl}?${queryParams}`)
+		} else {
+			navigate(DASHBOARD_ROUTE);
+		}
+	}
 
 	return (
 		<Form
 			serviceKey={LOGIN_SERVICE}
 			title='Log in'
 			submitText='Log in'
-			onSuccess={async (successful: boolean) => {
-				if (successful) {
-					await authContext.loadUserData();
-					navigate(DASHBOARD_ROUTE);
-				}
-			}}
+			onSuccess={onLogin}
 			additionalActions={(
 				<Button
 					component={Link}

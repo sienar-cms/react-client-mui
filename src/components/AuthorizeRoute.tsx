@@ -1,6 +1,5 @@
 ﻿import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuthorized, useAuthContext, inject } from '@/react-utils';
+import { useAuthorized, useAuthContext, useNavigate, inject } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys.ts';
 import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@identity/urls.ts';
 import type { AuthorizeContentProps } from '@/react-ui';
@@ -19,10 +18,21 @@ export default function AuthorizeRoute(props: PropsWithChildren<AuthorizeRoutePr
 
 	useEffect(() => {
 		const authorized = mustBeLoggedOut ? !isLoggedIn : isAuthorized;
-		const routeName = mustBeLoggedOut
-			? DASHBOARD_ROUTE
-			: isLoggedIn ? UNAUTHORIZED_ROUTE : LOGIN_ROUTE;
-		if (!authorized) navigate(inject(routeName));
+		if (authorized) return;
+
+		if (mustBeLoggedOut) {
+			navigate(DASHBOARD_ROUTE);
+		} else {
+			let route = isLoggedIn
+				? inject(UNAUTHORIZED_ROUTE)
+				: inject(LOGIN_ROUTE);
+
+			if (window.location.pathname === inject(LOGIN_ROUTE)) {
+				return;
+			}
+
+			navigate(`${route}?returnUrl=${window.location.pathname}`);
+		}
 	}, [isAuthorized]);
 
 	let output: ReactNode|null;
