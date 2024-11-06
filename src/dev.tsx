@@ -1,7 +1,9 @@
-﻿import { createApp, setup as reactUtilsSetup } from '@/react-utils';
+﻿import { createApp, DOCUMENT_TITLE_SUFFIX, provide, setup as reactUtilsSetup } from '@/react-utils';
 import { setup as reactUiSetup } from '@/react-ui';
 import './overrides.ts';
 import { setup } from './main.tsx';
+
+provide(DOCUMENT_TITLE_SUFFIX, '| Sienar Development App');
 
 reactUtilsSetup();
 reactUiSetup();
