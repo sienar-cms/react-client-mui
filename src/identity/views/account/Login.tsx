@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { StandaloneCheckbox, Form, Textbox } from '@/react-ui';
 import { inject, useNavigate, validators, useAuthContext } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
-import { FORGOT_PASSWORD_ROUTE, LOGIN_SERVICE } from '@account/keys';
+import { FORGOT_PASSWORD_ROUTE } from '@identity/urls.ts';
+import { LOGIN_SERVICE } from '@identity/services.ts';
 
 export default function Login() {
 	const navigate = useNavigate();

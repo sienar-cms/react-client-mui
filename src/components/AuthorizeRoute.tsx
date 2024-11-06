@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthorized, useAuthContext, inject } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys.ts';
-import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@/account/keys.ts';
+import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@identity/urls.ts';
 import type { AuthorizeContentProps } from '@/react-ui';
 import type { PropsWithChildren, ReactNode } from 'react';
 

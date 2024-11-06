@@ -3,7 +3,7 @@ import { inject  } from '@/react-utils';
 import { Box, Button } from '@mui/material';
 import UserBadge from '@/components/UserBadge.tsx';
 import { Link } from 'react-router-dom';
-import { REGISTER_ROUTE, LOGIN_ROUTE } from '@account/keys.ts';
+import { REGISTER_ROUTE, LOGIN_ROUTE } from '@identity/urls.ts';
 
 import type { UserBadgeProps } from '@/components/UserBadge.tsx';
 

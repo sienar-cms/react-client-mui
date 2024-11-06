@@ -1,5 +1,5 @@
 ﻿import { Table } from '@/react-ui';
-import { LOCKOUT_REASONS_SERVICE } from '@identity//keys.ts';
+import { LOCKOUT_REASONS_SERVICE } from '@identity/services.ts';
 
 export default function Index() {
 	return (

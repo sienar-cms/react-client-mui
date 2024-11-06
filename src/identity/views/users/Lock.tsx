@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Checkbox, CheckboxGroup, DatePicker, Form, LoadingPage, Radio, RadioGroup, Spacer } from '@/react-ui';
 import { inject, validators } from '@/react-utils';
-import { LOCK_USER_ACCOUNT_SERVICE, LOCKOUT_REASONS_SERVICE, USERS_ROUTE, USERS_SERVICE } from '@identity/keys.ts';
+import { LOCK_USER_ACCOUNT_SERVICE, LOCKOUT_REASONS_SERVICE, USERS_SERVICE } from '@identity/services.ts';
+import { USERS_ROUTE } from '@identity/urls.ts';
 
 import type { Dayjs } from 'dayjs';
 import type { LockoutReason, User } from '@identity/types.ts';

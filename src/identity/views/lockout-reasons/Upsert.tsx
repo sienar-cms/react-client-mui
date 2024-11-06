@@ -1,6 +1,7 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { validators } from '@/react-utils';
-import { LOCKOUT_REASONS_ROUTE, LOCKOUT_REASONS_SERVICE } from '@identity/keys.ts';
+import { LOCKOUT_REASONS_ROUTE } from '@identity/urls.ts';
+import { LOCKOUT_REASONS_SERVICE } from '@identity/services.ts';
 
 export default function Upsert() {
 	return (

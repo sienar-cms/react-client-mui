@@ -1,6 +1,7 @@
 ﻿import { Form } from '@/react-ui';
 import { useSearchParams } from 'react-router-dom';
-import { CONFIRM_SUCCESSFUL_ROUTE, CONFIRM_SERVICE } from '@account/keys';
+import { CONFIRM_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
+import { CONFIRM_SERVICE } from '@identity/services.ts';
 
 export default function Index() {
 	const [ search ] = useSearchParams();

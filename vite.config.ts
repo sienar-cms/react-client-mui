@@ -9,7 +9,6 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': resolve(__dirname, './src'),
-			'@account': resolve(__dirname, './src/account'),
 			'@identity': resolve(__dirname, './src/identity'),
 		}
 	},

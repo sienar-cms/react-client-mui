@@ -1,6 +1,7 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { validators } from '@/react-utils';
-import { CHANGE_EMAIL_REQUESTED_ROUTE, CHANGE_EMAIL_SERVICE } from '@account/keys';
+import { CHANGE_EMAIL_REQUESTED_ROUTE } from '@identity/urls.ts';
+import { CHANGE_EMAIL_SERVICE } from '@identity/services.ts';
 
 export default function Index() {
 	return (

@@ -7,7 +7,6 @@ import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
 import { Dashboard as DashboardLayout, DashboardNarrow as DashboardNarrowLayout } from '@/react-ui';
 import DashboardView from '@/views/Dashboard.tsx';
-import { accountSetup } from '@account/index.ts';
 import { identitySetup } from '@identity/index.ts';
 
 export default function setup() {
@@ -61,6 +60,5 @@ export default function setup() {
 	)
 
 	// Modules
-	accountSetup();
 	identitySetup();
 }

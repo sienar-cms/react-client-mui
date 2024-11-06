@@ -1,7 +1,7 @@
 ﻿import { StatusPage } from '@/react-ui';
 import { Link } from 'react-router-dom';
 import { inject } from '@/react-utils';
-import { REGISTER_ROUTE } from '@account/keys';
+import { REGISTER_ROUTE } from '@identity/urls.ts';
 
 export default function Deleted() {
 	return (

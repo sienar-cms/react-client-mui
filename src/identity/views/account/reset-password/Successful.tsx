@@ -1,7 +1,7 @@
 ﻿import { Link } from 'react-router-dom';
 import { StatusPage } from '@/react-ui';
 import { inject } from '@/react-utils';
-import { LOGIN_ROUTE } from '@account/keys';
+import { LOGIN_ROUTE } from '@identity/urls.ts';
 
 export default function Successful() {
 	return (

@@ -1,7 +1,8 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { Typography } from '@mui/material';
 import { useAuthContext, useNavigate, validators } from '@/react-utils';
-import { DELETE_ACCOUNT_SERVICE, DELETED_ROUTE } from '@account/keys';
+import { DELETE_ACCOUNT_SERVICE } from '@identity/services.ts';
+import { DELETED_ROUTE } from '@identity/urls.ts';
 
 export default function Delete() {
 	const authContext = useAuthContext();
