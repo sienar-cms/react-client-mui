@@ -119,7 +119,11 @@ export function setupIdentityViews() {
 		inject(REGISTER_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(ROUTES.REGISTER_ROUTE),
-			element: inject(REGISTER_VIEW, true) ?? <Register/>
+			element: (
+				<AuthorizeRoute mustBeLoggedOut>
+					{inject(REGISTER_VIEW, true) ?? <Register/>}
+				</AuthorizeRoute>
+			)
 		}
 	);
 
@@ -135,7 +139,11 @@ export function setupIdentityViews() {
 		inject(CONFIRM_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(ROUTES.CONFIRM_ROUTE),
-			element: inject(CONFIRM_VIEW, true) ?? <Confirm/>
+			element: (
+				<AuthorizeRoute mustBeLoggedOut>
+					{inject(CONFIRM_VIEW, true) ?? <Confirm/>}
+				</AuthorizeRoute>
+			)
 		}
 	);
 
@@ -151,7 +159,10 @@ export function setupIdentityViews() {
 		inject(LOGIN_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(ROUTES.LOGIN_ROUTE),
-			element: inject(LOGIN_VIEW, true) ?? <Login/>
+			element: (
+				<AuthorizeRoute mustBeLoggedOut>
+					{inject(LOGIN_VIEW, true) ?? <Login/>}
+				</AuthorizeRoute>)
 		}
 	);
 
@@ -159,7 +170,11 @@ export function setupIdentityViews() {
 		inject(FORGOT_PASSWORD_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(ROUTES.FORGOT_PASSWORD_ROUTE),
-			element: inject(FORGOT_PASSWORD_VIEW, true) ?? <ForgotPassword/>
+			element: (
+				<AuthorizeRoute mustBeLoggedOut>
+					{inject(FORGOT_PASSWORD_VIEW, true) ?? <ForgotPassword/>}
+				</AuthorizeRoute>
+			)
 		}
 	);
 
@@ -175,7 +190,11 @@ export function setupIdentityViews() {
 		inject(RESET_PASSWORD_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
 		{
 			path: inject(ROUTES.RESET_PASSWORD_ROUTE),
-			element: inject(RESET_PASSWORD_VIEW, true) ?? <ResetPassword/>
+			element: (
+				<AuthorizeRoute mustBeLoggedOut>
+					{inject(RESET_PASSWORD_VIEW, true) ?? <ResetPassword/>}
+				</AuthorizeRoute>
+			)
 		}
 	);
 
