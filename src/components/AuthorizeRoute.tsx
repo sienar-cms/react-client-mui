@@ -1,9 +1,9 @@
-﻿import { useEffect } from 'react';
+﻿import { useEffect, useState } from 'react';
+import { StatusPage } from '@/react-ui';
 import { useAuthorized, useAuthContext, useNavigate, inject } from '@/react-utils';
-import { DASHBOARD_ROUTE } from '@/keys.ts';
 import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@identity/urls.ts';
 import type { AuthorizeContentProps } from '@/react-ui';
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 
 export type AuthorizeRouteProps = Pick<AuthorizeContentProps, 'any'|'roles'> & {
 	mustBeLoggedOut?: boolean
@@ -14,14 +14,20 @@ export default function AuthorizeRoute(props: PropsWithChildren<AuthorizeRoutePr
 	const navigate = useNavigate();
 	const authContext = useAuthContext();
 	const { isLoggedIn } = authContext;
-	const isAuthorized = useAuthorized(roles, any);
+	const isAuthorizedToApp = useAuthorized(roles, any);
+	const [ secondsUntilRedirect, setSecondsUntilRedirect ] = useState(5);
+	const isAuthorizedToViewPage = mustBeLoggedOut ? !isLoggedIn : isAuthorizedToApp;
 
 	useEffect(() => {
-		const authorized = mustBeLoggedOut ? !isLoggedIn : isAuthorized;
-		if (authorized) return;
+		if (isAuthorizedToViewPage) return;
+
+		if (secondsUntilRedirect > 0) {
+			const timeoutId = setTimeout(() => setSecondsUntilRedirect(secondsUntilRedirect - 1), 1000);
+			return () => clearTimeout(timeoutId);
+		}
 
 		if (mustBeLoggedOut) {
-			navigate(DASHBOARD_ROUTE);
+			navigate(UNAUTHORIZED_ROUTE);
 		} else {
 			let route = isLoggedIn
 				? inject(UNAUTHORIZED_ROUTE)
@@ -33,10 +39,36 @@ export default function AuthorizeRoute(props: PropsWithChildren<AuthorizeRoutePr
 
 			navigate(`${route}?returnUrl=${window.location.pathname}`);
 		}
-	}, [isAuthorized]);
 
-	let output: ReactNode|null;
-	if (mustBeLoggedOut) output = isAuthorized ? null : children;
-	else output = isAuthorized ? children : null;
-	return <>{output}</>;
+	}, [isAuthorizedToApp, secondsUntilRedirect]);
+
+	if (isAuthorizedToViewPage) return <>{children}</>;
+
+	let pageTitle: string;
+	let pageContent: string;
+	let pageName: string;
+
+	switch (true) {
+		case mustBeLoggedOut:
+			pageTitle = 'You must be logged out';
+			pageContent = 'You cannot view this page because some pages, such as the login and registration page, require you to be logged out.';
+			pageName = 'unauthorized';
+			break;
+		case isLoggedIn:
+			pageTitle = "You don't have permission";
+			pageContent = 'You cannot view this page because it requires elevated access.';
+			pageName = 'unauthorized';
+			break;
+		default:
+			pageTitle = 'You must be logged in';
+			pageContent = 'You must be logged in to view this page.';
+			pageName = 'login';
+			break;
+	}
+
+	return (
+		<StatusPage title={pageTitle}>
+			{pageContent} You will be redirected to the {pageName} page in {secondsUntilRedirect} second{secondsUntilRedirect !== 1 && 's'}.
+		</StatusPage>
+	);
 }
