@@ -1,26 +1,31 @@
 ﻿import type { ReactNode } from 'react'
 import type { RouteObject } from 'react-router-dom';
 import { createBrowserRouter } from 'react-router-dom';
+import { inject } from '@/react-utils/di.ts';
 
-const routes = new Map<ReactNode, RouteObject[]>();
+import type { InjectionKey } from '@/react-utils/di.ts';
 
-export function registerRoutes(layout: ReactNode, ...items: RouteObject[]): void {
-	if (!routes.has(layout)) {
-		routes.set(layout, []);
+const routes = new Map<InjectionKey<ReactNode>, RouteObject[]>();
+
+export const ERROR_VIEW = Symbol() as InjectionKey<ReactNode>;
+
+export function registerRoutes(layoutKey: InjectionKey<ReactNode>, ...items: RouteObject[]): void {
+	if (!routes.has(layoutKey)) {
+		routes.set(layoutKey, []);
 	}
 
-	// Add items to the beginning instead of the end so that routes can be overridden
-	// Don't bother to reverse the items - devs can override their own routes themselves
-	routes.get(layout)!.unshift(...items);
+	routes.get(layoutKey)!.push(...items);
 }
 
 export function createRouter() {
 	const layoutRoutes: RouteObject[] = [];
+	const errorComponent = inject(ERROR_VIEW, true);
 
 	for (let [layout, childRoutes] of routes) {
 		layoutRoutes.push({
 			path: '',
-			element: layout,
+			element: inject(layout),
+			errorElement: errorComponent,
 			children: childRoutes
 		});
 	}
