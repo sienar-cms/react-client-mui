@@ -48,14 +48,6 @@ export default function AuthorizeRoute(props: PropsWithChildren<AuthorizeRoutePr
 	let pageContent: string;
 	let pageName: string;
 
-	switch (true) {
-		default:
-			pageTitle = 'You must be logged in';
-			pageContent = 'You must be logged in to view this page.';
-			pageName = 'login';
-			break;
-	}
-
 	return (
 		<StatusPage title={pageTitle}>
 			{pageContent} You will be redirected to the {pageName} page in {secondsUntilRedirect} second{secondsUntilRedirect !== 1 && 's'}.
