@@ -2,10 +2,10 @@
 import { StatusPage } from '@/react-ui';
 import { useAuthorized, useAuthContext, useNavigate, inject } from '@/react-utils';
 import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@identity/urls.ts';
-import type { AuthorizeContentProps } from '@/react-ui';
+import type { AuthorizeProps } from '@/react-utils/components/Authorize.tsx';
 import type { PropsWithChildren } from 'react';
 
-export type AuthorizeRouteProps = Pick<AuthorizeContentProps, 'any'|'roles'> & {
+export type AuthorizeRouteProps = Pick<AuthorizeProps, 'any'|'roles'> & {
 	mustBeLoggedOut?: boolean
 }
 

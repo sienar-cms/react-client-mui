@@ -1,7 +1,6 @@
-import { inject, registerRoutes } from '@/react-utils';
+import { AuthorizeRoute, inject, registerRoutes } from '@/react-utils';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import * as ROUTES from '@identity/urls.ts';
-import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
 import { roles } from '@/constants.ts';
 
 import Register from '@identity/views/account/register/Index.tsx';

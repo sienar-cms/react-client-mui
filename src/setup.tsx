@@ -1,10 +1,9 @@
-﻿import { addLinksWithPriority, DASHBOARD_MENU, MenuPriority, inject, provide, DRAWER_FOOTER_PARTIAL, registerProvider, registerRoutes } from '@/react-utils';
+﻿import { addLinksWithPriority, AuthorizeRoute, DASHBOARD_MENU, MenuPriority, inject, provide, DRAWER_FOOTER_PARTIAL, registerProvider, registerRoutes } from '@/react-utils';
 import { MUI_DATE_LOCALIZATION_PROVIDER } from '@/react-ui';
 import { Dashboard, Home } from '@mui/icons-material';
 import * as KEYS from '@/keys.ts';
 import DrawerFooter from '@/partials/DrawerFooter.tsx';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
-import AuthorizeRoute from '@/components/AuthorizeRoute.tsx';
 import { Dashboard as DashboardLayout, DashboardNarrow as DashboardNarrowLayout } from '@/react-ui';
 import DashboardView from '@/views/Dashboard.tsx';
 import { identitySetup } from '@identity/index.ts';
