@@ -1,4 +1,10 @@
 ﻿import { createContext, useContext } from 'react';
+import type { InjectionKey } from '@/react-utils/di.ts';
+import type { ReactNode } from 'react';
+
+export const AUTH_MUST_BE_LOGGED_OUT_PARTIAL = Symbol() as InjectionKey<ReactNode>;
+export const AUTH_MISSING_ROLES_PARTIAL = Symbol() as InjectionKey<ReactNode>;
+export const AUTH_MUST_BE_LOGGED_IN_PARTIAL = Symbol() as InjectionKey<ReactNode>;
 
 export const authContext = createContext<AuthContext>({
 	isLoggedIn: false,
