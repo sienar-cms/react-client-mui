@@ -1,7 +1,5 @@
 export type * from './ActionButton.tsx';
 export { default as ActionButton } from './ActionButton.tsx';
-export type * from './AuthorizeContent.tsx';
-export { default as AuthorizeContent } from './AuthorizeContent.tsx';
 export type * from './Card.tsx';
 export { default as Card } from './Card.tsx';
 export type * from './ConfirmationDialog.tsx';

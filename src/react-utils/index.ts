@@ -1,5 +1,5 @@
-﻿export { default as AuthProvider } from './components/AuthProvider.tsx';
-export { default as InfrastructureProvider } from './components/InfrastructureProvider.tsx';
+﻿export * from './components/index.ts';
+export type * from './components/index.ts';
 
 export type * from './auth.ts';
 export * from './auth.ts';
