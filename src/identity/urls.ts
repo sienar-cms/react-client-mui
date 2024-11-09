@@ -21,7 +21,6 @@ export const REGISTER_ROUTE = Symbol() as InjectionKey<string>;
 export const REGISTER_SUCCESSFUL_ROUTE = Symbol() as InjectionKey<string>;
 export const RESET_PASSWORD_ROUTE = Symbol() as InjectionKey<string>;
 export const RESET_PASSWORD_SUCCESSFUL_ROUTE = Symbol() as InjectionKey<string>;
-export const UNAUTHORIZED_ROUTE = Symbol() as InjectionKey<string>;
 
 // endregion
 
@@ -59,7 +58,6 @@ export function setupIdentityUrls() {
 	provide(DOWNLOAD_PERSONAL_DATA_ROUTE, '/api/account/personal-data', false);
 	provide(DELETE_ACCOUNT_ROUTE, '/dashboard/account/delete', false);
 	provide(DELETED_ROUTE, '/dashboard/account/deleted', false);
-	provide(UNAUTHORIZED_ROUTE, '/dashboard/unauthorized', false);
 
 	provide(USERS_ROUTE, '/dashboard/users', false);
 	provide(USERS_ADD_ROUTE, '/dashboard/users/add', false);

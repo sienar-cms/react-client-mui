@@ -27,7 +27,6 @@ import UserUpsert from '@identity/views/users/Upsert.tsx';
 import UserRoles from '@identity/views/users/Roles.tsx';
 import UserLock from '@identity/views/users/Lock.tsx';
 import LockoutReasonUpsert from '@identity/views/lockout-reasons/Upsert.tsx';
-import Unauthorized from '@identity/views/Unauthorized.tsx';
 
 import type { ReactNode } from 'react';
 import type { InjectionKey } from '@/react-utils';
@@ -68,8 +67,6 @@ export const RESET_PASSWORD_LAYOUT = Symbol() as InjectionKey<InjectionKey<React
 export const RESET_PASSWORD_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const RESET_PASSWORD_SUCCESSFUL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const RESET_PASSWORD_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const UNAUTHORIZED_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
-export const UNAUTHORIZED_VIEW = Symbol() as InjectionKey<ReactNode>;
 
 export const USERS_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const USERS_VIEW = Symbol() as InjectionKey<ReactNode>;
@@ -378,14 +375,6 @@ export function setupIdentityViews() {
 					{inject(LOCKOUT_REASONS_EDIT_VIEW, true) ?? <LockoutReasonUpsert/>}
 				</AuthorizeRoute>
 			)
-		}
-	);
-
-	registerRoutes(
-		inject(UNAUTHORIZED_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
-		{
-			path: `${inject(ROUTES.UNAUTHORIZED_ROUTE)}`,
-			element: inject(UNAUTHORIZED_VIEW, true) ?? <Unauthorized/>
 		}
 	);
 }
