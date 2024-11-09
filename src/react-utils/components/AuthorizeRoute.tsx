@@ -49,11 +49,6 @@ export default function AuthorizeRoute(props: PropsWithChildren<AuthorizeRoutePr
 	let pageName: string;
 
 	switch (true) {
-		case mustBeLoggedOut:
-			pageTitle = 'You must be logged out';
-			pageContent = 'You cannot view this page because some pages, such as the login and registration page, require you to be logged out.';
-			pageName = 'unauthorized';
-			break;
 		case isLoggedIn:
 			pageTitle = "You don't have permission";
 			pageContent = 'You cannot view this page because it requires elevated access.';
