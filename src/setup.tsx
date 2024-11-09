@@ -20,6 +20,8 @@ export default function setup() {
 
 	// Partials
 	provide(DRAWER_FOOTER_PARTIAL, <DrawerFooter/>, false);
+
+	// Menus
 	addLinksWithPriority(
 		DASHBOARD_MENU,
 		MenuPriority.Highest,
@@ -31,7 +33,6 @@ export default function setup() {
 		}
 	);
 
-	// Menus
 	addLinksWithPriority(
 		DASHBOARD_MENU,
 		MenuPriority.Lowest,
