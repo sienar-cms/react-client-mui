@@ -1,4 +1,4 @@
-﻿import AuthorizeContent from '@/react-ui/AuthorizeContent.tsx';
+﻿import { Authorize } from '@/react-utils';
 import { inject  } from '@/react-utils';
 import { Box, Button } from '@mui/material';
 import UserBadge from '@/components/UserBadge.tsx';
@@ -13,7 +13,7 @@ export default function DrawerFooter(props: UserBadgeProps) {
 			width: '100%',
 			p: 2
 		}}>
-			<AuthorizeContent unauthorized={(
+			<Authorize unauthorized={(
 				<>
 					<Button
 						component={Link}
@@ -38,7 +38,7 @@ export default function DrawerFooter(props: UserBadgeProps) {
 				</>
 			)}>
 				<UserBadge {...props}/>
-			</AuthorizeContent>
+			</Authorize>
 		</Box>
 	)
 };

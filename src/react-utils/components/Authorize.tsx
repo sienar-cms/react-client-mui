@@ -4,7 +4,7 @@ import type { PropsWithChildren, ReactNode } from 'react';
 /**
  * Describes the props of the <code>&lt;Authorize.Content&gt;</code> component
  */
-export type AuthorizeContentProps = {
+export type AuthorizeProps = {
 	/**
 	 * The roles the user must meet. If <code>null</code>, the user only needs to be logged in.
 	 */
@@ -24,7 +24,7 @@ export type AuthorizeContentProps = {
 /**
  * Renders content if the user meets the provided authorization criteria. If the user does not, fallback content can be specified.
  */
-export default function AuthorizeContent(props: PropsWithChildren<AuthorizeContentProps>) {
+export default function Authorize(props: PropsWithChildren<AuthorizeProps>) {
 	const { roles, any = false, unauthorized, children } = props;
 	const isAuthorized = useAuthorized(roles, any);
 	return isAuthorized ? <>{children}</> : <>{unauthorized}</>;
