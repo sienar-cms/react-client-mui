@@ -1,6 +1,6 @@
-﻿import { addLinksWithPriority, AUTH_MISSING_ROLES_PARTIAL, AUTH_MUST_BE_LOGGED_IN_PARTIAL, AUTH_MUST_BE_LOGGED_OUT_PARTIAL, AuthorizeRoute, DASHBOARD_MENU, DASHBOARD_UTILS_MENU, DRAWER_FOOTER_PARTIAL, inject, MenuPriority, provide, registerProvider, registerRoutes } from '@/react-utils';
+﻿import { addLinks, addLinksWithPriority, AUTH_MISSING_ROLES_PARTIAL, AUTH_MUST_BE_LOGGED_IN_PARTIAL, AUTH_MUST_BE_LOGGED_OUT_PARTIAL, AuthorizeRoute, DASHBOARD_MENU, DASHBOARD_UTILS_MENU, DASHBOARD_UTILS_SETTINGS_MENU, DRAWER_FOOTER_PARTIAL, inject, MenuPriority, provide, registerProvider, registerRoutes } from '@/react-utils';
 import { Dashboard as DashboardLayout, DashboardNarrow as DashboardNarrowLayout, MUI_DATE_LOCALIZATION_PROVIDER } from '@/react-ui';
-import { Dashboard, Info, Home } from '@mui/icons-material';
+import { Dashboard, Info, Home, Settings } from '@mui/icons-material';
 import * as KEYS from '@/keys.ts';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import DrawerFooter from '@/partials/DrawerFooter.tsx';
@@ -10,6 +10,7 @@ import MustBeLoggedOut from '@/partials/MustBeLoggedOut.tsx';
 import DashboardView from '@/views/Dashboard.tsx';
 import AboutView from '@/views/About.tsx';
 import { identitySetup } from '@identity/index.ts';
+import { roles } from '@/constants.ts';
 
 export default function setup() {
 	// Global setup not linked to a specific vertical slice
@@ -29,6 +30,16 @@ export default function setup() {
 	provide(AUTH_MUST_BE_LOGGED_OUT_PARTIAL, <MustBeLoggedOut/>, false);
 
 	// Menus
+	addLinks(
+		DASHBOARD_UTILS_MENU,
+		{
+			text: 'Settings',
+			roles: roles.admin,
+			icon: <Settings/>,
+			childMenu: DASHBOARD_UTILS_SETTINGS_MENU
+		}
+	);
+
 	addLinksWithPriority(
 		DASHBOARD_MENU,
 		MenuPriority.Highest,
