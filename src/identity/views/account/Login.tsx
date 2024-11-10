@@ -6,7 +6,7 @@ import { DASHBOARD_ROUTE } from '@/keys';
 import { FORGOT_PASSWORD_ROUTE } from '@identity/urls.ts';
 import { LOGIN_SERVICE } from '@identity/services.ts';
 import type { RequestResult } from '@/react-utils';
-import type { VerificationCode } from '@identity/types.ts';
+import type { LoginResult } from '@identity/types.ts';
 
 export default function Login() {
 	useDocumentTitle('Log in');
@@ -14,7 +14,7 @@ export default function Login() {
 	const authContext = useAuthContext();
 	const [ params ] = useSearchParams();
 
-	const onLogin = async (result: RequestResult<VerificationCode>) => {
+	const onLogin = async (result: RequestResult<LoginResult>) => {
 		if (result.result) {
 			console.log('code detected: ', result.result);
 		}
