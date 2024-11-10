@@ -95,6 +95,16 @@ export type UserIdRequest = {
 }
 
 /**
+ * A base request used to send a verification code
+ */
+export type VerificationCodeRequest = {
+	/**
+	 * The verification code
+	 */
+	verificationCode: string
+}
+
+/**
  * The data required to add a user to a specific role
  */
 export type AddUserToRoleRequest = UserIdRequest & {
@@ -123,6 +133,26 @@ export type RemoveUserFromRoleRequest = UserIdRequest & {
  * The data required to unlock a user's account from the admin UI
  */
 export type UnlockUserAccountRequest = UserIdRequest;
+
+/**
+ * The data required to request a user account's lockout data
+ */
+export type AccountLockRequest = UserIdRequest & VerificationCodeRequest;
+
+/**
+ * The data describing a user's lockout status
+ */
+export type AccountLockResult = {
+	/**
+	 * The list of reasons a user's account is locked
+	 */
+	lockoutReasons: LockoutReason[]
+
+	/**
+	 * The date the lockout is scheduled to end. If <code>null</code> or <code>undefined</code>, the lockout is permanent.
+	 */
+	lockoutEnd?: string|null
+}
 
 /**
  * The data describing the result of a login operation
