@@ -1,19 +1,25 @@
-﻿import { useMemo } from 'react';
-import { Box, List, Toolbar } from '@mui/material';
+﻿import { useMemo, Fragment } from 'react';
+import { Box, Divider, List, Toolbar } from '@mui/material';
 import DashboardMenuItem from './MenuLink.tsx';
 import DashboardMenuGroup from './MenuGroup.tsx';
 import { useAuthContext, useInfrastructureContext, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
+import type { MenuLink } from '@/react-utils';
 
 export default function DrawerContent() {
 	const infrastructureContext = useInfrastructureContext();
-	const { activeMenu } = infrastructureContext;
+	const { activeMenu, activeUtilsMenu } = infrastructureContext;
 	const authContext = useAuthContext();
 	const { isLoggedIn, roles } = authContext;
 
-	const drawerItems = useMemo(() => {
+	const mainMenuItems = useMemo(() => {
 		const links = aggregateLinks(activeMenu);
 		return filterLinks(links, isLoggedIn, roles);
 	}, [isLoggedIn, roles, activeMenu]);
+
+	const utilsMenuItems = useMemo(() => {
+		const links = aggregateLinks(activeUtilsMenu);
+		return filterLinks(links, isLoggedIn, roles);
+	}, [isLoggedIn, roles]);
 
 	const drawerHeaderContent = inject(DRAWER_HEADER_PARTIAL, true);
 	const drawerFooterContent = inject(DRAWER_FOOTER_PARTIAL, true);
@@ -30,21 +36,35 @@ export default function DrawerContent() {
 			<div>
 				<Toolbar/>
 				{drawerHeaderContent}
-				<List>
-					{drawerItems.map(d => d.sublinks
-						? <DashboardMenuGroup
-							data={d}
-							key={d.text}
-						/>
-						: <DashboardMenuItem
-							data={d}
-							key={d.text}
-						/>
-					)}
-				</List>
+				<DrawerMenu items={mainMenuItems}/>
+				<Divider variant='middle'/>
+				<DrawerMenu items={utilsMenuItems}/>
 			</div>
 
-			{drawerFooterContent}
+			<div>
+				{drawerFooterContent}
+			</div>
 		</Box>
 	);
+}
+
+type DrawerMenuProps = {
+	items: MenuLink[]
+}
+
+function DrawerMenu({ items }: DrawerMenuProps) {
+	return (
+		<List>
+			{items.map(item => (
+				<Fragment key={item.text}>
+					{item.sublinks && (
+						<DashboardMenuGroup data={item}	/>
+					)}
+					{!item.sublinks && (
+						<DashboardMenuItem data={item} />
+					)}
+				</Fragment>
+			))}
+		</List>
+	)
 }

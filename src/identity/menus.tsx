@@ -1,22 +1,21 @@
-import { addLinks, DASHBOARD_MENU, inject, type InjectionKey, type MenuLinkProvider } from '@/react-utils';
+import { addLinks, DASHBOARD_UTILS_SETTINGS_MENU, inject, type InjectionKey, type MenuLinkProvider } from '@/react-utils';
 import * as URLS from '@identity/urls.ts';
-import { roles } from '@/constants.ts';
-import { DeleteForever, Email, Key, Lock } from '@mui/icons-material';
+import { DeleteForever, Email, Group, Key, Lock } from '@mui/icons-material';
 
 export const USER_SETTINGS_MENU = Symbol() as InjectionKey<MenuLinkProvider>;
 
 export function setupIdentityMenus() {
 	addLinks(
-		DASHBOARD_MENU,
+		DASHBOARD_UTILS_SETTINGS_MENU,
 		{
 			text: 'Users',
 			href: inject(URLS.USERS_ROUTE),
-			roles: roles.admin
+			icon: <Group/>
 		},
 		{
 			text: 'Lockout reasons',
 			href: inject(URLS.LOCKOUT_REASONS_ROUTE),
-			roles: roles.admin
+			icon: <Lock/>
 		}
 	);
 

@@ -7,7 +7,9 @@ export const DOCUMENT_TITLE_SUFFIX = Symbol() as InjectionKey<string>;
 
 export const infrastructureContext = createContext<InfrastructureContext>({
 	activeMenu: Symbol(),
-	setActiveMenu: () => {}
+	activeUtilsMenu: Symbol(),
+	setActiveMenu: () => {},
+	setActiveUtilsMenu: () => {}
 });
 export const useInfrastructureContext = () => useContext(infrastructureContext);
 
@@ -46,4 +48,16 @@ export type InfrastructureContext = {
 	 * @param key The injection key of the menu that should be rendered
 	 */
 	setActiveMenu: (key: InjectionKey<MenuLinkProvider>) => void
+
+	/**
+	 * The name of the currently active utility menu
+	 */
+	activeUtilsMenu: InjectionKey<MenuLinkProvider>
+
+	/**
+	 * Changes the active utility menu that should be rendered in the dashboard
+	 *
+	 * @param key The injection key of the menu that should be rendered
+	 */
+	setActiveUtilsMenu: (key: InjectionKey<MenuLinkProvider>) => void
 }

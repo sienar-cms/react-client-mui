@@ -159,6 +159,8 @@ export function userIsAuthorized(
 }
 
 export const DASHBOARD_MENU = Symbol() as InjectionKey<MenuLinkProvider>;
+export const DASHBOARD_UTILS_MENU = Symbol() as InjectionKey<MenuLinkProvider>;
+export const DASHBOARD_UTILS_SETTINGS_MENU = Symbol() as InjectionKey<MenuLinkProvider>;
 
 /**
  * A container for {@link MenuLink} objects

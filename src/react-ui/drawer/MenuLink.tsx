@@ -28,7 +28,7 @@ export default function MenuLink(props: MenuLinkProps) {
 
 function getListItemButtonProps(data: MenuLink) {
 	const value: Record<string, any> = {
-		component: data.buttonComponent ?? Link
+		component: data.buttonComponent ?? data.href ? Link : undefined
 	};
 	if (data.href) {
 		value.to = data.href;
