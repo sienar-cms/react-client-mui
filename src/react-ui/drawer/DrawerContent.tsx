@@ -1,5 +1,5 @@
 ﻿import { useMemo } from 'react';
-import { Box, List, Toolbar } from '@mui/material';
+import { Box, Divider, List, Toolbar } from '@mui/material';
 import DashboardMenuItem from './MenuLink.tsx';
 import DashboardMenuGroup from './MenuGroup.tsx';
 import { useAuthContext, useInfrastructureContext, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
@@ -37,12 +37,11 @@ export default function DrawerContent() {
 				<Toolbar/>
 				{drawerHeaderContent}
 				<DrawerMenu items={mainMenuItems}/>
+				<Divider variant='middle'/>
+				<DrawerMenu items={utilsMenuItems}/>
 			</div>
 
 			<div>
-				<div>
-					<DrawerMenu items={utilsMenuItems}/>
-				</div>
 				{drawerFooterContent}
 			</div>
 		</Box>
