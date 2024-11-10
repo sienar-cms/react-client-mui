@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { inject } from '@/react-utils';
+import { getDateString, inject } from '@/react-utils';
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { Label } from '@mui/icons-material';
 import { StatusPage, LoadingPage } from '@/react-ui';
@@ -31,7 +31,7 @@ export default function AccountLocked() {
 
 	return (
 		<StatusPage title='Account locked out'>
-			<Typography>Your account is currently locked. The lockout is scheduled to end: <strong>{getLockoutEndDate(lockResult.lockoutEnd)}</strong></Typography>
+			<Typography>Your account is currently locked. The lockout is scheduled to end: <strong>{getDateString(lockResult.lockoutEnd) ?? 'never'}</strong></Typography>
 			<Typography my={2}>Your account is locked for the following reasons:</Typography>
 			<List>
 				{lockResult.lockoutReasons.map(r => (
@@ -47,13 +47,4 @@ export default function AccountLocked() {
 			</List>
 		</StatusPage>
 	)
-}
-
-function getLockoutEndDate(endDate: string|null|undefined): string {
-	if (!endDate) return 'never';
-
-	const parsedDate = new Date(endDate);
-	if (isNaN(parsedDate.getTime())) return 'never';
-
-	return parsedDate.toString();
 }
