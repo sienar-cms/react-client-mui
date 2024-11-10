@@ -3,6 +3,7 @@ import { Box, List, Toolbar } from '@mui/material';
 import DashboardMenuItem from './MenuLink.tsx';
 import DashboardMenuGroup from './MenuGroup.tsx';
 import { useAuthContext, useInfrastructureContext, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
+import type { MenuLink } from '@/react-utils';
 
 export default function DrawerContent() {
 	const infrastructureContext = useInfrastructureContext();
@@ -30,21 +31,37 @@ export default function DrawerContent() {
 			<div>
 				<Toolbar/>
 				{drawerHeaderContent}
-				<List>
-					{drawerItems.map(d => d.sublinks
-						? <DashboardMenuGroup
-							data={d}
-							key={d.text}
-						/>
-						: <DashboardMenuItem
-							data={d}
-							key={d.text}
-						/>
-					)}
-				</List>
+				<DrawerMenu items={drawerItems}/>
 			</div>
 
 			{drawerFooterContent}
 		</Box>
 	);
+}
+
+type DrawerMenuProps = {
+	items: MenuLink[]
+}
+
+function DrawerMenu({ items }: DrawerMenuProps) {
+	return (
+		<List>
+			{items.map(item => (
+				<>
+					{item.sublinks && (
+						<DashboardMenuGroup
+							data={item}
+							key={item.text}
+						/>
+					)}
+					{!item.sublinks && (
+						<DashboardMenuItem
+							data={item}
+							key={item.text}
+						/>
+					)}
+				</>
+			))}
+		</List>
+	)
 }
