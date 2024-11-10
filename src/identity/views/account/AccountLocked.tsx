@@ -31,7 +31,17 @@ export default function AccountLocked() {
 
 	return (
 		<StatusPage title='Account locked out'>
-			<Typography>Your account is currently locked. The lockout is scheduled to end: <strong>{getDateString(lockResult.lockoutEnd) ?? 'never'}</strong></Typography>
+			{lockResult.lockoutEnd && (
+				<Typography>
+					Your account is currently locked until <strong>{getDateString(lockResult.lockoutEnd)}
+				</strong></Typography>
+			)}
+			{!lockResult.lockoutEnd && (
+				<Typography>
+					Your account is locked <strong>permanently</strong>.
+				</Typography>
+			)}
+
 			<Typography my={2}>Your account is locked for the following reasons:</Typography>
 			<List>
 				{lockResult.lockoutReasons.map(r => (
