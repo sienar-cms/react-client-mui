@@ -41,6 +41,7 @@ export type FormProps<T> = Omit<CardProps, 'actions'|'title'> & {
 	onReset?: () => any
 	resetText?: string
 	showReset?: boolean
+	resetOnSubmit?: boolean
 	hideControls?: boolean
 	information?: ReactNode
 	additionalActions?: ReactNode;
@@ -65,6 +66,7 @@ export default function Form<T>(props: FormProps<T>) {
 		onSubmit,
 		resetText = 'Reset',
 		showReset = false,
+		resetOnSubmit = false,
 		hideControls = false,
 		information,
 		additionalActions,
@@ -116,7 +118,7 @@ export default function Form<T>(props: FormProps<T>) {
 
 		if (!result) return;
 
-		if ((upsert && isCreating) || !upsert) {
+		if (resetOnSubmit) {
 			resetButtonRef.current!.click();
 		}
 
