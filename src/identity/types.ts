@@ -65,6 +65,26 @@ export type Role = EntityBase & {
 }
 
 /**
+ * Represents a verification code that the user can present to perform a sensitive action
+ */
+export type VerificationCode = EntityBase & {
+	/**
+	 * The code the user must present
+	 */
+	code: string
+
+	/**
+	 * The purpose of the verification code
+	 */
+	type: string
+
+	/**
+	 * The expiration date of the verification code
+	 */
+	expiresAt: string
+}
+
+/**
  * A base request used to make modifications to a specific user account
  */
 export type UserIdRequest = {
@@ -72,6 +92,16 @@ export type UserIdRequest = {
 	 * The ID of the user on which to act
 	 */
 	userId: string
+}
+
+/**
+ * A base request used to send a verification code
+ */
+export type VerificationCodeRequest = {
+	/**
+	 * The verification code
+	 */
+	verificationCode: string
 }
 
 /**
@@ -103,6 +133,41 @@ export type RemoveUserFromRoleRequest = UserIdRequest & {
  * The data required to unlock a user's account from the admin UI
  */
 export type UnlockUserAccountRequest = UserIdRequest;
+
+/**
+ * The data required to request a user account's lockout data
+ */
+export type AccountLockRequest = UserIdRequest & VerificationCodeRequest;
+
+/**
+ * The data describing a user's lockout status
+ */
+export type AccountLockResult = {
+	/**
+	 * The list of reasons a user's account is locked
+	 */
+	lockoutReasons: LockoutReason[]
+
+	/**
+	 * The date the lockout is scheduled to end. If <code>null</code> or <code>undefined</code>, the lockout is permanent.
+	 */
+	lockoutEnd?: string|null
+}
+
+/**
+ * The data describing the result of a login operation
+ */
+export type LoginResult = {
+	/**
+	 * The ID of the user who failed to log in
+	 */
+	userId: string
+
+	/**
+	 * The verification code the user can use to view the reason(s) their account is locked
+	 */
+	verificationCode: string
+}
 
 // endregion
 

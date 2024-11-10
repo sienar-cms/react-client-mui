@@ -1,5 +1,5 @@
-import { ApiCrudService, CrudService, InjectionKey, provide, sendStatusServiceRequest, StatusService } from '@/react-utils';
-import type { AddUserToRoleRequest, LockoutReason, ManuallyConfirmUserAccountRequest, RemoveUserFromRoleRequest, Role, UnlockUserAccountRequest, User } from '@identity/types.ts';
+import { ApiCrudService, CrudService, InjectionKey, provide, sendServiceRequest, sendStatusServiceRequest, Service, StatusService } from '@/react-utils';
+import type { AccountLockRequest, AccountLockResult, AddUserToRoleRequest, LockoutReason, LoginResult, ManuallyConfirmUserAccountRequest, RemoveUserFromRoleRequest, Role, UnlockUserAccountRequest, User } from '@identity/types.ts';
 
 // region Account
 
@@ -9,9 +9,10 @@ export const CHANGE_PASSWORD_SERVICE = Symbol() as InjectionKey<StatusService<Fo
 export const CONFIRM_SERVICE = Symbol() as InjectionKey<StatusService<FormData>>;
 export const DELETE_ACCOUNT_SERVICE = Symbol() as InjectionKey<StatusService<FormData>>;
 export const FORGOT_PASSWORD_SERVICE = Symbol() as InjectionKey<StatusService<FormData>>;
-export const LOGIN_SERVICE = Symbol() as InjectionKey<StatusService<FormData>>;
+export const LOGIN_SERVICE = Symbol() as InjectionKey<Service<FormData, LoginResult>>;
 export const REGISTER_SERVICE = Symbol() as InjectionKey<StatusService<FormData>>;
 export const RESET_PASSWORD_SERVICE = Symbol() as InjectionKey<StatusService<FormData>>;
+export const GET_LOCKOUT_REASONS_SERVICE = Symbol() as InjectionKey<Service<AccountLockRequest, AccountLockResult>>;
 
 // endregion
 
@@ -102,7 +103,7 @@ export function setupIdentityServices() {
 
 	provide(
 		LOGIN_SERVICE,
-		(data, config) => sendStatusServiceRequest(
+		(data, config) => sendServiceRequest(
 			'/api/account/login',
 			'POST',
 			data,
@@ -127,6 +128,17 @@ export function setupIdentityServices() {
 		(data, config) => sendStatusServiceRequest(
 			'/api/account/password',
 			'PATCH',
+			data,
+			config
+		),
+		false
+	);
+
+	provide(
+		GET_LOCKOUT_REASONS_SERVICE,
+		(data, config) => sendServiceRequest(
+			'/api/account/lockout-reasons',
+			'POST',
 			data,
 			config
 		),

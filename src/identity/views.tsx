@@ -21,6 +21,7 @@ import ChangePasswordSuccessful from '@identity/views/account/change-password/Su
 import PersonalData from '@identity/views/account/PersonalData';
 import DeleteAccount from '@identity/views/account/Delete';
 import Deleted from '@identity/views/account/Deleted';
+import AccountLocked from '@identity/views/account/AccountLocked.tsx';
 import UserIndex from '@identity/views/users/Index.tsx';
 import LockoutReasonIndex from '@identity/views/lockout-reasons/Index.tsx';
 import UserUpsert from '@identity/views/users/Upsert.tsx';
@@ -67,6 +68,8 @@ export const RESET_PASSWORD_LAYOUT = Symbol() as InjectionKey<InjectionKey<React
 export const RESET_PASSWORD_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const RESET_PASSWORD_SUCCESSFUL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const RESET_PASSWORD_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
+export const ACCOUNT_LOCKOUT_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
+export const ACCOUNT_LOCKOUT_VIEW = Symbol() as InjectionKey<ReactNode>;
 
 export const USERS_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const USERS_VIEW = Symbol() as InjectionKey<ReactNode>;
@@ -201,6 +204,18 @@ export function setupIdentityViews() {
 			element: inject(RESET_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ResetPasswordSuccessful/>
 		}
 	);
+
+	registerRoutes(
+		inject(ACCOUNT_LOCKOUT_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		{
+			path: inject(ROUTES.ACCOUNT_LOCKED_ROUTE),
+			element: (
+				<AuthorizeRoute mustBeLoggedOut>
+					{inject(ACCOUNT_LOCKOUT_VIEW, true) ?? <AccountLocked/>}
+				</AuthorizeRoute>
+			)
+		}
+	)
 
 	registerRoutes(
 		inject(CHANGE_EMAIL_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,

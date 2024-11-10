@@ -2,11 +2,16 @@
 import { NOTIFIER } from '@/react-utils/notifications.ts';
 import type { ApiCallerOptions, HttpMethod, ValidationErrorWebResult, WebResult } from '@/react-utils/http.ts';
 
+export type RequestResult<T> = {
+	wasSuccessful: boolean,
+	result: T|null
+}
+
 export async function sendRequest<T>(
 	url: string,
 	method: HttpMethod,
 	args: ApiCallerOptions = {}
-): Promise<T|null> {
+): Promise<RequestResult<T>> {
 	const {
 		body,
 		requestOptions,
@@ -15,6 +20,10 @@ export async function sendRequest<T>(
 
 	const init: RequestInit = Object.assign({ method, body }, requestOptions);
 	const request = new Request(url, init);
+	const requestResult: RequestResult<T> = {
+		wasSuccessful: false,
+		result: null
+	};
 
 	const notifier = inject(NOTIFIER);
 	let response: Response;
@@ -24,7 +33,7 @@ export async function sendRequest<T>(
 	} catch(e) {
 		notifier.error('A network error has occured. Are you connected to the internet?');
 
-		return null;
+		return requestResult;
 	}
 
 	let result: WebResult<T>;
@@ -35,14 +44,14 @@ export async function sendRequest<T>(
 			// In this case, the result is a WebResult containing notifications about invalid fields
 			if (result['notifications'] && Array.isArray(result['notifications'])) {
 				for (let n of (result as WebResult<T>).notifications) notifier.notify(n);
-				return null;
+				return requestResult;
 			}
 
 			// Otherwise, the result is a ValidationErrorWebResult
-			if (!onUnprocessable) return null;
+			if (!onUnprocessable) return requestResult;
 
 			onUnprocessable(result as ValidationErrorWebResult);
-			return null;
+			return requestResult;
 		}
 
 		// The status can be 500 and still return a WebResult<T>
@@ -52,14 +61,17 @@ export async function sendRequest<T>(
 		// response.json() will throw
 		notifier.error('An unknown error has occurred.');
 
-		return null;
+		return requestResult;
 	}
 
 	if (result.notifications && Array.isArray(result.notifications)) {
 		for (let n of result.notifications) notifier.notify(n);
 	}
 
-	return result.result;
+	requestResult.wasSuccessful = response.ok;
+	requestResult.result = result.result;
+
+	return requestResult;
 }
 
 /**
@@ -69,4 +81,36 @@ export async function sendRequest<T>(
  */
 export function sleep(time: number): Promise<void> {
 	return new Promise(resolve => setTimeout(resolve, time));
+}
+
+/**
+ * Converts a GMT date from the server into a local date string
+ *
+ * @param date The GMT date from the server
+ * @param removeAt Whether to remove the ' at' separating the date and the time in the date string
+ * @returns The parsed date if the date is valid, else <code>null</code>
+ */
+export function getDateString(
+	date: string|null|undefined,
+	removeAt: boolean = true
+): string|null {
+	if (!date) return null;
+
+	const parsed = new Date(`${date}Z`);
+	if (isNaN(parsed.getTime())) return null;
+	const parsedString = parsed.toLocaleString('en-US', {
+		timeZoneName: 'short',
+		hour12: true,
+		weekday: 'long',
+		month: 'long',
+		day: 'numeric',
+		year: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit'
+	});
+
+	return removeAt
+		? parsedString.replace(' at', '')
+		: parsedString;
 }

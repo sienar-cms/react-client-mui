@@ -1,6 +1,6 @@
 ﻿import { useId, useRef } from 'react';
 import { Button, IconButton, ExtendButtonBase } from '@mui/material';
-import { API_CALLER, inject } from '@/react-utils';
+import { sendRequest } from '@/react-utils';
 
 import type { FormEvent, PropsWithChildren, ReactNode } from 'react';
 import type { ButtonPropsColorOverrides, ButtonTypeMap, IconButtonTypeMap, SxProps, Theme } from '@mui/material';
@@ -41,15 +41,14 @@ export default function ActionButton(props: ActionButtonProps) {
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const caller = inject(API_CALLER);
-		const result = await caller<boolean>(
+		const result = await sendRequest<boolean>(
 			action,
 			method,
 			{ body: new FormData(formRef.current!) }
 		);
 
-		if (!result) return;
-		onSuccess?.(result);
+		if (!result.result) return;
+		onSuccess?.(result.result);
 	}
 
 	return (
