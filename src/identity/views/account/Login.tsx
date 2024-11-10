@@ -5,6 +5,7 @@ import { inject, useNavigate, validators, useAuthContext, useDocumentTitle } fro
 import { DASHBOARD_ROUTE } from '@/keys';
 import { FORGOT_PASSWORD_ROUTE } from '@identity/urls.ts';
 import { LOGIN_SERVICE } from '@identity/services.ts';
+import type { RequestResult } from '@/react-utils';
 
 export default function Login() {
 	useDocumentTitle('Log in');
@@ -12,8 +13,12 @@ export default function Login() {
 	const authContext = useAuthContext();
 	const [ params ] = useSearchParams();
 
-	const onLogin = async (successful: boolean) => {
-		if (!successful) return;
+	const onLogin = async (result: RequestResult<string>) => {
+		if (result.result) {
+			console.log('code detected: ', result.result);
+		}
+
+		if (!result.wasSuccessful) return;
 
 		await authContext.loadUserData();
 		const returnUrl = params.get('returnUrl');
