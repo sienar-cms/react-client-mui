@@ -4,6 +4,7 @@ import { sendRequest } from '@/react-utils/utils.ts';
 import { appendSearchParams } from '@/react-utils/http.ts';
 import type { ApiCallerOptions, HttpMethod } from '@/react-utils/http.ts';
 import type { FormContext, ValidationResult } from './validation.ts';
+import type { RequestResult } from '@/react-utils/utils.ts';
 
 export type ServiceConfiguration = {
 	formContext?: FormContext
@@ -62,7 +63,7 @@ export class ApiCrudService<T> implements CrudService<T> {
 		this.endpoint = endpoint;
 	}
 
-	create(
+	async create(
 		data: FormData,
 		options?: ServiceConfiguration
 	): Promise<string|null> {
@@ -71,24 +72,29 @@ export class ApiCrudService<T> implements CrudService<T> {
 			options
 		);
 
-		return sendRequest<string>(
+		const result = await sendRequest<string>(
 			this.endpoint,
 			'POST',
 			requestOptions
 		);
+
+		return result.result;
 	}
 
-	read(
+	async read(
 		id: string,
 		filter?: Filter,
 		options?: ServiceConfiguration
 	): Promise<T|null> {
 		const url = appendSearchParams(`${this.endpoint}/${id}`, filter);
-		return sendRequest<T>(
+
+		const result = await sendRequest<T>(
 			url,
 			'GET',
 			mapServiceConfigurationToApiCallerOptions(options, undefined)
 		);
+
+		return result.result;
 	}
 
 	async readAll(
@@ -101,7 +107,7 @@ export class ApiCrudService<T> implements CrudService<T> {
 			'GET',
 			mapServiceConfigurationToApiCallerOptions(options, undefined)
 		);
-		return result ?? { items: [], totalCount: 0 };
+		return result.result ?? { items: [], totalCount: 0 };
 	}
 
 	async update(
@@ -118,7 +124,7 @@ export class ApiCrudService<T> implements CrudService<T> {
 			 'PUT',
 			 requestOptions
 		 );
-		 return !!result;
+		 return !!result.result;
 	}
 
 	async delete(
@@ -130,7 +136,7 @@ export class ApiCrudService<T> implements CrudService<T> {
 			'DELETE',
 			mapServiceConfigurationToApiCallerOptions(options, undefined)
 		);
-		return !!result;
+		return !!result.result;
 	}
 }
 
@@ -187,6 +193,36 @@ export interface Service<TRequest, TResult> {
 }
 
 /**
+ * Sends a {@link Service} and maps its input and config appropriately before sending
+ *
+ * @param url The URL to which to send the request
+ * @param method The HTTP method with which to send the request
+ * @param input The message body of the request, if any
+ * @param config The service configuration provided to the service, if any
+ *
+ * @returns The result of the service request from the server
+ */
+export function sendServiceRequest<T>(
+	url: string,
+	method: HttpMethod,
+	input?: object,
+	config?: ServiceConfiguration
+): Promise<RequestResult<T>> {
+	const requestOptions: ApiCallerOptions = {};
+	if (input instanceof FormData) {
+		requestOptions.body = input;
+	} else if (input) {
+		requestOptions.body = mapObjectToFormData(input);
+	}
+
+	return sendRequest<T>(
+		url,
+		method,
+		mapServiceConfigurationToApiCallerOptions(config, requestOptions)
+	);
+}
+
+/**
  * A service that accepts input and returns a <code>boolean</code> indicating the success status of the operation
  *
  * @param input The function input
@@ -218,27 +254,16 @@ export async function sendStatusServiceRequest(
 	if (input instanceof FormData) {
 		requestOptions.body = input;
 	} else if (input) {
-		const data = new FormData();
-		for (let [key, value] of Object.entries(input)) {
-			if (Array.isArray(value)) {
-				for (let v of value) {
-					data.append(key, v);
-				}
-			} else {
-				data.append(key, value);
-			}
-		}
-
-		requestOptions.body = data;
+		requestOptions.body = mapObjectToFormData(input);
 	}
 
-	const wasSuccessful = await sendRequest<boolean>(
+	const result = await sendRequest<boolean>(
 		url,
 		method,
 		mapServiceConfigurationToApiCallerOptions(config, requestOptions)
 	);
 
-	return !!wasSuccessful;
+	return !!result.result;
 }
 
 /**
@@ -250,6 +275,28 @@ export async function sendStatusServiceRequest(
  */
 export interface ResultService<TResult> {
 	(config?: ServiceConfiguration): Promise<TResult|null>
+}
+
+/**
+ * Maps a basic JavaScript object to a FormData object
+ *
+ * @param input The request payload
+ * @returns The FormData object
+ */
+export function mapObjectToFormData(input: object): FormData {
+	const data = new FormData();
+
+	for (let [key, value] of Object.entries(input)) {
+		if (Array.isArray(value)) {
+			for (let v of value) {
+				data.append(key, v);
+			}
+		} else {
+			data.append(key, value);
+		}
+	}
+
+	return data;
 }
 
 export type PagedQuery<T> = {

@@ -1,8 +1,5 @@
-import { inject } from '@/react-utils/di.ts';
+import { sendRequest } from '@/react-utils/utils.ts';
 import type { Notification } from '@/react-utils/notifications.tsx';
-import type { InjectionKey } from '@/react-utils/di.ts';
-
-export const API_CALLER = Symbol() as InjectionKey<ApiCaller>
 
 export function createApiCall(
 	action: string,
@@ -11,9 +8,8 @@ export function createApiCall(
 	options?: ApiCallerOptions
 ) {
 	return async () => {
-		const caller = inject(API_CALLER);
-		const successful = await caller<boolean>(action, method, options);
-		if (successful && onSuccess) onSuccess();
+		const result = await sendRequest<boolean>(action, method, options);
+		if (result.wasSuccessful && onSuccess) onSuccess();
 	}
 }
 
