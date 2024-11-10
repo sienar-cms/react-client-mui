@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { StandaloneCheckbox, Form, Textbox } from '@/react-ui';
 import { inject, useNavigate, validators, useAuthContext, useDocumentTitle } from '@/react-utils';
 import { DASHBOARD_ROUTE } from '@/keys';
-import { FORGOT_PASSWORD_ROUTE } from '@identity/urls.ts';
+import { ACCOUNT_LOCKED_ROUTE, FORGOT_PASSWORD_ROUTE } from '@identity/urls.ts';
 import { LOGIN_SERVICE } from '@identity/services.ts';
 import type { RequestResult } from '@/react-utils';
 import type { LoginResult } from '@identity/types.ts';
@@ -16,7 +16,8 @@ export default function Login() {
 
 	const onLogin = async (result: RequestResult<LoginResult>) => {
 		if (result.result) {
-			console.log('code detected: ', result.result);
+			const { userId, verificationCode } = result.result;
+			navigate(ACCOUNT_LOCKED_ROUTE, { userId, verificationCode });
 		}
 
 		if (!result.wasSuccessful) return;
