@@ -1,4 +1,4 @@
-﻿import { useMemo } from 'react';
+﻿import { useMemo, Fragment } from 'react';
 import { Box, Divider, List, Toolbar } from '@mui/material';
 import DashboardMenuItem from './MenuLink.tsx';
 import DashboardMenuGroup from './MenuGroup.tsx';
@@ -56,20 +56,14 @@ function DrawerMenu({ items }: DrawerMenuProps) {
 	return (
 		<List>
 			{items.map(item => (
-				<>
+				<Fragment key={item.text}>
 					{item.sublinks && (
-						<DashboardMenuGroup
-							data={item}
-							key={item.text}
-						/>
+						<DashboardMenuGroup data={item}	/>
 					)}
 					{!item.sublinks && (
-						<DashboardMenuItem
-							data={item}
-							key={item.text}
-						/>
+						<DashboardMenuItem data={item} />
 					)}
-				</>
+				</Fragment>
 			))}
 		</List>
 	)
