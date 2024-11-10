@@ -7,14 +7,19 @@ import type { MenuLink } from '@/react-utils';
 
 export default function DrawerContent() {
 	const infrastructureContext = useInfrastructureContext();
-	const { activeMenu } = infrastructureContext;
+	const { activeMenu, activeUtilsMenu } = infrastructureContext;
 	const authContext = useAuthContext();
 	const { isLoggedIn, roles } = authContext;
 
-	const drawerItems = useMemo(() => {
+	const mainMenuItems = useMemo(() => {
 		const links = aggregateLinks(activeMenu);
 		return filterLinks(links, isLoggedIn, roles);
 	}, [isLoggedIn, roles, activeMenu]);
+
+	const utilsMenuItems = useMemo(() => {
+		const links = aggregateLinks(activeUtilsMenu);
+		return filterLinks(links, isLoggedIn, roles);
+	}, [isLoggedIn, roles]);
 
 	const drawerHeaderContent = inject(DRAWER_HEADER_PARTIAL, true);
 	const drawerFooterContent = inject(DRAWER_FOOTER_PARTIAL, true);
@@ -31,10 +36,15 @@ export default function DrawerContent() {
 			<div>
 				<Toolbar/>
 				{drawerHeaderContent}
-				<DrawerMenu items={drawerItems}/>
+				<DrawerMenu items={mainMenuItems}/>
 			</div>
 
-			{drawerFooterContent}
+			<div>
+				<div>
+					<DrawerMenu items={utilsMenuItems}/>
+				</div>
+				{drawerFooterContent}
+			</div>
 		</Box>
 	);
 }
