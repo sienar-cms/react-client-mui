@@ -138,7 +138,14 @@ export function userIsAuthorized(
 	if (link.requireLoggedOut && userIsSignedIn) return false;
 	if (!link.roles || link.roles.length === 0) return true;
 
-	for (let role of link.roles) {
+	const linkRoles: string[] = [];
+	if (Array.isArray(link.roles)) {
+		linkRoles.push(...link.roles);
+	} else {
+		linkRoles.push(link.roles);
+	}
+
+	for (let role of linkRoles) {
 		if (userRoles.includes(role)) {
 			if (link.allRolesRequired) continue;
 			return true;
