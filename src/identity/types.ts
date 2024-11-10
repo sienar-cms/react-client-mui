@@ -65,6 +65,26 @@ export type Role = EntityBase & {
 }
 
 /**
+ * Represents a verification code that the user can present to perform a sensitive action
+ */
+export type VerificationCode = EntityBase & {
+	/**
+	 * The code the user must present
+	 */
+	code: string
+
+	/**
+	 * The purpose of the verification code
+	 */
+	type: string
+
+	/**
+	 * The expiration date of the verification code
+	 */
+	expiresAt: string
+}
+
+/**
  * A base request used to make modifications to a specific user account
  */
 export type UserIdRequest = {
