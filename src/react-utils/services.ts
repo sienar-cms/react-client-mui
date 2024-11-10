@@ -189,7 +189,7 @@ export function mapServiceConfigurationToApiCallerOptions(
  * @returns The result of the operation, or <code>null</code> if the operation failed
  */
 export interface Service<TRequest, TResult> {
-	(input: TRequest, config?: ServiceConfiguration): Promise<TResult|null>
+	(input: TRequest, config?: ServiceConfiguration): Promise<RequestResult<TResult|null>>
 }
 
 /**
