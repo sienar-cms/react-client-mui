@@ -1,4 +1,4 @@
-﻿import { addLinks, addLinksWithPriority, AUTH_MISSING_ROLES_PARTIAL, AUTH_MUST_BE_LOGGED_IN_PARTIAL, AUTH_MUST_BE_LOGGED_OUT_PARTIAL, AuthorizeRoute, DASHBOARD_MENU, DASHBOARD_UTILS_MENU, DASHBOARD_UTILS_SETTINGS_MENU, DRAWER_FOOTER_PARTIAL, inject, MenuPriority, provide, registerProvider, registerRoutes } from '@/react-utils';
+﻿import { addLinks, addLinksWithPriority, AUTH_MISSING_ROLES_PARTIAL, AUTH_MUST_BE_LOGGED_IN_PARTIAL, AUTH_MUST_BE_LOGGED_OUT_PARTIAL, DASHBOARD_MENU, DASHBOARD_UTILS_MENU, DASHBOARD_UTILS_SETTINGS_MENU, DRAWER_FOOTER_PARTIAL, inject, MenuPriority, provide, registerProvider, registerRoutes } from '@/react-utils';
 import { Dashboard as DashboardLayout, DashboardNarrow as DashboardNarrowLayout, MUI_DATE_LOCALIZATION_PROVIDER } from '@/react-ui';
 import { Dashboard, Info, Home, Settings } from '@mui/icons-material';
 import * as KEYS from '@/keys.ts';
@@ -74,20 +74,18 @@ export default function setup() {
 	// Views
 	provide(DASHBOARD_LAYOUT, <DashboardLayout/>, false);
 	provide(DASHBOARD_NARROW_LAYOUT, <DashboardNarrowLayout/>, false);
+	provide(KEYS.DASHBOARD_VIEW, <DashboardView/>, false);
+	provide(KEYS.ABOUT_VIEW, <AboutView/>, false);
 
 	registerRoutes(
 		DASHBOARD_LAYOUT,
 		{
-			path: inject(KEYS.DASHBOARD_ROUTE),
-			element: (
-				<AuthorizeRoute>
-					{inject(KEYS.DASHBOARD_VIEW, true) ?? <DashboardView/>}
-				</AuthorizeRoute>
-			)
+			path: KEYS.DASHBOARD_ROUTE,
+			element: KEYS.DASHBOARD_VIEW
 		},
 		{
-			path: inject(KEYS.ABOUT_ROUTE),
-			element: inject(KEYS.ABOUT_VIEW, true) ?? <AboutView/>
+			path: KEYS.ABOUT_ROUTE,
+			element: KEYS.ABOUT_VIEW
 		}
 	)
 
