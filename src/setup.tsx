@@ -45,7 +45,7 @@ export default function setup() {
 		MenuPriority.Highest,
 		{
 			text: 'Dashboard',
-			href: inject(KEYS.DASHBOARD_ROUTE),
+			href: KEYS.DASHBOARD_ROUTE,
 			icon: <Dashboard/>,
 			requireLoggedIn: false
 		}
@@ -56,7 +56,7 @@ export default function setup() {
 		MenuPriority.Lowest,
 		{
 			text: 'Return home',
-			href: inject(KEYS.HOME_ROUTE),
+			href: KEYS.HOME_ROUTE,
 			icon: <Home/>
 		}
 	);
@@ -66,7 +66,7 @@ export default function setup() {
 		MenuPriority.Lowest,
 		{
 			text: 'About',
-			href: inject(KEYS.ABOUT_ROUTE),
+			href: KEYS.ABOUT_ROUTE,
 			icon: <Info/>
 		}
 	)
