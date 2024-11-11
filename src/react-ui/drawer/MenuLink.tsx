@@ -1,5 +1,6 @@
 ﻿import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { inject } from '@/react-utils';
 
 import type { MouseEventHandler } from 'react';
 import type { MenuLink } from '@/react-utils';
@@ -31,7 +32,9 @@ function getListItemButtonProps(data: MenuLink) {
 		component: data.buttonComponent ?? data.href ? Link : undefined
 	};
 	if (data.href) {
-		value.to = data.href;
+		value.to = typeof data.href === 'string'
+			? data.href
+			: inject(data.href);
 	}
 
 	return value;
