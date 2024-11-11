@@ -1,4 +1,4 @@
-import { AuthorizeRoute, inject, registerRoutes } from '@/react-utils';
+import { AuthorizeRoute, inject, provide, registerRoutes } from '@/react-utils';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import * as ROUTES from '@identity/urls.ts';
 import { roles } from '@/constants.ts';
@@ -90,8 +90,39 @@ export const LOCKOUT_REASONS_EDIT_LAYOUT = Symbol() as InjectionKey<InjectionKey
 export const LOCKOUT_REASONS_EDIT_VIEW = Symbol() as InjectionKey<ReactNode>;
 
 export function setupIdentityViews() {
+
+	provide(REGISTER_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(REGISTER_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(CONFIRM_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(CONFIRM_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(LOGIN_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(FORGOT_PASSWORD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(FORGOT_PASSWORD_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(RESET_PASSWORD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(RESET_PASSWORD_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(ACCOUNT_LOCKOUT_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(CHANGE_EMAIL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(CHANGE_EMAIL_REQUESTED_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(CHANGE_EMAIL_CONFIRM_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(CHANGE_EMAIL_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(CHANGE_PASSWORD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(CHANGE_PASSWORD_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(PERSONAL_DATA_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(DELETE_ACCOUNT_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(DELETED_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+
+	provide(USERS_LAYOUT, DASHBOARD_LAYOUT, false);
+	provide(USERS_ADD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(USERS_EDIT_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(USERS_ROLES_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(USERS_LOCK_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+
+	provide(LOCKOUT_REASONS_LAYOUT, DASHBOARD_LAYOUT, false);
+	provide(LOCKOUT_REASONS_ADD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+	provide(LOCKOUT_REASONS_EDIT_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
+
 	registerRoutes(
-		inject(USERS_LAYOUT, true) ?? DASHBOARD_LAYOUT,
+		USERS_LAYOUT,
 		{
 			path: inject(ROUTES.USERS_ROUTE),
 			element: (
@@ -103,7 +134,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(LOCKOUT_REASONS_LAYOUT, true) ?? DASHBOARD_LAYOUT,
+		LOCKOUT_REASONS_LAYOUT,
 		{
 			path: inject(ROUTES.LOCKOUT_REASONS_ROUTE),
 			element: (
@@ -115,7 +146,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(REGISTER_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		REGISTER_LAYOUT,
 		{
 			path: inject(ROUTES.REGISTER_ROUTE),
 			element: (
@@ -127,7 +158,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(REGISTER_SUCCESSFUL_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		REGISTER_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.REGISTER_SUCCESSFUL_ROUTE),
 			element: inject(REGISTER_SUCCESSFUL_VIEW, true) ?? <RegisterSuccessful/>
@@ -135,7 +166,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(CONFIRM_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		CONFIRM_LAYOUT,
 		{
 			path: inject(ROUTES.CONFIRM_ROUTE),
 			element: (
@@ -147,7 +178,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(CONFIRM_SUCCESSFUL_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		CONFIRM_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.CONFIRM_SUCCESSFUL_ROUTE),
 			element: inject(CONFIRM_SUCCESSFUL_VIEW, true) ?? <ConfirmSuccessful/>
@@ -155,7 +186,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(LOGIN_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		LOGIN_LAYOUT,
 		{
 			path: inject(ROUTES.LOGIN_ROUTE),
 			element: (
@@ -166,7 +197,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(FORGOT_PASSWORD_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		FORGOT_PASSWORD_LAYOUT,
 		{
 			path: inject(ROUTES.FORGOT_PASSWORD_ROUTE),
 			element: (
@@ -178,7 +209,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(FORGOT_PASSWORD_SUCCESSFUL_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		FORGOT_PASSWORD_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.FORGOT_PASSWORD_SUCCESSFUL_ROUTE),
 			element: inject(FORGOT_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ForgotPasswordSuccessful/>
@@ -186,7 +217,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(RESET_PASSWORD_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		RESET_PASSWORD_LAYOUT,
 		{
 			path: inject(ROUTES.RESET_PASSWORD_ROUTE),
 			element: (
@@ -198,7 +229,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(RESET_PASSWORD_SUCCESSFUL_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		RESET_PASSWORD_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.RESET_PASSWORD_SUCCESSFUL_ROUTE),
 			element: inject(RESET_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ResetPasswordSuccessful/>
@@ -206,7 +237,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(ACCOUNT_LOCKOUT_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		ACCOUNT_LOCKOUT_LAYOUT,
 		{
 			path: inject(ROUTES.ACCOUNT_LOCKED_ROUTE),
 			element: (
@@ -218,7 +249,7 @@ export function setupIdentityViews() {
 	)
 
 	registerRoutes(
-		inject(CHANGE_EMAIL_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		CHANGE_EMAIL_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_EMAIL_ROUTE),
 			element: (
@@ -230,7 +261,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(CHANGE_EMAIL_REQUESTED_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		CHANGE_EMAIL_REQUESTED_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_EMAIL_REQUESTED_ROUTE),
 			element: (
@@ -242,7 +273,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(CHANGE_EMAIL_CONFIRM_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		CHANGE_EMAIL_CONFIRM_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_EMAIL_CONFIRM_ROUTE),
 			element: (
@@ -254,7 +285,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(CHANGE_EMAIL_SUCCESSFUL_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		CHANGE_EMAIL_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_EMAIL_SUCCESSFUL_ROUTE),
 			element: (
@@ -266,7 +297,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(CHANGE_PASSWORD_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		CHANGE_PASSWORD_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_PASSWORD_ROUTE),
 			element: (
@@ -278,7 +309,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(CHANGE_PASSWORD_SUCCESSFUL_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		CHANGE_PASSWORD_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_PASSWORD_SUCCESSFUL_ROUTE),
 			element: (
@@ -290,7 +321,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(PERSONAL_DATA_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		PERSONAL_DATA_LAYOUT,
 		{
 			path: inject(ROUTES.PERSONAL_DATA_ROUTE),
 			element: (
@@ -302,7 +333,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(DELETE_ACCOUNT_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		DELETE_ACCOUNT_LAYOUT,
 		{
 			path: inject(ROUTES.DELETE_ACCOUNT_ROUTE),
 			element: (
@@ -314,7 +345,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(DELETED_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		DELETED_LAYOUT,
 		{
 			path: inject(ROUTES.DELETED_ROUTE),
 			element: inject(DELETED_VIEW, true) ?? <Deleted/>
@@ -322,7 +353,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(USERS_ADD_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		USERS_ADD_LAYOUT,
 		{
 			path: inject(ROUTES.USERS_ADD_ROUTE),
 			element: (
@@ -334,7 +365,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(USERS_EDIT_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		USERS_EDIT_LAYOUT,
 		{
 			path: `${inject(ROUTES.USERS_ROUTE)}/:id`,
 			element: (
@@ -346,7 +377,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(USERS_ROLES_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		USERS_ROLES_LAYOUT,
 		{
 			path: `${inject(ROUTES.USERS_ROUTE)}/:id/roles`,
 			element: (
@@ -358,7 +389,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(USERS_LOCK_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		USERS_LOCK_LAYOUT,
 		{
 			path: `${inject(ROUTES.USERS_ROUTE)}/:id/lock`,
 			element: (
@@ -370,7 +401,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(LOCKOUT_REASONS_ADD_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		LOCKOUT_REASONS_ADD_LAYOUT,
 		{
 			path: inject(ROUTES.LOCKOUT_REASONS_ADD_ROUTE),
 			element: (
@@ -382,7 +413,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		inject(LOCKOUT_REASONS_EDIT_LAYOUT, true) ?? DASHBOARD_NARROW_LAYOUT,
+		LOCKOUT_REASONS_EDIT_LAYOUT,
 		{
 			path: `${inject(ROUTES.LOCKOUT_REASONS_ROUTE)}/:id`,
 			element: (
