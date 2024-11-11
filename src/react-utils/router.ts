@@ -5,11 +5,11 @@ import type { ReactNode } from 'react'
 import type { RouteObject } from 'react-router-dom';
 import type { InjectionKey } from '@/react-utils/di.ts';
 
-const routes = new Map<InjectionKey<ReactNode>, Route[]>();
+const routes = new Map<(InjectionKey<InjectionKey<ReactNode>>|InjectionKey<ReactNode>), Route[]>();
 
 export const ERROR_VIEW = Symbol() as InjectionKey<ReactNode>;
 
-export function registerRoutes(layoutKey: InjectionKey<ReactNode>, ...items: Route[]): void {
+export function registerRoutes(layoutKey: InjectionKey<InjectionKey<ReactNode>>|InjectionKey<ReactNode>, ...items: Route[]): void {
 	if (!routes.has(layoutKey)) {
 		routes.set(layoutKey, []);
 	}
@@ -19,12 +19,28 @@ export function registerRoutes(layoutKey: InjectionKey<ReactNode>, ...items: Rou
 
 export function createRouter() {
 	const layoutRoutes: RouteObject[] = [];
+	const mappedRoutes = new Map<ReactNode, Route[]>();
 	const errorComponent = inject(ERROR_VIEW, true);
 
-	for (let [layout, childRoutes] of routes) {
+	for (let [layoutKey, childRoutes] of routes) {
+		const injectedValue = inject(layoutKey);
+		const layout = typeof injectedValue === 'symbol'
+			? inject(injectedValue) as ReactNode
+			: injectedValue as ReactNode;
+
+		if (!mappedRoutes.has(layout)) {
+			mappedRoutes.set(layout, []);
+		}
+
+		mappedRoutes
+			.get(layout)!
+			.push(...childRoutes);
+	}
+
+	for (let [layout, childRoutes] of mappedRoutes) {
 		layoutRoutes.push({
 			path: '',
-			element: inject(layout),
+			element: layout,
 			errorElement: errorComponent,
 			children: convertSienarRoutesToReactRoutes(childRoutes)
 		});
