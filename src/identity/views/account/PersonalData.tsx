@@ -1,7 +1,7 @@
 ﻿import { Card } from '@/react-ui';
 import { Button, Typography } from '@mui/material';
 import { AuthorizeRoute, inject, useDocumentTitle } from '@/react-utils';
-import { DOWNLOAD_PERSONAL_DATA_ROUTE } from '@identity/urls.ts';
+import { DOWNLOAD_PERSONAL_DATA_URL } from '@identity/urls.ts';
 
 export default function PersonalData() {
 	useDocumentTitle('Personal data');
@@ -14,7 +14,7 @@ export default function PersonalData() {
 					<Button
 						component='a'
 						variant='contained'
-						href={inject(DOWNLOAD_PERSONAL_DATA_ROUTE)}
+						href={inject(DOWNLOAD_PERSONAL_DATA_URL)}
 						target='_blank'
 					>
 						Download personal data

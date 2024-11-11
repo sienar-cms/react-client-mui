@@ -5,7 +5,7 @@ import { AdminPanelSettings, CheckBox, Lock, LockOpen } from '@mui/icons-materia
 import { ConfirmationDialog, Table, TableBooleanCell } from '@/react-ui';
 import { AuthorizeRoute, inject, useDocumentTitle } from '@/react-utils';
 import { MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE, UNLOCK_USER_ACCOUNT_SERVICE, USERS_SERVICE } from '@identity/services.ts';
-import { USERS_ROUTE } from '@identity/urls.ts';
+import { USERS_URL } from '@identity/urls.ts';
 import type { User } from '@identity/types.ts';
 import type { TableHandle } from '@/react-ui';
 import { roles } from '@/constants.ts';
@@ -13,7 +13,7 @@ import { roles } from '@/constants.ts';
 export default function Index() {
 	useDocumentTitle('Users');
 
-	const currentUrl = inject(USERS_ROUTE);
+	const currentUrl = inject(USERS_URL);
 	const selectedUser = useRef<User|null>(null);
 	const table = useRef<TableHandle>(null!);
 	const [ unlockModalOpen, setUnlockModalOpen ] = useState(false);

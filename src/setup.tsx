@@ -19,9 +19,9 @@ export default function setup() {
 	registerProvider(inject(MUI_DATE_LOCALIZATION_PROVIDER));
 
 	// Routes
-	provide(KEYS.HOME_ROUTE, '/', false);
-	provide(KEYS.DASHBOARD_ROUTE, '/dashboard', false);
-	provide(KEYS.ABOUT_ROUTE, '/dashboard/about', false);
+	provide(KEYS.HOME_URL, '/', false);
+	provide(KEYS.DASHBOARD_URL, '/dashboard', false);
+	provide(KEYS.ABOUT_URL, '/dashboard/about', false);
 
 	// Partials
 	provide(DRAWER_FOOTER_PARTIAL, <DrawerFooter/>, false);
@@ -45,7 +45,7 @@ export default function setup() {
 		MenuPriority.Highest,
 		{
 			text: 'Dashboard',
-			href: KEYS.DASHBOARD_ROUTE,
+			href: KEYS.DASHBOARD_URL,
 			icon: <Dashboard/>,
 			requireLoggedIn: false
 		}
@@ -56,7 +56,7 @@ export default function setup() {
 		MenuPriority.Lowest,
 		{
 			text: 'Return home',
-			href: KEYS.HOME_ROUTE,
+			href: KEYS.HOME_URL,
 			icon: <Home/>
 		}
 	);
@@ -66,7 +66,7 @@ export default function setup() {
 		MenuPriority.Lowest,
 		{
 			text: 'About',
-			href: KEYS.ABOUT_ROUTE,
+			href: KEYS.ABOUT_URL,
 			icon: <Info/>
 		}
 	)
@@ -80,11 +80,11 @@ export default function setup() {
 	registerRoutes(
 		DASHBOARD_LAYOUT,
 		{
-			path: KEYS.DASHBOARD_ROUTE,
+			path: KEYS.DASHBOARD_URL,
 			element: KEYS.DASHBOARD_VIEW
 		},
 		{
-			path: KEYS.ABOUT_ROUTE,
+			path: KEYS.ABOUT_URL,
 			element: KEYS.ABOUT_VIEW
 		}
 	)

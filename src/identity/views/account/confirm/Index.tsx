@@ -1,6 +1,6 @@
 ﻿import { Form } from '@/react-ui';
 import { useSearchParams } from 'react-router-dom';
-import { CONFIRM_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
+import { CONFIRM_SUCCESSFUL_URL } from '@identity/urls.ts';
 import { CONFIRM_SERVICE } from '@identity/services.ts';
 import { AuthorizeRoute, useDocumentTitle } from '@/react-utils';
 
@@ -16,7 +16,7 @@ export default function Index() {
 			<Form
 				serviceKey={CONFIRM_SERVICE}
 				title='Confirming account'
-				successRedirectRoute={CONFIRM_SUCCESSFUL_ROUTE}
+				successRedirectRoute={CONFIRM_SUCCESSFUL_URL}
 				hideControls
 				immediate
 			>

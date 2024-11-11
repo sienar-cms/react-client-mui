@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { AuthorizeRoute, useAuthContext, useDocumentTitle, useNavigate, validators } from '@/react-utils';
 import { DELETE_ACCOUNT_SERVICE } from '@identity/services.ts';
-import { DELETED_ROUTE } from '@identity/urls.ts';
+import { DELETED_URL } from '@identity/urls.ts';
 
 export default function Delete() {
 	useDocumentTitle('Delete account');
@@ -26,7 +26,7 @@ export default function Delete() {
 				onSuccess={successful => {
 					if (successful) {
 						authContext.logout();
-						navigate(DELETED_ROUTE);
+						navigate(DELETED_URL);
 					}
 				}}
 			>

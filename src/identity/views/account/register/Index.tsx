@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Form, Textbox, StandaloneCheckbox } from '@/react-ui';
 import { AuthorizeRoute, inject, useDocumentTitle, validators } from '@/react-utils';
 import { REGISTER_SERVICE } from '@identity/services.ts';
-import { REGISTER_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
-import { TOS_ROUTE, PRIVACY_POLICY_ROUTE } from '@/keys.ts';
+import { REGISTER_SUCCESSFUL_URL } from '@identity/urls.ts';
+import { TOS_URL, PRIVACY_POLICY_URL } from '@/keys.ts';
 
 export default function Index() {
 	useDocumentTitle('Register');
@@ -12,8 +12,8 @@ export default function Index() {
 	const [ username, setUsername ] = useState('');
 	const [ email, setEmail ] = useState('');
 
-	const tosRoute = inject(TOS_ROUTE, true);
-	const privacyPolicyRoute = inject(PRIVACY_POLICY_ROUTE, true);
+	const tosRoute = inject(TOS_URL, true);
+	const privacyPolicyRoute = inject(PRIVACY_POLICY_URL, true);
 	const useHiddenField = !tosRoute && !privacyPolicyRoute;
 	const useBothAcceptLinks = !!(tosRoute && privacyPolicyRoute);
 
@@ -22,7 +22,7 @@ export default function Index() {
 			<Form
 				title='Register'
 				serviceKey={REGISTER_SERVICE}
-				successRedirectRoute={REGISTER_SUCCESSFUL_ROUTE}
+				successRedirectRoute={REGISTER_SUCCESSFUL_URL}
 				successRedirectQueryParams={{ username, email }}
 			>
 				<Textbox

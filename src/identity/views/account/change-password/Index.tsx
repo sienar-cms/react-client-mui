@@ -1,6 +1,6 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
-import { CHANGE_PASSWORD_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
+import { CHANGE_PASSWORD_SUCCESSFUL_URL } from '@identity/urls.ts';
 import { CHANGE_PASSWORD_SERVICE } from '@identity/services.ts';
 
 export default function Index() {
@@ -12,7 +12,7 @@ export default function Index() {
 				serviceKey={CHANGE_PASSWORD_SERVICE}
 				title='Change password'
 				submitText='Change password'
-				successRedirectRoute={CHANGE_PASSWORD_SUCCESSFUL_ROUTE}
+				successRedirectRoute={CHANGE_PASSWORD_SUCCESSFUL_URL}
 			>
 				<Textbox
 					name='newPassword'

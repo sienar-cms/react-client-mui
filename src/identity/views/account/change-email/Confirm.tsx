@@ -1,7 +1,7 @@
 ﻿import { Form } from '@/react-ui';
 import { useSearchParams } from 'react-router-dom';
 import { AuthorizeRoute, useDocumentTitle } from '@/react-utils';
-import { CHANGE_EMAIL_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
+import { CHANGE_EMAIL_SUCCESSFUL_URL } from '@identity/urls.ts';
 import { CHANGE_EMAIL_CONFIRM_SERVICE } from '@identity/services.ts';
 
 export default function Index() {
@@ -16,7 +16,7 @@ export default function Index() {
 			<Form
 				serviceKey={CHANGE_EMAIL_CONFIRM_SERVICE}
 				title='Confirming new email'
-				successRedirectRoute={CHANGE_EMAIL_SUCCESSFUL_ROUTE}
+				successRedirectRoute={CHANGE_EMAIL_SUCCESSFUL_URL}
 				hideControls
 				immediate
 			>

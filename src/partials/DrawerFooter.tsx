@@ -3,7 +3,7 @@ import { inject  } from '@/react-utils';
 import { Box, Button } from '@mui/material';
 import UserBadge from '@/components/UserBadge.tsx';
 import { Link } from 'react-router-dom';
-import { REGISTER_ROUTE, LOGIN_ROUTE } from '@identity/urls.ts';
+import { REGISTER_URL, LOGIN_URL } from '@identity/urls.ts';
 
 import type { UserBadgeProps } from '@/components/UserBadge.tsx';
 
@@ -22,7 +22,7 @@ export default function DrawerFooter(props: UserBadgeProps) {
 							mb: 2
 						}}
 						variant='outlined'
-						to={inject(REGISTER_ROUTE)}
+						to={inject(REGISTER_URL)}
 						color='secondary'
 					>
 						Register
@@ -31,7 +31,7 @@ export default function DrawerFooter(props: UserBadgeProps) {
 						component={Link}
 						sx={{ width: '100%' }}
 						variant='contained'
-						to={inject(LOGIN_ROUTE)}
+						to={inject(LOGIN_URL)}
 					>
 						Log in
 					</Button>

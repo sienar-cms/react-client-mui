@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { Checkbox, CheckboxGroup, DatePicker, Form, LoadingPage, Radio, RadioGroup, Spacer } from '@/react-ui';
 import { AuthorizeRoute, inject, useDocumentTitle, validators } from '@/react-utils';
 import { LOCK_USER_ACCOUNT_SERVICE, LOCKOUT_REASONS_SERVICE, USERS_SERVICE } from '@identity/services.ts';
-import { USERS_ROUTE } from '@identity/urls.ts';
+import { USERS_URL } from '@identity/urls.ts';
 
 import type { Dayjs } from 'dayjs';
 import type { LockoutReason, User } from '@identity/types.ts';
@@ -45,7 +45,7 @@ export default function Lock() {
 				title={`Lock user ${user.username}'s account`}
 				serviceKey={LOCK_USER_ACCOUNT_SERVICE}
 				submitText='Lock account'
-				successRedirectRoute={USERS_ROUTE}
+				successRedirectRoute={USERS_URL}
 			>
 				<input
 					type='hidden'

@@ -1,6 +1,6 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
-import { USERS_ROUTE } from '@identity/urls.ts';
+import { USERS_URL } from '@identity/urls.ts';
 import { USERS_SERVICE } from '@identity/services.ts';
 import { useParams } from 'react-router-dom';
 import { roles } from '@/constants.ts';
@@ -20,7 +20,7 @@ export default function Upsert() {
 				updateTitle='Update user'
 				updateSubmitText='Update user'
 				upsert
-				successRedirectRoute={USERS_ROUTE}
+				successRedirectRoute={USERS_URL}
 			>
 				<Textbox
 					name='username'

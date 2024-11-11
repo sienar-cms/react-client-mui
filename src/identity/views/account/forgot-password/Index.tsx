@@ -2,7 +2,7 @@
 import { Form, Textbox } from '@/react-ui';
 import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
 import { FORGOT_PASSWORD_SERVICE } from '@identity/services.ts';
-import { FORGOT_PASSWORD_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
+import { FORGOT_PASSWORD_SUCCESSFUL_URL } from '@identity/urls.ts';
 
 export default function Index() {
 	useDocumentTitle('Password reset');
@@ -18,7 +18,7 @@ export default function Index() {
 						Please enter your username or email address. If your account exists, you should receive an email to reset your password shortly.
 					</Typography>
 				)}
-				successRedirectRoute={FORGOT_PASSWORD_SUCCESSFUL_ROUTE}
+				successRedirectRoute={FORGOT_PASSWORD_SUCCESSFUL_URL}
 			>
 				<Textbox
 					name='accountName'

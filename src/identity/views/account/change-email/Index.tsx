@@ -1,6 +1,6 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
-import { CHANGE_EMAIL_REQUESTED_ROUTE } from '@identity/urls.ts';
+import { CHANGE_EMAIL_REQUESTED_URL } from '@identity/urls.ts';
 import { CHANGE_EMAIL_SERVICE } from '@identity/services.ts';
 
 export default function Index() {
@@ -12,7 +12,7 @@ export default function Index() {
 				serviceKey={CHANGE_EMAIL_SERVICE}
 				title='Change email'
 				submitText='Change email'
-				successRedirectRoute={CHANGE_EMAIL_REQUESTED_ROUTE}
+				successRedirectRoute={CHANGE_EMAIL_REQUESTED_URL}
 			>
 				<Textbox
 					name='email'

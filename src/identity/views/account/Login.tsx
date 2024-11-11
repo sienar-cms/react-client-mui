@@ -2,8 +2,8 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { StandaloneCheckbox, Form, Textbox } from '@/react-ui';
 import { AuthorizeRoute, inject, useNavigate, validators, useAuthContext, useDocumentTitle } from '@/react-utils';
-import { DASHBOARD_ROUTE } from '@/keys';
-import { ACCOUNT_LOCKED_ROUTE, FORGOT_PASSWORD_ROUTE } from '@identity/urls.ts';
+import { DASHBOARD_URL } from '@/keys';
+import { ACCOUNT_LOCKED_URL, FORGOT_PASSWORD_URL } from '@identity/urls.ts';
 import { LOGIN_SERVICE } from '@identity/services.ts';
 import type { RequestResult } from '@/react-utils';
 import type { LoginResult } from '@identity/types.ts';
@@ -17,7 +17,7 @@ export default function Login() {
 	const onLogin = async (result: RequestResult<LoginResult>) => {
 		if (result.result) {
 			const { userId, verificationCode } = result.result;
-			navigate(ACCOUNT_LOCKED_ROUTE, { userId, verificationCode });
+			navigate(ACCOUNT_LOCKED_URL, { userId, verificationCode });
 		}
 
 		if (!result.wasSuccessful) return;
@@ -30,7 +30,7 @@ export default function Login() {
 			const queryParams = params.toString();
 			navigate(`${returnUrl}?${queryParams}`)
 		} else {
-			navigate(DASHBOARD_ROUTE);
+			navigate(DASHBOARD_URL);
 		}
 	}
 
@@ -44,7 +44,7 @@ export default function Login() {
 				additionalActions={(
 					<Button
 						component={Link}
-						to={inject(FORGOT_PASSWORD_ROUTE)}
+						to={inject(FORGOT_PASSWORD_URL)}
 						color='secondary'
 						variant='outlined'
 					>

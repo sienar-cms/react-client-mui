@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { Form, Textbox } from '@/react-ui';
 import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
 import { RESET_PASSWORD_SERVICE } from '@identity/services.ts';
-import { RESET_PASSWORD_SUCCESSFUL_ROUTE } from '@identity/urls.ts';
+import { RESET_PASSWORD_SUCCESSFUL_URL } from '@identity/urls.ts';
 
 export default function Index() {
 	useDocumentTitle('Reset password');
@@ -23,7 +23,7 @@ export default function Index() {
 						Please enter your new password. Your password should be at least 8 characters long and have at least one lowercase letter, one uppercase letter, one number, and one special character.
 					</Typography>
 				)}
-				successRedirectRoute={RESET_PASSWORD_SUCCESSFUL_ROUTE}
+				successRedirectRoute={RESET_PASSWORD_SUCCESSFUL_URL}
 			>
 				<input
 					type='hidden'
