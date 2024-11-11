@@ -2,7 +2,7 @@
 import { Avatar, Box, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Logout, Settings } from '@mui/icons-material';
-import { aggregateLinks, createApiCall, filterLinks, useAuthContext } from '@/react-utils';
+import { aggregateLinks, createApiCall, filterLinks, inject, useAuthContext } from '@/react-utils';
 import { USER_SETTINGS_MENU } from '@identity/menus.tsx';
 
 import type { ReactNode } from 'react';
@@ -51,8 +51,8 @@ export default function UserBadge(props: UserBadgeProps) {
 			settingsMenuContent.push((
 				<MenuItem
 					component={Link}
-					to={item.href!}
-					key={item.href!}
+					to={typeof item.href === 'string' ? item.href : inject(item.href!)}
+					key={item.text}
 				>
 					{item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
 					<ListItemText>{item.text}</ListItemText>
