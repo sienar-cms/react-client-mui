@@ -29,6 +29,9 @@ export const ACCOUNT_LOCKED_ROUTE = Symbol() as InjectionKey<string>;
 
 export const USERS_ROUTE = Symbol() as InjectionKey<string>;
 export const USERS_ADD_ROUTE = Symbol() as InjectionKey<string>;
+export const USERS_EDIT_ROUTE = Symbol() as InjectionKey<string>;
+export const USERS_ROLES_ROUTE = Symbol() as InjectionKey<string>;
+export const USERS_LOCK_ROUTE = Symbol() as InjectionKey<string>;
 
 // endregion
 
@@ -36,6 +39,7 @@ export const USERS_ADD_ROUTE = Symbol() as InjectionKey<string>;
 
 export const LOCKOUT_REASONS_ROUTE = Symbol() as InjectionKey<string>;
 export const LOCKOUT_REASONS_ADD_ROUTE = Symbol() as InjectionKey<string>;
+export const LOCKOUT_REASONS_EDIT_ROUTE = Symbol() as InjectionKey<string>;
 
 // endregion
 
@@ -63,7 +67,11 @@ export function setupIdentityUrls() {
 
 	provide(USERS_ROUTE, '/dashboard/users', false);
 	provide(USERS_ADD_ROUTE, '/dashboard/users/add', false);
+	provide(USERS_EDIT_ROUTE, '/dashboard/users/:id', false);
+	provide(USERS_ROLES_ROUTE, '/dashboard/users/:id/roles', false);
+	provide(USERS_LOCK_ROUTE, '/dashboard/users/:id/lock', false);
 
 	provide(LOCKOUT_REASONS_ROUTE, '/dashboard/lockout-reasons', false);
 	provide(LOCKOUT_REASONS_ADD_ROUTE, '/dashboard/lockout-reasons/add', false);
+	provide(LOCKOUT_REASONS_EDIT_ROUTE, '/dashboard/lockout-reasons/:id', false);
 }

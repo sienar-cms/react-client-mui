@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getDateString, inject } from '@/react-utils';
+import { AuthorizeRoute, getDateString, inject } from '@/react-utils';
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { Label } from '@mui/icons-material';
 import { StatusPage, LoadingPage } from '@/react-ui';
@@ -30,31 +30,33 @@ export default function AccountLocked() {
 	if (!lockResult) return <LoadingPage>Loading lockout reasons...</LoadingPage>;
 
 	return (
-		<StatusPage title='Account locked out'>
-			{lockResult.lockoutEnd && (
-				<Typography>
-					Your account is currently locked until <strong>{getDateString(lockResult.lockoutEnd)}
-				</strong></Typography>
-			)}
-			{!lockResult.lockoutEnd && (
-				<Typography>
-					Your account is locked <strong>permanently</strong>.
-				</Typography>
-			)}
+		<AuthorizeRoute mustBeLoggedOut>
+			<StatusPage title='Account locked out'>
+				{lockResult.lockoutEnd && (
+					<Typography>
+						Your account is currently locked until <strong>{getDateString(lockResult.lockoutEnd)}
+					</strong></Typography>
+				)}
+				{!lockResult.lockoutEnd && (
+					<Typography>
+						Your account is locked <strong>permanently</strong>.
+					</Typography>
+				)}
 
-			<Typography my={2}>Your account is locked for the following reasons:</Typography>
-			<List>
-				{lockResult.lockoutReasons.map(r => (
-					<ListItem key={r.id}>
-						<ListItemIcon>
-							<Label fontSize='small'/>
-						</ListItemIcon>
-						<ListItemText>
-							{r.reason}
-						</ListItemText>
-					</ListItem>
-				))}
-			</List>
-		</StatusPage>
+				<Typography my={2}>Your account is locked for the following reasons:</Typography>
+				<List>
+					{lockResult.lockoutReasons.map(r => (
+						<ListItem key={r.id}>
+							<ListItemIcon>
+								<Label fontSize='small'/>
+							</ListItemIcon>
+							<ListItemText>
+								{r.reason}
+							</ListItemText>
+						</ListItem>
+					))}
+				</List>
+			</StatusPage>
+		</AuthorizeRoute>
 	)
 }
