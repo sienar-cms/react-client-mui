@@ -196,7 +196,7 @@ export type MenuLink = {
 	/**
 	 * The URL the link points to, if any
 	 */
-	href?: string
+	href?: string|InjectionKey<string>
 
 	/**
 	 * The React component to use as the button component
