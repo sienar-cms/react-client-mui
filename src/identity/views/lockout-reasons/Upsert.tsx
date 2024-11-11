@@ -1,8 +1,9 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { useDocumentTitle, validators } from '@/react-utils';
-import { LOCKOUT_REASONS_ROUTE } from '@identity/urls.ts';
+import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
+import { LOCKOUT_REASONS_URL } from '@identity/urls.ts';
 import { LOCKOUT_REASONS_SERVICE } from '@identity/services.ts';
 import { useParams } from 'react-router-dom';
+import { roles } from '@/constants.ts';
 
 export default function Upsert() {
 	const params = useParams();
@@ -11,20 +12,22 @@ export default function Upsert() {
 	useDocumentTitle(id ? 'Update lockout reason' : 'Create lockout reason');
 
 	return (
-		<Form
-			serviceKey={LOCKOUT_REASONS_SERVICE}
-			successRedirectRoute={LOCKOUT_REASONS_ROUTE}
-			createTitle='Create lockout reason'
-			createSubmitText='Add reason'
-			updateTitle='Update lockout reason'
-			updateSubmitText='Update reason'
-			upsert
-		>
-			<Textbox
-				name='reason'
-				displayName='Reason'
-				validators={[validators.required()]}
-			/>
-		</Form>
+		<AuthorizeRoute roles={roles.admin}>
+			<Form
+				serviceKey={LOCKOUT_REASONS_SERVICE}
+				successRedirectRoute={LOCKOUT_REASONS_URL}
+				createTitle='Create lockout reason'
+				createSubmitText='Add reason'
+				updateTitle='Update lockout reason'
+				updateSubmitText='Update reason'
+				upsert
+			>
+				<Textbox
+					name='reason'
+					displayName='Reason'
+					validators={[validators.required()]}
+				/>
+			</Form>
+		</AuthorizeRoute>
 	);
 }

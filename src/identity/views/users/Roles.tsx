@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, LoadingPage, Switch } from '@/react-ui';
-import { inject, useDocumentTitle } from '@/react-utils';
+import { AuthorizeRoute, inject, useDocumentTitle } from '@/react-utils';
 import { ROLES_SERVICE, USERS_SERVICE, ADD_USER_TO_ROLE_SERVICE, REMOVE_USER_FROM_ROLE_SERVICE } from '@identity/services.ts';
+import { roles as appRoles } from '@/constants.ts';
 import type { Role, User } from '@identity/types.ts';
 
 export default function Roles() {
@@ -49,20 +50,22 @@ export default function Roles() {
 	};
 
 	return (
-		<Card
-			title={`Update ${user.username}'s roles`}
-		>
-			{roles.map(r => (
-				<Switch
-					key={r.id}
-					color='primary'
-					checked={user.roles.some(userRole => userRole.id === r.id)}
-					onActivated={() => addToRole(r.id)}
-					onDeactivated={() => removeFromRole(r.id)}
-				>
-					{r.name}
-				</Switch>
-			))}
-		</Card>
+		<AuthorizeRoute roles={appRoles.admin}>
+			<Card
+				title={`Update ${user.username}'s roles`}
+			>
+				{roles.map(r => (
+					<Switch
+						key={r.id}
+						color='primary'
+						checked={user.roles.some(userRole => userRole.id === r.id)}
+						onActivated={() => addToRole(r.id)}
+						onDeactivated={() => removeFromRole(r.id)}
+					>
+						{r.name}
+					</Switch>
+				))}
+			</Card>
+		</AuthorizeRoute>
 	);
 }
