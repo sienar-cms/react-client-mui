@@ -1,6 +1,6 @@
-import { AuthorizeRoute, inject, provide, registerRoutes } from '@/react-utils';
-import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
+import { AuthorizeRoute, inject, registerRoutes } from '@/react-utils';
 import * as ROUTES from '@identity/urls.ts';
+import * as LAYOUTS from '@identity/layouts.ts';
 import { roles } from '@/constants.ts';
 
 import Register from '@identity/views/account/register/Index.tsx';
@@ -32,97 +32,39 @@ import LockoutReasonUpsert from '@identity/views/lockout-reasons/Upsert.tsx';
 import type { ReactNode } from 'react';
 import type { InjectionKey } from '@/react-utils';
 
-export const CHANGE_EMAIL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const CHANGE_EMAIL_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const CHANGE_EMAIL_CONFIRM_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const CHANGE_EMAIL_CONFIRM_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const CHANGE_EMAIL_REQUESTED_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const CHANGE_EMAIL_REQUESTED_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const CHANGE_EMAIL_SUCCESSFUL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const CHANGE_EMAIL_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const CHANGE_PASSWORD_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const CHANGE_PASSWORD_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const CHANGE_PASSWORD_SUCCESSFUL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const CHANGE_PASSWORD_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const CONFIRM_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const CONFIRM_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const CONFIRM_SUCCESSFUL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const CONFIRM_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const DELETE_ACCOUNT_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const DELETE_ACCOUNT_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const DELETED_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const DELETED_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const FORGOT_PASSWORD_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const FORGOT_PASSWORD_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const FORGOT_PASSWORD_SUCCESSFUL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const FORGOT_PASSWORD_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const LOGIN_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const LOGIN_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const PERSONAL_DATA_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const PERSONAL_DATA_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const REGISTER_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const REGISTER_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const REGISTER_SUCCESSFUL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const REGISTER_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const RESET_PASSWORD_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const RESET_PASSWORD_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const RESET_PASSWORD_SUCCESSFUL_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const RESET_PASSWORD_SUCCESSFUL_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const ACCOUNT_LOCKOUT_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const ACCOUNT_LOCKOUT_VIEW = Symbol() as InjectionKey<ReactNode>;
 
-export const USERS_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const USERS_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const USERS_ADD_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const USERS_ADD_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const USERS_EDIT_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const USERS_EDIT_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const USERS_ROLES_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const USERS_ROLES_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const USERS_LOCK_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const USERS_LOCK_VIEW = Symbol() as InjectionKey<ReactNode>;
 
-export const LOCKOUT_REASONS_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const LOCKOUT_REASONS_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const LOCKOUT_REASONS_ADD_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const LOCKOUT_REASONS_ADD_VIEW = Symbol() as InjectionKey<ReactNode>;
-export const LOCKOUT_REASONS_EDIT_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const LOCKOUT_REASONS_EDIT_VIEW = Symbol() as InjectionKey<ReactNode>;
 
 export function setupIdentityViews() {
-
-	provide(REGISTER_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(REGISTER_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(CONFIRM_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(CONFIRM_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(LOGIN_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(FORGOT_PASSWORD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(FORGOT_PASSWORD_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(RESET_PASSWORD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(RESET_PASSWORD_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(ACCOUNT_LOCKOUT_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(CHANGE_EMAIL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(CHANGE_EMAIL_REQUESTED_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(CHANGE_EMAIL_CONFIRM_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(CHANGE_EMAIL_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(CHANGE_PASSWORD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(CHANGE_PASSWORD_SUCCESSFUL_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(PERSONAL_DATA_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(DELETE_ACCOUNT_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(DELETED_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-
-	provide(USERS_LAYOUT, DASHBOARD_LAYOUT, false);
-	provide(USERS_ADD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(USERS_EDIT_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(USERS_ROLES_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(USERS_LOCK_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-
-	provide(LOCKOUT_REASONS_LAYOUT, DASHBOARD_LAYOUT, false);
-	provide(LOCKOUT_REASONS_ADD_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-	provide(LOCKOUT_REASONS_EDIT_LAYOUT, DASHBOARD_NARROW_LAYOUT, false);
-
 	registerRoutes(
-		USERS_LAYOUT,
+		LAYOUTS.USERS_LAYOUT,
 		{
 			path: inject(ROUTES.USERS_ROUTE),
 			element: (
@@ -134,7 +76,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		LOCKOUT_REASONS_LAYOUT,
+		LAYOUTS.LOCKOUT_REASONS_LAYOUT,
 		{
 			path: inject(ROUTES.LOCKOUT_REASONS_ROUTE),
 			element: (
@@ -146,7 +88,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		REGISTER_LAYOUT,
+		LAYOUTS.REGISTER_LAYOUT,
 		{
 			path: inject(ROUTES.REGISTER_ROUTE),
 			element: (
@@ -158,7 +100,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		REGISTER_SUCCESSFUL_LAYOUT,
+		LAYOUTS.REGISTER_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.REGISTER_SUCCESSFUL_ROUTE),
 			element: inject(REGISTER_SUCCESSFUL_VIEW, true) ?? <RegisterSuccessful/>
@@ -166,7 +108,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		CONFIRM_LAYOUT,
+		LAYOUTS.CONFIRM_LAYOUT,
 		{
 			path: inject(ROUTES.CONFIRM_ROUTE),
 			element: (
@@ -178,7 +120,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		CONFIRM_SUCCESSFUL_LAYOUT,
+		LAYOUTS.CONFIRM_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.CONFIRM_SUCCESSFUL_ROUTE),
 			element: inject(CONFIRM_SUCCESSFUL_VIEW, true) ?? <ConfirmSuccessful/>
@@ -186,7 +128,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		LOGIN_LAYOUT,
+		LAYOUTS.LOGIN_LAYOUT,
 		{
 			path: inject(ROUTES.LOGIN_ROUTE),
 			element: (
@@ -197,7 +139,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		FORGOT_PASSWORD_LAYOUT,
+		LAYOUTS.FORGOT_PASSWORD_LAYOUT,
 		{
 			path: inject(ROUTES.FORGOT_PASSWORD_ROUTE),
 			element: (
@@ -209,7 +151,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		FORGOT_PASSWORD_SUCCESSFUL_LAYOUT,
+		LAYOUTS.FORGOT_PASSWORD_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.FORGOT_PASSWORD_SUCCESSFUL_ROUTE),
 			element: inject(FORGOT_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ForgotPasswordSuccessful/>
@@ -217,7 +159,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		RESET_PASSWORD_LAYOUT,
+		LAYOUTS.RESET_PASSWORD_LAYOUT,
 		{
 			path: inject(ROUTES.RESET_PASSWORD_ROUTE),
 			element: (
@@ -229,7 +171,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		RESET_PASSWORD_SUCCESSFUL_LAYOUT,
+		LAYOUTS.RESET_PASSWORD_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.RESET_PASSWORD_SUCCESSFUL_ROUTE),
 			element: inject(RESET_PASSWORD_SUCCESSFUL_VIEW, true) ?? <ResetPasswordSuccessful/>
@@ -237,7 +179,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		ACCOUNT_LOCKOUT_LAYOUT,
+		LAYOUTS.ACCOUNT_LOCKOUT_LAYOUT,
 		{
 			path: inject(ROUTES.ACCOUNT_LOCKED_ROUTE),
 			element: (
@@ -249,7 +191,7 @@ export function setupIdentityViews() {
 	)
 
 	registerRoutes(
-		CHANGE_EMAIL_LAYOUT,
+		LAYOUTS.CHANGE_EMAIL_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_EMAIL_ROUTE),
 			element: (
@@ -261,7 +203,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		CHANGE_EMAIL_REQUESTED_LAYOUT,
+		LAYOUTS.CHANGE_EMAIL_REQUESTED_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_EMAIL_REQUESTED_ROUTE),
 			element: (
@@ -273,7 +215,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		CHANGE_EMAIL_CONFIRM_LAYOUT,
+		LAYOUTS.CHANGE_EMAIL_CONFIRM_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_EMAIL_CONFIRM_ROUTE),
 			element: (
@@ -285,7 +227,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		CHANGE_EMAIL_SUCCESSFUL_LAYOUT,
+		LAYOUTS.CHANGE_EMAIL_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_EMAIL_SUCCESSFUL_ROUTE),
 			element: (
@@ -297,7 +239,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		CHANGE_PASSWORD_LAYOUT,
+		LAYOUTS.CHANGE_PASSWORD_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_PASSWORD_ROUTE),
 			element: (
@@ -309,7 +251,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		CHANGE_PASSWORD_SUCCESSFUL_LAYOUT,
+		LAYOUTS.CHANGE_PASSWORD_SUCCESSFUL_LAYOUT,
 		{
 			path: inject(ROUTES.CHANGE_PASSWORD_SUCCESSFUL_ROUTE),
 			element: (
@@ -321,7 +263,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		PERSONAL_DATA_LAYOUT,
+		LAYOUTS.PERSONAL_DATA_LAYOUT,
 		{
 			path: inject(ROUTES.PERSONAL_DATA_ROUTE),
 			element: (
@@ -333,7 +275,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		DELETE_ACCOUNT_LAYOUT,
+		LAYOUTS.DELETE_ACCOUNT_LAYOUT,
 		{
 			path: inject(ROUTES.DELETE_ACCOUNT_ROUTE),
 			element: (
@@ -345,7 +287,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		DELETED_LAYOUT,
+		LAYOUTS.DELETED_LAYOUT,
 		{
 			path: inject(ROUTES.DELETED_ROUTE),
 			element: inject(DELETED_VIEW, true) ?? <Deleted/>
@@ -353,7 +295,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		USERS_ADD_LAYOUT,
+		LAYOUTS.USERS_ADD_LAYOUT,
 		{
 			path: inject(ROUTES.USERS_ADD_ROUTE),
 			element: (
@@ -365,7 +307,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		USERS_EDIT_LAYOUT,
+		LAYOUTS.USERS_EDIT_LAYOUT,
 		{
 			path: `${inject(ROUTES.USERS_ROUTE)}/:id`,
 			element: (
@@ -377,7 +319,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		USERS_ROLES_LAYOUT,
+		LAYOUTS.USERS_ROLES_LAYOUT,
 		{
 			path: `${inject(ROUTES.USERS_ROUTE)}/:id/roles`,
 			element: (
@@ -389,7 +331,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		USERS_LOCK_LAYOUT,
+		LAYOUTS.USERS_LOCK_LAYOUT,
 		{
 			path: `${inject(ROUTES.USERS_ROUTE)}/:id/lock`,
 			element: (
@@ -401,7 +343,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		LOCKOUT_REASONS_ADD_LAYOUT,
+		LAYOUTS.LOCKOUT_REASONS_ADD_LAYOUT,
 		{
 			path: inject(ROUTES.LOCKOUT_REASONS_ADD_ROUTE),
 			element: (
@@ -413,7 +355,7 @@ export function setupIdentityViews() {
 	);
 
 	registerRoutes(
-		LOCKOUT_REASONS_EDIT_LAYOUT,
+		LAYOUTS.LOCKOUT_REASONS_EDIT_LAYOUT,
 		{
 			path: `${inject(ROUTES.LOCKOUT_REASONS_ROUTE)}/:id`,
 			element: (
