@@ -1,7 +1,6 @@
-﻿import { Button } from '@mui/material';
-import { Link, useSearchParams } from 'react-router-dom';
-import { StandaloneCheckbox, Form, Textbox } from '@/react-ui';
-import { AuthorizeRoute, inject, useNavigate, validators, useAuthContext, useDocumentTitle } from '@/react-utils';
+﻿import { useSearchParams } from 'react-router-dom';
+import { ButtonLink, StandaloneCheckbox, Form, Textbox } from '@/react-ui';
+import { AuthorizeRoute, useNavigate, validators, useAuthContext, useDocumentTitle } from '@/react-utils';
 import { DASHBOARD_URL } from '@/keys';
 import { ACCOUNT_LOCKED_URL, FORGOT_PASSWORD_URL } from '@identity/urls.ts';
 import { LOGIN_SERVICE } from '@identity/services.ts';
@@ -42,14 +41,13 @@ export default function Login() {
 				submitText='Log in'
 				onSuccess={onLogin}
 				additionalActions={(
-					<Button
-						component={Link}
-						to={inject(FORGOT_PASSWORD_URL)}
+					<ButtonLink
+						to={FORGOT_PASSWORD_URL}
 						color='secondary'
 						variant='outlined'
 					>
 						I forgot my password
-					</Button>
+					</ButtonLink>
 				)}
 			>
 				<Textbox
