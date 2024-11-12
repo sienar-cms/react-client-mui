@@ -1,12 +1,13 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box, Button, IconButton, TextField } from '@mui/material';
+import { Box, IconButton, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { Link } from 'react-router-dom';
 import { inject, NOTIFIER, useRerender } from '@/react-utils';
 import { Add, Close, ContentCopy, DeleteForever, Edit, Search } from '@mui/icons-material';
+import ButtonLink from '@/react-ui/links/ButtonLink.tsx';
 import Card from '@/react-ui/Card.tsx';
 import ConfirmationDialog from './ConfirmationDialog.tsx';
+import IconButtonLink from '@/react-ui/links/IconButtonLink.tsx';
 
 import type { ForwardedRef, ForwardRefRenderFunction, ReactNode } from 'react';
 import type { GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid';
@@ -194,14 +195,13 @@ const Table: ForwardRefRenderFunction<TableHandle, TableProps<any>> = function T
 							</IconButton>
 						)}
 						{!hideEdit && (
-							<IconButton
-								component={Link}
+							<IconButtonLink
 								to={`${location.pathname}/${value!.id}`}
 								color='warning'
 								title={`Edit ${entityName}`}
 							>
 								<Edit/>
-							</IconButton>
+							</IconButtonLink>
 						)}
 						{!hideDelete && (
 							<IconButton
@@ -241,8 +241,7 @@ const Table: ForwardRefRenderFunction<TableHandle, TableProps<any>> = function T
 	const actionButtonContent = actionButtonRenderer
 		? actionButtonRenderer()
 		: (
-			<Button
-				component={Link}
+			<ButtonLink
 				to={`${location.pathname}/add`}
 				color={color === undefined ? 'primary' : 'inherit'}
 				sx={{ ml: 4 }}
@@ -250,7 +249,7 @@ const Table: ForwardRefRenderFunction<TableHandle, TableProps<any>> = function T
 				startIcon={<Add/>}
 			>
 				Add new
-			</Button>
+			</ButtonLink>
 		);
 
 	// All filter variables should trigger an immediate table reload...
