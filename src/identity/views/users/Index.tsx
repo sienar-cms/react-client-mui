@@ -1,8 +1,7 @@
 ﻿import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import { AdminPanelSettings, CheckBox, Lock, LockOpen } from '@mui/icons-material';
-import { ConfirmationDialog, Table, TableBooleanCell } from '@/react-ui';
+import { ConfirmationDialog, IconButtonLink, Table, TableBooleanCell } from '@/react-ui';
 import { AuthorizeRoute, inject, useDocumentTitle } from '@/react-utils';
 import { MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE, UNLOCK_USER_ACCOUNT_SERVICE, USERS_SERVICE } from '@identity/services.ts';
 import { USERS_URL } from '@identity/urls.ts';
@@ -22,13 +21,12 @@ export default function Index() {
 	const actionMenuRenderer = (user?: User) => (
 		<>
 			{!user!.lockoutEnd && (
-				<IconButton
-					component={Link}
+				<IconButtonLink
 					title={`Lock ${user!.username}'s account`}
 					to={`${currentUrl}/${user!.id}/lock`}
 				>
 					<Lock/>
-				</IconButton>
+				</IconButtonLink>
 			)}
 
 			{user!.lockoutEnd && (
@@ -56,14 +54,13 @@ export default function Index() {
 				<CheckBox/>
 			</IconButton>
 
-			<IconButton
-				component={Link}
+			<IconButtonLink
 				color='primary'
 				title={`Update ${user!.username}'s roles`}
 				to={`${currentUrl}/${user!.id}/roles`}
 			>
 				<AdminPanelSettings/>
-			</IconButton>
+			</IconButtonLink>
 		</>
 	);
 

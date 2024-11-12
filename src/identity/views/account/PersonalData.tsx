@@ -1,6 +1,6 @@
-﻿import { Card } from '@/react-ui';
-import { Button, Typography } from '@mui/material';
-import { AuthorizeRoute, inject, useDocumentTitle } from '@/react-utils';
+﻿import { ButtonLink, Card } from '@/react-ui';
+import { Typography } from '@mui/material';
+import { AuthorizeRoute, useDocumentTitle } from '@/react-utils';
 import { DOWNLOAD_PERSONAL_DATA_URL } from '@identity/urls.ts';
 
 export default function PersonalData() {
@@ -11,14 +11,13 @@ export default function PersonalData() {
 			<Card
 				title='Personal data'
 				actions={(
-					<Button
-						component='a'
+					<ButtonLink
 						variant='contained'
-						href={inject(DOWNLOAD_PERSONAL_DATA_URL)}
+						to={DOWNLOAD_PERSONAL_DATA_URL}
 						target='_blank'
 					>
 						Download personal data
-					</Button>
+					</ButtonLink>
 				)}
 			>
 				<Typography>

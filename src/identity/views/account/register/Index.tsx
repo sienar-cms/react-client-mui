@@ -1,6 +1,5 @@
 ﻿import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Form, Textbox, StandaloneCheckbox } from '@/react-ui';
+import { Form, Link, Textbox, StandaloneCheckbox } from '@/react-ui';
 import { AuthorizeRoute, inject, useDocumentTitle, validators } from '@/react-utils';
 import { REGISTER_SERVICE } from '@identity/services.ts';
 import { REGISTER_SUCCESSFUL_URL } from '@identity/urls.ts';
