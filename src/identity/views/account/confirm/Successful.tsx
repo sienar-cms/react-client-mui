@@ -1,6 +1,5 @@
-import { StatusPage } from '@/react-ui';
-import { inject, useDocumentTitle } from '@/react-utils';
-import { Link } from 'react-router-dom';
+import { Link, StatusPage } from '@/react-ui';
+import { useDocumentTitle } from '@/react-utils';
 import { LOGIN_URL } from '@identity/urls.ts';
 
 export default function Successful() {
@@ -8,7 +7,7 @@ export default function Successful() {
 
 	return (
 		<StatusPage title='Confirmed successfully'>
-			Your account is now confirmed! You can now <Link to={inject(LOGIN_URL)}>log in</Link>.
+			Your account is now confirmed! You can now <Link to={LOGIN_URL}>log in</Link>.
 		</StatusPage>
 	);
 }

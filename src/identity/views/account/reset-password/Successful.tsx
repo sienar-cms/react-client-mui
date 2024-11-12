@@ -1,6 +1,5 @@
-﻿import { Link } from 'react-router-dom';
-import { StatusPage } from '@/react-ui';
-import { inject, useDocumentTitle } from '@/react-utils';
+﻿import { Link, StatusPage } from '@/react-ui';
+import { useDocumentTitle } from '@/react-utils';
 import { LOGIN_URL } from '@identity/urls.ts';
 
 export default function Successful() {
@@ -8,7 +7,7 @@ export default function Successful() {
 
 	return (
 		<StatusPage title='Password reset successfully'>
-			You have reset your password successfully! You can now <Link to={inject(LOGIN_URL)}>log in</Link>.
+			You have reset your password successfully! You can now <Link to={LOGIN_URL}>log in</Link>.
 		</StatusPage>
 	)
 }
