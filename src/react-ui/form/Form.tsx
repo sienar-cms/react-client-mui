@@ -92,13 +92,13 @@ export default function Form<T>(props: FormProps<T>) {
 		formContext.hasInteracted = true;
 
 		let valid = true;
-		for (let validator in formContext.validators) {
-			if (!formContext.validators[validator]()) valid = false;
+		for (let field in formContext.fields) {
+			if (!formContext.fields[field].validator()) valid = false;
 		}
 
 		if (!valid) return;
 
-		if (onSubmit && !onSubmit(formContext.values)) return;
+		if (onSubmit && !onSubmit(formContext.fields)) return;
 
 		const formData = new FormData(formRef.current!);
 		const config = { formContext };
