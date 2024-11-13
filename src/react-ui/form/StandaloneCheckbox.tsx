@@ -3,14 +3,14 @@ import { Checkbox as MaterialCheckbox, FormControlLabel } from '@mui/material';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 import ValidationList from './ValidationList.tsx';
 
+import type { ChangeEvent } from 'react';
 import type { FormInputProps } from './shared.ts';
 
-export type StandaloneCheckboxProps<T> = Omit<FormInputProps<boolean>, 'value'> & {
-	value?: T
+export type StandaloneCheckboxProps = Omit<FormInputProps<boolean>, 'value'> & {
 	checked?: boolean
 }
 
-export default function StandaloneCheckbox<T>(props: StandaloneCheckboxProps<T>) {
+export default function StandaloneCheckbox(props: StandaloneCheckboxProps) {
 	const {
 		name,
 		displayName,
@@ -18,50 +18,36 @@ export default function StandaloneCheckbox<T>(props: StandaloneCheckboxProps<T>)
 		hideValidationIfValid,
 		allValidMessage,
 		validators = [],
-		value,
 		checked = false,
 		onChange,
 		children
 	} = props;
 
-	const isBoolean = !value;
 	const id = useId();
 	const currentChecked = useRef(checked);
-	const fieldRef = useRef<HTMLInputElement>(null);
 	const [rerender] = useRerender();
-	const [validations, interact] = useFormFieldValidation(name, displayName, currentChecked, validators);
+	const handleCheckedStateChange = (newChecked: boolean) => {
+		if (newChecked === currentChecked.current) return;
 
-	const handleChange = async (e: Event) => {
-		const target = e.target as HTMLInputElement;
-		const newChecked = target.checked;
+		currentChecked.current = newChecked;
+		onChange?.(newChecked);
+		rerender();
+	}
 
-		// ASP.NET doesn't understand 'on' means a checkbox is checked
-		if (isBoolean) {
-			target.value = newChecked.toString();
-		}
+	const [validations, interact] = useFormFieldValidation(name, displayName, currentChecked.current, handleCheckedStateChange, validators);
+
+	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+		const newChecked = e.target.checked;
 
 		if (currentChecked.current !== newChecked) {
-			currentChecked.current = newChecked;
+			handleCheckedStateChange(newChecked);
 			interact();
-			await onChange?.(newChecked);
-			rerender();
 		}
 	}
 
 	useEffect(() => {
-		const ref = fieldRef.current!;
-		ref.addEventListener('change', handleChange);
-		return () => ref.removeEventListener('change', handleChange);
-	});
-
-	useEffect(() => {
-		if (fieldRef.current) {
-			currentChecked.current = fieldRef.current.checked;
-			if (isBoolean) fieldRef.current.value = currentChecked.current.toString();
-		} else {
-			currentChecked.current = checked;
-		}
-	}, []);
+		currentChecked.current = checked;
+	}, [checked]);
 
 	return (
 		<>
@@ -71,10 +57,8 @@ export default function StandaloneCheckbox<T>(props: StandaloneCheckboxProps<T>)
 					<MaterialCheckbox
 						id={id}
 						name={name}
-						inputRef={fieldRef}
 						checked={currentChecked.current}
-						value={value ?? currentChecked.current.toString()}
-						// @ts-ignore because the handleChange signature is actually the same, but TypeScript doesn't know that as React uses synthetic event signatures
+						value={currentChecked.current.toString()}
 						onChange={handleChange}
 					/>
 				}
