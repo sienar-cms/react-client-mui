@@ -1,9 +1,9 @@
-import { createContext, useRef } from 'react';
+import { createContext, useEffect, useRef } from 'react';
 import { FormControl, FormGroup, FormLabel, Paper } from '@mui/material';
 import ValidationList from './ValidationList.tsx';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 
-import type { ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import type { SxProps } from '@mui/material';
 import type { FormInputProps } from './shared.ts';
 
@@ -13,7 +13,7 @@ export const checkboxGroupContext = createContext<CheckboxGroupContext>({
 	handleChange: () => {}
 });
 
-export type CheckboxGroupProps = Omit<FormInputProps<string[]>, 'value'> & {
+export type CheckboxGroupProps = FormInputProps<string[]> & {
 	label?: ReactNode,
 	maxHeight?: number
 };
@@ -29,25 +29,30 @@ export default function CheckboxGroup(props: CheckboxGroupProps) {
 		hideValidationIfValid,
 		allValidMessage,
 		validators = [],
+		value,
 		onChange
 	} = props;
 
-	const currentSelected = useRef<string[]>([]);
+	const currentSelected = useRef<string[]>(value ?? []);
 	const [ rerender ] = useRerender();
+	const handleValueStateChange = (newValue: string[]) => {
+		currentSelected.current = [...newValue];
+		onChange?.(currentSelected.current);
+		rerender();
+	}
 
-	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected, validators);
+	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected.current, handleValueStateChange, validators);
 
-	const handleChange = async (e: Event) => {
-		const target = e.target as HTMLInputElement;
-		const checked = target.checked;
+	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+		const checked = e.target.checked;
 
-		if (checked && currentSelected.current.includes(target.value) ||
-			!checked && !currentSelected.current.includes(target.value)) return;
+		if (checked && currentSelected.current.includes(e.target.value) ||
+			!checked && !currentSelected.current.includes(e.target.value)) return;
 
-		let index = currentSelected.current.findIndex(c => c === target.value);
+		let index = currentSelected.current.findIndex(c => c === e.target.value);
 		let changed = false;
 		if (checked && index === -1) {
-			currentSelected.current.push(target.value);
+			currentSelected.current.push(e.target.value);
 			changed = true;
 		} else if (!checked && index > -1) {
 			currentSelected.current.splice(index, 1);
@@ -55,11 +60,14 @@ export default function CheckboxGroup(props: CheckboxGroupProps) {
 		}
 
 		if (changed) {
+			handleValueStateChange(currentSelected.current);
 			interact();
-			await onChange?.(currentSelected.current);
-			rerender();
 		}
 	}
+
+	useEffect(() => {
+		currentSelected.current = value ?? [];
+	}, [value]);
 
 	const paperSx: SxProps = {
 		maxHeight,
@@ -102,5 +110,5 @@ export default function CheckboxGroup(props: CheckboxGroupProps) {
 export type CheckboxGroupContext = {
 	selected: string[],
 	name: string,
-	handleChange: (e: Event) => any
+	handleChange: (e: ChangeEvent<HTMLInputElement>) => any
 }
