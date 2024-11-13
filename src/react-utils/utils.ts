@@ -114,3 +114,16 @@ export function getDateString(
 		? parsedString.replace(' at', '')
 		: parsedString;
 }
+
+export function getCookie(name: string): string|undefined {
+	const cookies = document.cookie.split(';');
+
+	for (let cookie of cookies) {
+		const parts = cookie.split('=');
+		const cookieName = parts.shift()!.trim();
+		if (cookieName === name) {
+			return parts.join('=').trim();
+		}
+	}
+	return undefined;
+}
