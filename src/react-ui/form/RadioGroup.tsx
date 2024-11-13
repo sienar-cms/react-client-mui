@@ -8,7 +8,6 @@ import type { FormInputProps } from './shared.ts';
 
 export const radioGroupContext = createContext({
 	selected: null,
-	selectedId: null,
 	name: '',
 	handleChange: () => {}
 } as RadioGroupContext<any>);
@@ -31,7 +30,6 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 	} = props;
 
 	const currentSelected = useRef<T|null>(null);
-	const selectedId = useRef<string|null>(null);
 	const [ rerender ] = useRerender();
 	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected, validators);
 
@@ -40,7 +38,6 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 		const newValue = target.value as T;
 		if (currentSelected.current === newValue) return;
 
-		selectedId.current = target.id;
 		currentSelected.current = newValue;
 		interact();
 		await onChange?.(newValue);
@@ -50,7 +47,6 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 	return (
 		<radioGroupContext.Provider value={{
 			selected: currentSelected.current,
-			selectedId: selectedId.current,
 			name,
 			handleChange
 		}}>
@@ -81,7 +77,6 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 
 export type RadioGroupContext<T> = {
 	selected: T|null,
-	selectedId: string|null,
 	name: string,
 	handleChange: (e: Event) => any
 }
