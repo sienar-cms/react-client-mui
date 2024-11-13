@@ -158,21 +158,25 @@ export default function Form<T>(props: FormProps<T>) {
 			const initial = await service.read(id!);
 			if (!initial) return;
 
-			const elements = formRef.current!.elements as Record<string, any>;
-
 			for (let [k, v] of Object.entries(initial)) {
 				// Let's be nice and handle IDs and concurrency stamps for the devs
 				if (k === 'id' || k === 'concurrencyStamp') {
-					createOrUpdateHiddenElement(formRef.current!, k, v as string);
+					formContext.fields[k] = {
+						displayName: k,
+						validator: () => true,
+						value: v,
+						setValue: () => {},
+						validationResults: [],
+						setValidationResults: ([]) => {}
+					}
 					continue;
 				}
 
 				// If the element doesn't exist, there's nothing to do
-				if (!elements[k]) continue;
+				if (!formContext.fields[k]) continue;
 
-				// Set the value appropriately and let the element know
-				elements[k].value = v;
-				elements[k].dispatchEvent(new Event('input'));
+				// Set the value
+				formContext.fields[k].setValue(v)
 			}
 		})();
 	}, []);
@@ -238,25 +242,6 @@ export default function Form<T>(props: FormProps<T>) {
 			</Card>
 		</formValidationContext.Provider>
 	);
-}
-
-function createOrUpdateHiddenElement(
-	form: HTMLFormElement,
-	name: string,
-	value: string
-): void {
-	const elements = form.elements as Record<string, any>;
-
-	if (elements[name]) {
-		elements[name].value = value;
-		return;
-	}
-
-	const input = document.createElement('input');
-	input.setAttribute('type', 'hidden');
-	input.setAttribute('name', name);
-	input.setAttribute('value', value);
-	form.appendChild(input);
 }
 
 function generateSubmitText(
