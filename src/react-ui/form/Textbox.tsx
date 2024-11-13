@@ -3,6 +3,7 @@ import { TextField } from '@mui/material';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 import ValidationList from './ValidationList.tsx';
 
+import type { ChangeEvent } from 'react';
 import type { FormInputProps } from './shared.ts';
 
 export type TextInputProps<T extends string | number> = FormInputProps<T> & {
@@ -19,6 +20,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 		hideValidationIfValid = true,
 		allValidMessage,
 		validators = [],
+		value,
 		onChange,
 		type = 'text',
 		margin = 'normal',
@@ -27,35 +29,38 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	} = props;
 
 	const isNumeric = type === 'number';
-	const currentValue = useRef<T>('' as T);
-	const fieldRef = useRef<HTMLInputElement|HTMLTextAreaElement>(null);
+	const currentValue = useRef<T>(value ?? '' as T);
 	const [rerender] = useRerender();
-	const [validations, interact] = useFormFieldValidation(name, displayName, currentValue, validators);
+	const handleValueStateChange = (newValue: T) => {
+		if (newValue === currentValue.current) return;
 
-	const handleChange = async (e: Event) => {
-		const target = e.target as HTMLInputElement|HTMLTextAreaElement;
+		currentValue.current = newValue;
+		onChange?.(newValue);
+		rerender();
+	}
+
+	const [validations, interact] = useFormFieldValidation(name, displayName, currentValue.current, handleValueStateChange, validators);
+
+	const handleChange = async (e: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
 		const newValue = (isNumeric
-			? parseFloat(target.value)
-			: target.value) as T;
+			? parseFloat(e.target.value)
+			: e.target.value) as T;
 		if (currentValue.current !== newValue) {
-			currentValue.current = newValue;
+			handleValueStateChange(newValue);
 			interact();
-			await onChange?.(newValue);
-			rerender();
 		}
 	}
 
 	useEffect(() => {
-		const ref = fieldRef.current!;
-		ref.addEventListener('input', handleChange);
-		return () => ref.removeEventListener('input', handleChange);
-	});
+		currentValue.current = value ?? '' as T;
+	}, [value]);
 
 	return (
 		<>
 			<TextField
-				inputRef={fieldRef}
 				name={name}
+				value={currentValue.current}
+				onChange={handleChange}
 				label={children ?? displayName}
 				type={type}
 				error={validations.filter(v => !v.valid).length > 0}
