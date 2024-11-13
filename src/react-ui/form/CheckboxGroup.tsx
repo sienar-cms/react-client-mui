@@ -9,7 +9,6 @@ import type { FormInputProps } from './shared.ts';
 
 export const checkboxGroupContext = createContext<CheckboxGroupContext>({
 	selected: [],
-	selectedIds: [],
 	name: '',
 	handleChange: () => {}
 });
@@ -34,7 +33,6 @@ export default function CheckboxGroup(props: CheckboxGroupProps) {
 	} = props;
 
 	const currentSelected = useRef<string[]>([]);
-	const selectedIds = useRef<string[]>([]);
 	const [ rerender ] = useRerender();
 
 	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected, validators);
@@ -50,13 +48,9 @@ export default function CheckboxGroup(props: CheckboxGroupProps) {
 		let changed = false;
 		if (checked && index === -1) {
 			currentSelected.current.push(target.value);
-			selectedIds.current.push(target.id);
 			changed = true;
 		} else if (!checked && index > -1) {
 			currentSelected.current.splice(index, 1);
-
-			const idIndex = selectedIds.current.findIndex(i => i === target.id);
-			selectedIds.current.splice(idIndex, 1);
 			changed = true;
 		}
 
@@ -77,7 +71,6 @@ export default function CheckboxGroup(props: CheckboxGroupProps) {
 	return (
 		<checkboxGroupContext.Provider value={{
 			selected: currentSelected.current,
-			selectedIds: selectedIds.current,
 			name,
 			handleChange
 		}}>
@@ -108,7 +101,6 @@ export default function CheckboxGroup(props: CheckboxGroupProps) {
 
 export type CheckboxGroupContext = {
 	selected: string[],
-	selectedIds: string[],
 	name: string,
 	handleChange: (e: Event) => any
 }
