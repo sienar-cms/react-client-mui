@@ -7,60 +7,51 @@ import { useFormFieldValidation, useRerender } from '@/react-utils';
 import type { Dayjs } from 'dayjs';
 import type { FormInputProps } from './shared.ts';
 
-export type DatePickerProps = Omit<FormInputProps<Dayjs>, 'onChange'> & {
-	onChange?: (newDate: Dayjs|null) => any
-}
+export type DatePickerProps = FormInputProps<Dayjs|string|null>;
 
 export default function DatePicker(props: DatePickerProps) {
 	const {
 		name,
 		displayName,
 		children,
+		value,
 		onChange,
 		validators = []
 	} = props;
 
-	const currentValue = useRef<Dayjs|null>(null);
-	const fieldRef = useRef<HTMLInputElement>(null);
+	const currentValue = useRef<Dayjs>(dayjs(value ?? null));
 	const [ rerender ] = useRerender();
-	const [ validations, interact ] = useFormFieldValidation(name, displayName,
-		currentValue, validators);
+	const handleDatePickerChange = (newValue: Dayjs|string|null) => {
+		if (currentValue.current === newValue) return;
+		if (typeof newValue === 'string' && newValue.startsWith('0')) newValue = null;
 
-	const handleDatePickerChange = async (newValue: Dayjs|null) => {
-		fieldRef.current!.value = newValue?.toISOString() ?? '';
-		fieldRef.current!.dispatchEvent(new Event('input'));
-		onChange?.(newValue);
+		currentValue.current = dayjs(newValue ?? null);
+		onChange?.(currentValue.current);
+		rerender();
 	}
 
-	const handleChange = async (e: Event) => {
-		const target = e.target as HTMLInputElement;
-		const newValue = target.value ? dayjs(target.value) : null;
+	const [ validations, interact ] = useFormFieldValidation(name, displayName,
+		currentValue.current, handleDatePickerChange, validators);
+
+	const handleChange = async (newValue: Dayjs|null) => {
 		if (newValue?.isSame(currentValue.current)) {
 			return;
 		}
 
-		currentValue.current = newValue;
+		handleDatePickerChange(newValue);
 		interact();
-		rerender();
 	}
 
 	useEffect(() => {
-		const ref = fieldRef.current!;
-		ref.addEventListener('input', handleChange);
-		return () => ref.removeEventListener('input', handleChange);
-	});
+		currentValue.current = dayjs(value ?? null);
+	}, [value]);
 
 	return (
 		<>
-			<input
-				type='hidden'
-				ref={fieldRef}
-			/>
-
 			<MobileDatePicker
 				label={children ?? displayName}
-				value={currentValue.current}
-				onChange={handleDatePickerChange}
+				value={currentValue.current as Dayjs}
+				onChange={handleChange}
 			/>
 
 			<ValidationList
