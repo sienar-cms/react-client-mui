@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { DatePicker as MobileDatePicker } from '@mui/x-date-pickers';
+import { DatePicker as MaterialDatePicker } from '@mui/x-date-pickers';
 import ValidationList from './ValidationList.tsx';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 
@@ -48,7 +48,7 @@ export default function DatePicker(props: DatePickerProps) {
 
 	return (
 		<>
-			<MobileDatePicker
+			<MaterialDatePicker
 				label={children ?? displayName}
 				value={currentValue.current as Dayjs}
 				onChange={handleChange}
