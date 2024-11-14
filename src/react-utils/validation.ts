@@ -1,7 +1,5 @@
 ﻿import { createContext, useContext, useEffect, useState } from 'react';
 
-import type { FormValueValidator } from './validators.ts';
-
 export const formValidationContext = createContext<FormContext>({
 	hasInteracted: false,
 	fields: {}
@@ -179,4 +177,26 @@ export type FormContext = {
 	 * A record of all fields in the form
 	 */
 	fields: Record<string, FormField>
+}
+
+/**
+ * An object representing a form value validation rule
+ */
+export type FormValueValidator<T> = {
+	/**
+	 * The message to use to identify the validator in the form validation result area
+	 */
+	message: string
+
+	/**
+	 * A function used to determine whether the value passes validation. Returns <code>true</code> if the value is valid
+	 *
+	 * @param input The value to validate
+	 */
+	isValid: (input: T|null, formValues: Record<string, any>) => boolean|null
+
+	/**
+	 * An object of key-value replacement values to use when formatting the validation message
+	 */
+	replacementValues?: Record<string, any>
 }
