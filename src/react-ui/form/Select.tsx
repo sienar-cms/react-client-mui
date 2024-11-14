@@ -3,7 +3,7 @@ import { FormControl, InputLabel, NativeSelect as MaterialSelect, OutlinedInput 
 import ValidationList from './ValidationList.tsx';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 
-import type { ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import type { FormInputProps } from './shared.ts';
 
 export type SelectProps = FormInputProps<string> & {
@@ -22,33 +22,36 @@ export default function Select(props: SelectProps) {
 		hideValidationIfValid = true,
 		allValidMessage,
 		validators = [],
+		value,
 		onChange,
 		fullWidth = true,
 		hideDefaultOption = false
 	} = props;
 
 	const inputId = useId();
-	const currentValue = useRef('');
-	const fieldRef = useRef<HTMLSelectElement>(null);
+	const currentValue = useRef(value ?? '');
 	const [ rerender ] = useRerender();
-	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentValue, validators);
+	const handleValueStateChange = (newValue: string) => {
+		if (newValue === currentValue.current) return;
 
-	const handleChange = async (e: Event) => {
-		const target = e.target as HTMLSelectElement;
-		const newValue = target.value;
+		currentValue.current = newValue;
+		onChange?.(newValue);
+		rerender();
+	}
+
+	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentValue.current, handleValueStateChange, validators);
+
+	const handleChange = async (e: ChangeEvent<HTMLSelectElement>) => {
+		const newValue = e.target.value;
 		if (currentValue.current !== newValue) {
-			currentValue.current = newValue;
+			handleValueStateChange(newValue);
 			interact();
-			await onChange?.(newValue);
-			rerender();
 		}
 	}
 
 	useEffect(() => {
-		const ref = fieldRef.current!;
-		ref.addEventListener('change', handleChange);
-		return () => ref.removeEventListener('change', handleChange);
-	});
+		currentValue.current = value ?? '';
+	}, [value]);
 
 	return (
 		<>
@@ -62,8 +65,8 @@ export default function Select(props: SelectProps) {
 				</InputLabel>
 
 				<MaterialSelect
-					inputRef={fieldRef}
-					defaultValue={''}
+					value={currentValue.current}
+					onChange={handleChange}
 					name={name}
 					error={validations.filter(v => !v.valid).length > 0}
 					variant={'outlined'}
