@@ -24,7 +24,7 @@ export default function Radio<T>(props: RadioProps<T>) {
 					id={inputId}
 					value={value}
 					name={context.name}
-					checked={context.selectedId === inputId}
+					checked={context.selected === value}
 				/>
 			}
 			label={children}

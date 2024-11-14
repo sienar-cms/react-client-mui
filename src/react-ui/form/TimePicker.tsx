@@ -1,15 +1,15 @@
 import { useRef, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { DatePicker as MaterialDatePicker } from '@mui/x-date-pickers';
+import { MobileTimePicker as MaterialTimePicker } from '@mui/x-date-pickers';
 import ValidationList from './ValidationList.tsx';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 
 import type { Dayjs } from 'dayjs';
 import type { FormInputProps } from './shared.ts';
 
-export type DatePickerProps = FormInputProps<Dayjs|null>;
+export type TimePickerProps = FormInputProps<Dayjs|null>;
 
-export default function DatePicker(props: DatePickerProps) {
+export default function DatePicker(props: TimePickerProps) {
 	const {
 		name,
 		displayName,
@@ -30,8 +30,7 @@ export default function DatePicker(props: DatePickerProps) {
 		rerender();
 	}
 
-	const [ validations, interact ] = useFormFieldValidation(name, displayName,
-		currentValue.current, handleDatePickerChange, validators);
+	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentValue.current, handleDatePickerChange, validators);
 
 	const handleChange = async (newValue: Dayjs|null) => {
 		if (newValue?.isSame(currentValue.current)) {
@@ -48,7 +47,7 @@ export default function DatePicker(props: DatePickerProps) {
 
 	return (
 		<div>
-			<MaterialDatePicker
+			<MaterialTimePicker
 				label={children ?? displayName}
 				value={currentValue.current as Dayjs}
 				onChange={handleChange}

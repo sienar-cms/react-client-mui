@@ -26,7 +26,7 @@ export default function Index() {
 					name='confirmEmail'
 					displayName='Confirm new email address'
 					validators={[
-						validators.matches('New email address')
+						validators.matches('email')
 					]}
 				/>
 				<Textbox

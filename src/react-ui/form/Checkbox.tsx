@@ -22,7 +22,7 @@ export default function Checkbox(props: CheckboxProps) {
 				<MaterialCheckbox
 					id={id}
 					name={context.name}
-					checked={context.selectedIds.includes(id)}
+					checked={context.selected.includes(value)}
 					value={value}
 					// @ts-ignore
 					onChange={context.handleChange}

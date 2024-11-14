@@ -1,14 +1,13 @@
-import { createContext, useRef } from 'react';
+import { createContext, useEffect, useRef } from 'react';
 import { FormControl, FormLabel, RadioGroup as MaterialRadioGroup } from '@mui/material';
 import ValidationList from './ValidationList.tsx';
 import { useFormFieldValidation, useRerender } from '@/react-utils';
 
-import type { ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import type { FormInputProps } from './shared.ts';
 
 export const radioGroupContext = createContext({
 	selected: null,
-	selectedId: null,
 	name: '',
 	handleChange: () => {}
 } as RadioGroupContext<any>);
@@ -26,31 +25,38 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 		hideValidationIfValid = true,
 		allValidMessage,
 		validators = [],
+		value,
 		onChange,
 		children
 	} = props;
 
-	const currentSelected = useRef<T|null>(null);
-	const selectedId = useRef<string|null>(null);
+	const currentSelected = useRef<T>(value ?? '' as T);
 	const [ rerender ] = useRerender();
-	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected, validators);
+	const handleValueStateChange = (newValue: T) => {
+		if (newValue === currentSelected.current) return;
 
-	const handleChange = async (e: Event) => {
-		const target = e.target as HTMLInputElement;
-		const newValue = target.value as T;
-		if (currentSelected.current === newValue) return;
-
-		selectedId.current = target.id;
 		currentSelected.current = newValue;
-		interact();
-		await onChange?.(newValue);
+		onChange?.(newValue);
 		rerender();
 	}
+
+	const [ validations, interact ] = useFormFieldValidation(name, displayName, currentSelected.current, handleValueStateChange, validators);
+
+	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+		const newValue = e.target.value as T;
+		if (currentSelected.current === newValue) return;
+
+		handleValueStateChange(newValue);
+		interact();
+	}
+
+	useEffect(() => {
+		currentSelected.current = value ?? '' as T;
+	}, [value]);
 
 	return (
 		<radioGroupContext.Provider value={{
 			selected: currentSelected.current,
-			selectedId: selectedId.current,
 			name,
 			handleChange
 		}}>
@@ -81,7 +87,6 @@ export default function RadioGroup<T>(props: RadioGroupProps<T>) {
 
 export type RadioGroupContext<T> = {
 	selected: T|null,
-	selectedId: string|null,
 	name: string,
-	handleChange: (e: Event) => any
+	handleChange: (e: ChangeEvent<HTMLInputElement>) => any
 }

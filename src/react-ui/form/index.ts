@@ -4,6 +4,8 @@ export type * from './DatePicker.tsx';
 export { default as DatePicker } from './DatePicker.tsx';
 export type * from './Form.tsx';
 export { default as Form } from './Form.tsx';
+export type * from './HiddenInput.tsx';
+export { default as HiddenInput } from './HiddenInput.tsx';
 export type * from './Textbox.tsx';
 export { default as Textbox } from './Textbox.tsx';
 export type * from './StandaloneCheckbox.tsx';
@@ -20,5 +22,7 @@ export type * from './Select.tsx';
 export { default as Select } from './Select.tsx';
 export type * from './Switch.tsx';
 export { default as Switch } from './Switch.tsx';
+export type * from './TimePicker.tsx';
+export { default as TimePicker } from './TimePicker.tsx';
 
 export type * from './shared.ts';

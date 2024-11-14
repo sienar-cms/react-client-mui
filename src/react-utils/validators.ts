@@ -1,4 +1,6 @@
-﻿export function required(message?: string): FormValueValidator<any> {
+﻿import type { FormValueValidator } from './validation.ts';
+
+export function required(message?: string): FormValueValidator<any> {
 	return {
 		message: message || '%name is required.',
 		isValid: input => {
@@ -40,9 +42,11 @@ export function matches(otherName: string, message?: string): FormValueValidator
 		message: message || '%name must match %otherName.',
 		isValid: (input, formValues) => {
 			if (!input) return null;
-			return input === formValues[otherName];
+			return input === formValues[otherName].value;
 		},
-		replacementValues: { otherName }
+		replacementValues: {
+			otherName: values => values[otherName].displayName ?? otherName
+		}
 	}
 }
 
@@ -79,26 +83,4 @@ export function containsUpper(): FormValueValidator<string> {
 }
 export function containsLower(): FormValueValidator<string> {
 	return matchesRegex(/[a-z]/, '%name must contain at least one lowercase letter.');
-}
-
-/**
- * An object representing a form value validation rule
- */
-export type FormValueValidator<T> = {
-	/**
-	 * The message to use to identify the validator in the form validation result area
-	 */
-	message: string
-
-	/**
-	 * A function used to determine whether the value passes validation. Returns <code>true</code> if the value is valid
-	 *
-	 * @param input The value to validate
-	 */
-	isValid: (input: T|null, formValues: Record<string, any>) => boolean|null
-
-	/**
-	 * An object of key-value replacement values to use when formatting the validation message
-	 */
-	replacementValues?: Record<string, any>
 }
