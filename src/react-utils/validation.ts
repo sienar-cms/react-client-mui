@@ -48,7 +48,7 @@ export function useFormFieldValidation<T extends unknown>(
 			);
 			internalResults.push({
 				valid,
-				message: formatValidationMessage(validator, displayName, value)
+				message: formatValidationMessage(validator, inputName, formContext.fields)
 			});
 
 			if (!valid) {
@@ -88,16 +88,20 @@ export function useFormFieldValidation<T extends unknown>(
 export function formatValidationMessage(
 	validator: FormValueValidator<any>,
 	name: string,
-	value: any): string {
+	formValues: Record<string, FormField>): string {
 	let message = validator.message;
 	const replacements = Object.assign(
-		{ 'name': name, 'value': value },
+		{ 'name': formValues[name].displayName, 'value': formValues[name].value },
 		validator.replacementValues
 	);
 
 	for (let key in replacements) {
 		const regex = new RegExp(`\%${key}`, 'g');
-		message = message.replace(regex, replacements[key]);
+		if (typeof replacements[key] === 'function') {
+			message = message.replace(regex, replacements[key](formValues))
+		} else {
+			message = message.replace(regex, replacements[key] as string);
+		}
 	}
 
 	return message;
@@ -198,5 +202,5 @@ export type FormValueValidator<T> = {
 	/**
 	 * An object of key-value replacement values to use when formatting the validation message
 	 */
-	replacementValues?: Record<string, any>
+	replacementValues?: Record<string, ((values: Record<string, FormField>) => string)|string|number>
 }
