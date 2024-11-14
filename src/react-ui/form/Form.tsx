@@ -100,7 +100,16 @@ export default function Form<T>(props: FormProps<T>) {
 
 		if (onSubmit && !onSubmit(formContext.fields)) return;
 
-		const formData = new FormData(formRef.current!);
+		const formData = new FormData();
+		for (let field in formContext.fields) {
+			if (Array.isArray(formContext.fields[field].value)) {
+				for (let value of formContext.fields[field].value) {
+					formData.append(field, value);
+				}
+			} else {
+				formData.append(field, formContext.fields[field].value);
+			}
+		}
 		const config = { formContext };
 
 		let result: T;
