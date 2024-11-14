@@ -56,7 +56,7 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 	}, [value]);
 
 	return (
-		<>
+		<div>
 			<TextField
 				name={name}
 				value={currentValue.current}
@@ -79,6 +79,6 @@ export default function Textbox<T extends string | number>(props: TextInputProps
 				hideIfAllValid={hideValidationIfValid}
 				allValidMessage={allValidMessage}
 			/>
-		</>
+		</div>
 	);
 };

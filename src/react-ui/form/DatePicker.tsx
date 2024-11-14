@@ -47,7 +47,7 @@ export default function DatePicker(props: DatePickerProps) {
 	}, [value]);
 
 	return (
-		<>
+		<div>
 			<MaterialDatePicker
 				label={children ?? displayName}
 				value={currentValue.current as Dayjs}
@@ -57,6 +57,6 @@ export default function DatePicker(props: DatePickerProps) {
 			<ValidationList
 				validations={validations}
 			/>
-		</>
+		</div>
 	);
 }

@@ -50,7 +50,7 @@ export default function StandaloneCheckbox(props: StandaloneCheckboxProps) {
 	}, [checked]);
 
 	return (
-		<>
+		<div>
 			<FormControlLabel
 				htmlFor={id}
 				control={
@@ -71,6 +71,6 @@ export default function StandaloneCheckbox(props: StandaloneCheckboxProps) {
 				hideIfAllValid={hideValidationIfValid}
 				allValidMessage={allValidMessage}
 			/>
-		</>
+		</div>
 	);
 }

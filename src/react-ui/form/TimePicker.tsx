@@ -46,7 +46,7 @@ export default function DatePicker(props: TimePickerProps) {
 	}, [value]);
 
 	return (
-		<>
+		<div>
 			<MaterialTimePicker
 				label={children ?? displayName}
 				value={currentValue.current as Dayjs}
@@ -56,6 +56,6 @@ export default function DatePicker(props: TimePickerProps) {
 			<ValidationList
 				validations={validations}
 			/>
-		</>
+		</div>
 	);
 }

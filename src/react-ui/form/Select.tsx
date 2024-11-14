@@ -54,7 +54,7 @@ export default function Select(props: SelectProps) {
 	}, [value]);
 
 	return (
-		<>
+		<div>
 			<FormControl fullWidth={fullWidth}>
 				<InputLabel
 					variant='outlined'
@@ -89,6 +89,6 @@ export default function Select(props: SelectProps) {
 				hideIfAllValid={hideValidationIfValid}
 				allValidMessage={allValidMessage}
 			/>
-		</>
+		</div>
 	);
 }
