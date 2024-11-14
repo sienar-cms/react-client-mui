@@ -20,5 +20,7 @@ export type * from './Select.tsx';
 export { default as Select } from './Select.tsx';
 export type * from './Switch.tsx';
 export { default as Switch } from './Switch.tsx';
+export type * from './TimePicker.tsx';
+export { default as TimePicker } from './TimePicker.tsx';
 
 export type * from './shared.ts';
