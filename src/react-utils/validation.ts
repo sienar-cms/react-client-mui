@@ -91,7 +91,10 @@ export function formatValidationMessage(
 	formValues: Record<string, FormField>): string {
 	let message = validator.message;
 	const replacements = Object.assign(
-		{ 'name': formValues[name].displayName, 'value': formValues[name].value },
+		{
+			'name': formValues[name].displayName ?? name,
+			'value': formValues[name].value
+		},
 		validator.replacementValues
 	);
 

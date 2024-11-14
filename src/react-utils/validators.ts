@@ -45,7 +45,7 @@ export function matches(otherName: string, message?: string): FormValueValidator
 			return input === formValues[otherName].value;
 		},
 		replacementValues: {
-			otherName: values => values[otherName].displayName!
+			otherName: values => values[otherName].displayName ?? otherName
 		}
 	}
 }
