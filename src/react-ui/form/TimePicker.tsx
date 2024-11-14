@@ -7,7 +7,7 @@ import { useFormFieldValidation, useRerender } from '@/react-utils';
 import type { Dayjs } from 'dayjs';
 import type { FormInputProps } from './shared.ts';
 
-export type TimePickerProps = FormInputProps<Dayjs|string|null>;
+export type TimePickerProps = FormInputProps<Dayjs|null>;
 
 export default function DatePicker(props: TimePickerProps) {
 	const {
