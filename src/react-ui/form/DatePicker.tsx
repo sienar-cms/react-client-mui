@@ -22,7 +22,7 @@ export default function DatePicker(props: DatePickerProps) {
 	const currentValue = useRef<Dayjs>(dayjs(value ?? null));
 	const [ rerender ] = useRerender();
 	const handleDatePickerChange = (newValue: Dayjs|string|null) => {
-		if (currentValue.current === newValue) return;
+		if (currentValue.current?.isSame(newValue)) return;
 		if (typeof newValue === 'string' && newValue.startsWith('0')) newValue = null;
 
 		currentValue.current = dayjs(newValue ?? null);
@@ -43,7 +43,7 @@ export default function DatePicker(props: DatePickerProps) {
 	}
 
 	useEffect(() => {
-		currentValue.current = dayjs(value ?? null);
+		handleDatePickerChange(value ?? null);
 	}, [value]);
 
 	return (
