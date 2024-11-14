@@ -1,6 +1,6 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { Form, Textbox } from '@/react-ui';
+import { Form, HiddenInput, Textbox } from '@/react-ui';
 import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
 import { RESET_PASSWORD_SERVICE } from '@identity/services.ts';
 import { RESET_PASSWORD_SUCCESSFUL_URL } from '@identity/urls.ts';
@@ -25,15 +25,13 @@ export default function Index() {
 				)}
 				successRedirectRoute={RESET_PASSWORD_SUCCESSFUL_URL}
 			>
-				<input
-					type='hidden'
+				<HiddenInput
+					value={ userId ?? '' }
 					name='userId'
-					value={userId!}
 				/>
-				<input
-					type='hidden'
+				<HiddenInput
+					value={ code ?? '' }
 					name='verificationCode'
-					value={code!}
 				/>
 				<Textbox
 					name='newPassword'

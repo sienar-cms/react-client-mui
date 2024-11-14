@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react';
-import { Form, Link, Textbox, StandaloneCheckbox } from '@/react-ui';
+import { Form, HiddenInput, Link, Textbox, StandaloneCheckbox } from '@/react-ui';
 import { AuthorizeRoute, inject, useDocumentTitle, validators } from '@/react-utils';
 import { REGISTER_SERVICE } from '@identity/services.ts';
 import { REGISTER_SUCCESSFUL_URL } from '@identity/urls.ts';
@@ -69,10 +69,8 @@ export default function Index() {
 				/>
 
 				{useHiddenField && (
-					<input
-						type='hidden'
+					<HiddenInput
 						name='acceptTos'
-						checked={true}
 						value='true'
 					/>
 				)}

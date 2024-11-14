@@ -1,4 +1,4 @@
-﻿import { Form } from '@/react-ui';
+﻿import { Form, HiddenInput } from '@/react-ui';
 import { useSearchParams } from 'react-router-dom';
 import { CONFIRM_SUCCESSFUL_URL } from '@identity/urls.ts';
 import { CONFIRM_SERVICE } from '@identity/services.ts';
@@ -21,14 +21,14 @@ export default function Index() {
 				immediate
 			>
 				Please wait while we confirm your account...
-				<input
-					type='hidden'
+				<HiddenInput
 					value={ userId ?? '' }
-					name='userId'/>
-				<input
-					type='hidden'
+					name='userId'
+				/>
+				<HiddenInput
 					value={ code ?? '' }
-					name='verificationCode'/>
+					name='verificationCode'
+				/>
 			</Form>
 		</AuthorizeRoute>
 	);
