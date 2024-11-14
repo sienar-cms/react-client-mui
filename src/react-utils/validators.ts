@@ -42,7 +42,7 @@ export function matches(otherName: string, message?: string): FormValueValidator
 		message: message || '%name must match %otherName.',
 		isValid: (input, formValues) => {
 			if (!input) return null;
-			return input === formValues[otherName];
+			return input === formValues[otherName].value;
 		},
 		replacementValues: { otherName }
 	}

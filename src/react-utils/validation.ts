@@ -193,7 +193,7 @@ export type FormValueValidator<T> = {
 	 *
 	 * @param input The value to validate
 	 */
-	isValid: (input: T|null, formValues: Record<string, any>) => boolean|null
+	isValid: (input: T|null, formFields: Record<string, FormField>) => boolean|null
 
 	/**
 	 * An object of key-value replacement values to use when formatting the validation message
