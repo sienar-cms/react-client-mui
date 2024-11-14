@@ -53,7 +53,7 @@ export default function Index() {
 					displayName='Confirm new password'
 					type='password'
 					validators={[
-						validators.matches('New password')
+						validators.matches('newPassword')
 					]}
 				/>
 			</Form>

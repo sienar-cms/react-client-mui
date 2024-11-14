@@ -31,7 +31,7 @@ export default function Index() {
 					name='confirmNewPassword'
 					displayName='Confirm new password'
 					type='password'
-					validators={[validators.matches('New password')]}
+					validators={[validators.matches('newPassword')]}
 				/>
 				<Textbox
 					name='currentPassword'

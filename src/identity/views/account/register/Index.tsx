@@ -64,7 +64,7 @@ export default function Index() {
 					displayName='Confirm password'
 					type='password'
 					validators={[
-						validators.matches('Password')
+						validators.matches('password')
 					]}
 				/>
 
