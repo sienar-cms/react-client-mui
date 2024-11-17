@@ -1,5 +1,6 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { AuthorizeRoute, useDocumentTitle, validators } from '@sienar/react-utils';
+import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
+import { isEmail, matches, required } from '@sienar/react-validators';
 import { CHANGE_EMAIL_REQUESTED_URL } from '@identity/urls.ts';
 import { CHANGE_EMAIL_SERVICE } from '@identity/services.ts';
 
@@ -18,22 +19,22 @@ export default function Index() {
 					name='email'
 					displayName='New email address'
 					validators={[
-						validators.required(),
-						validators.isEmail()
+						required(),
+						isEmail()
 					]}
 				/>
 				<Textbox
 					name='confirmEmail'
 					displayName='Confirm new email address'
 					validators={[
-						validators.matches('email')
+						matches('email')
 					]}
 				/>
 				<Textbox
 					name='confirmPassword'
 					displayName='Confirm your password'
 					type='password'
-					validators={[validators.required()]}
+					validators={[required()]}
 				/>
 			</Form>
 		</AuthorizeRoute>

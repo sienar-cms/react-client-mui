@@ -1,6 +1,7 @@
 ﻿import { Typography } from '@mui/material';
 import { Form, Textbox } from '@/react-ui';
-import { AuthorizeRoute, useDocumentTitle, validators } from '@sienar/react-utils';
+import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
+import { required } from '@sienar/react-validators';
 import { FORGOT_PASSWORD_SERVICE } from '@identity/services.ts';
 import { FORGOT_PASSWORD_SUCCESSFUL_URL } from '@identity/urls.ts';
 
@@ -23,7 +24,7 @@ export default function Index() {
 				<Textbox
 					name='accountName'
 					displayName='Username or email address'
-					validators={[validators.required()]}
+					validators={[required()]}
 					hideNonErrors
 				>
 					Username or email address

@@ -1,6 +1,7 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { ButtonLink, StandaloneCheckbox, Form, Textbox } from '@/react-ui';
-import { AuthorizeRoute, useNavigate, validators, useAuthContext, useDocumentTitle } from '@sienar/react-utils';
+import { AuthorizeRoute, useNavigate, useAuthContext, useDocumentTitle } from '@sienar/react-utils';
+import { required } from '@sienar/react-validators';
 import { DASHBOARD_URL } from '@/keys';
 import { ACCOUNT_LOCKED_URL, FORGOT_PASSWORD_URL } from '@identity/urls.ts';
 import { LOGIN_SERVICE } from '@identity/services.ts';
@@ -53,14 +54,14 @@ export default function Login() {
 				<Textbox
 					name='accountName'
 					displayName='Username or email address'
-					validators={[validators.required()]}
+					validators={[required()]}
 					hideNonErrors
 				/>
 				<Textbox
 					name='password'
 					displayName='Password'
 					type='password'
-					validators={[validators.required()]}
+					validators={[required()]}
 					hideNonErrors
 				/>
 				<StandaloneCheckbox name='rememberMe'>
