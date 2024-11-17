@@ -1,4 +1,4 @@
-import { provide } from '@/react-utils';
+import { provide } from '@sienar/react-utils';
 
 import Register from '@identity/views/account/register/Index.tsx';
 import RegisterSuccessful from '@identity/views/account/register/Successful.tsx';
@@ -27,7 +27,7 @@ import UserLock from '@identity/views/users/Lock.tsx';
 import LockoutReasonUpsert from '@identity/views/lockout-reasons/Upsert.tsx';
 
 import type { ReactNode } from 'react';
-import type { InjectionKey } from '@/react-utils';
+import type { InjectionKey } from '@sienar/react-utils';
 
 export const CHANGE_EMAIL_VIEW = Symbol() as InjectionKey<ReactNode>;
 export const CHANGE_EMAIL_CONFIRM_VIEW = Symbol() as InjectionKey<ReactNode>;

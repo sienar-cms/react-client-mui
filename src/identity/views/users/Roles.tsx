@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, LoadingPage, Switch } from '@/react-ui';
-import { AuthorizeRoute, inject, useDocumentTitle } from '@/react-utils';
+import { AuthorizeRoute, inject, useDocumentTitle } from '@sienar/react-utils';
 import { ROLES_SERVICE, USERS_SERVICE, ADD_USER_TO_ROLE_SERVICE, REMOVE_USER_FROM_ROLE_SERVICE } from '@identity/services.ts';
 import { roles as appRoles } from '@/constants.ts';
 import type { Role, User } from '@identity/types.ts';

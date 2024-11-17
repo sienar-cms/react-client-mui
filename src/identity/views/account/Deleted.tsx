@@ -1,5 +1,5 @@
 ﻿import { Link, StatusPage } from '@/react-ui';
-import { useDocumentTitle } from '@/react-utils';
+import { useDocumentTitle } from '@sienar/react-utils';
 import { REGISTER_URL } from '@identity/urls.ts';
 
 export default function Deleted() {

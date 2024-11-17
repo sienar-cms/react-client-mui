@@ -1,11 +1,11 @@
 ﻿import Card from '@/react-ui/Card.tsx';
-import { formValidationContext, inject, useNavigate } from '@/react-utils';
+import { formValidationContext, inject, useNavigate } from '@sienar/react-utils';
 import { type ReactNode, useContext, useEffect, useId, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 
 import type { FormEvent } from 'react';
-import type { CrudService, InjectionKey, StatusService } from '@/react-utils';
+import type { CrudService, InjectionKey, StatusService } from '@sienar/react-utils';
 import type { CardProps } from '@/react-ui';
 
 export type UpsertFormProps<T> = {

@@ -2,8 +2,8 @@
 import { Box, Divider, List, Toolbar } from '@mui/material';
 import DashboardMenuItem from './MenuLink.tsx';
 import DashboardMenuGroup from './MenuGroup.tsx';
-import { useAuthContext, useInfrastructureContext, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@/react-utils';
-import type { MenuLink } from '@/react-utils';
+import { useAuthContext, useInfrastructureContext, aggregateLinks, filterLinks, inject, DRAWER_HEADER_PARTIAL, DRAWER_FOOTER_PARTIAL } from '@sienar/react-utils';
+import type { MenuLink } from '@sienar/react-utils';
 
 export default function DrawerContent() {
 	const infrastructureContext = useInfrastructureContext();

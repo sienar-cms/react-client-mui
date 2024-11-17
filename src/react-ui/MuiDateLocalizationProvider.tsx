@@ -4,7 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 // use https://esm.sh/@mui/x-date-pickers@7.22.1/AdapterDayjs for this import
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import type { ComponentType, PropsWithChildren } from 'react';
-import type { InjectionKey } from '@/react-utils';
+import type { InjectionKey } from '@sienar/react-utils';
 
 export const MUI_DATE_LOCALIZATION_PROVIDER = Symbol() as InjectionKey<ComponentType<PropsWithChildren>>;
 

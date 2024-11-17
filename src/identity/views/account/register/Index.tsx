@@ -1,6 +1,6 @@
 ﻿import { useState } from 'react';
 import { Form, HiddenInput, Link, Textbox, StandaloneCheckbox } from '@/react-ui';
-import { AuthorizeRoute, inject, useDocumentTitle, validators } from '@/react-utils';
+import { AuthorizeRoute, inject, useDocumentTitle, validators } from '@sienar/react-utils';
 import { REGISTER_SERVICE } from '@identity/services.ts';
 import { REGISTER_SUCCESSFUL_URL } from '@identity/urls.ts';
 import { TOS_URL, PRIVACY_POLICY_URL } from '@/keys.ts';

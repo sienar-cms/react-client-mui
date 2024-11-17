@@ -1,7 +1,7 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Form, HiddenInput, Textbox } from '@/react-ui';
-import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle, validators } from '@sienar/react-utils';
 import { RESET_PASSWORD_SERVICE } from '@identity/services.ts';
 import { RESET_PASSWORD_SUCCESSFUL_URL } from '@identity/urls.ts';
 

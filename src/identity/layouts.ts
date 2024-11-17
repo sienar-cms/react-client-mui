@@ -1,7 +1,7 @@
-import { provide } from '@/react-utils';
+import { provide } from '@sienar/react-utils';
 import { DASHBOARD_LAYOUT, DASHBOARD_NARROW_LAYOUT } from '@/keys.ts';
 import type { ReactNode } from 'react';
-import type { InjectionKey } from '@/react-utils';
+import type { InjectionKey } from '@sienar/react-utils';
 
 export const USERS_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;
 export const USERS_ADD_LAYOUT = Symbol() as InjectionKey<InjectionKey<ReactNode>>;

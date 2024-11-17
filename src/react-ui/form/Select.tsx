@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef } from 'react';
 import { FormControl, InputLabel, NativeSelect as MaterialSelect, OutlinedInput } from '@mui/material';
 import ValidationList from './ValidationList.tsx';
-import { useFormFieldValidation, useRerender } from '@/react-utils';
+import { useFormFieldValidation, useRerender } from '@sienar/react-utils';
 
 import type { ChangeEvent, ReactNode } from 'react';
 import type { FormInputProps } from './shared.ts';

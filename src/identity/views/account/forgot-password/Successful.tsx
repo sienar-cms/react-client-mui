@@ -1,5 +1,5 @@
 ﻿import { StatusPage } from '@/react-ui';
-import { useDocumentTitle } from '@/react-utils';
+import { useDocumentTitle } from '@sienar/react-utils';
 
 export default function Successful() {
 	useDocumentTitle('Password reset requested');

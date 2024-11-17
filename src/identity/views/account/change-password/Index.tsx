@@ -1,5 +1,5 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle, validators } from '@sienar/react-utils';
 import { CHANGE_PASSWORD_SUCCESSFUL_URL } from '@identity/urls.ts';
 import { CHANGE_PASSWORD_SERVICE } from '@identity/services.ts';
 

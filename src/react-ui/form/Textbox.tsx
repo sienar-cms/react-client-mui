@@ -1,6 +1,6 @@
 ﻿import { useEffect, useRef } from 'react';
 import { TextField } from '@mui/material';
-import { useFormFieldValidation, useRerender } from '@/react-utils';
+import { useFormFieldValidation, useRerender } from '@sienar/react-utils';
 import ValidationList from './ValidationList.tsx';
 
 import type { ChangeEvent } from 'react';

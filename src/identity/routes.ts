@@ -1,4 +1,4 @@
-import { registerRoutes } from '@/react-utils';
+import { registerRoutes } from '@sienar/react-utils';
 import * as LAYOUTS from '@identity/layouts.ts';
 import * as URLS from '@identity/urls.ts';
 import * as VIEWS from '@identity/views.tsx';

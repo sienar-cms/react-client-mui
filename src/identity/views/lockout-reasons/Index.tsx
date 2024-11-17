@@ -1,6 +1,6 @@
 ﻿import { Table } from '@/react-ui';
 import { LOCKOUT_REASONS_SERVICE } from '@identity/services.ts';
-import { AuthorizeRoute, useDocumentTitle } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 import { roles } from '@/constants.ts';
 
 export default function Index() {

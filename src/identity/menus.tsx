@@ -1,4 +1,4 @@
-import { addLinks, DASHBOARD_UTILS_SETTINGS_MENU, type InjectionKey, type MenuLinkProvider } from '@/react-utils';
+import { addLinks, DASHBOARD_UTILS_SETTINGS_MENU, type InjectionKey, type MenuLinkProvider } from '@sienar/react-utils';
 import * as URLS from '@identity/urls.ts';
 import { DeleteForever, Email, Group, Key, Lock } from '@mui/icons-material';
 

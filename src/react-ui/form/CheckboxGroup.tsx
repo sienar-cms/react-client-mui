@@ -1,7 +1,7 @@
 import { createContext, useEffect, useRef } from 'react';
 import { FormControl, FormGroup, FormLabel, Paper } from '@mui/material';
 import ValidationList from './ValidationList.tsx';
-import { useFormFieldValidation, useRerender } from '@/react-utils';
+import { useFormFieldValidation, useRerender } from '@sienar/react-utils';
 
 import type { ChangeEvent, ReactNode } from 'react';
 import type { SxProps } from '@mui/material';

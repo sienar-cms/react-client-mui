@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import { useLocation } from 'react-router-dom';
 import { Box, IconButton, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { inject, NOTIFIER, useRerender } from '@/react-utils';
+import { inject, NOTIFIER, useRerender } from '@sienar/react-utils';
 import { Add, Close, ContentCopy, DeleteForever, Edit, Search } from '@mui/icons-material';
 import ButtonLink from '@/react-ui/links/ButtonLink.tsx';
 import Card from '@/react-ui/Card.tsx';
@@ -11,7 +11,7 @@ import IconButtonLink from '@/react-ui/links/IconButtonLink.tsx';
 
 import type { ForwardedRef, ForwardRefRenderFunction, ReactNode } from 'react';
 import type { GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid';
-import type { CrudService, EntityBase, Filter, InjectionKey } from '@/react-utils';
+import type { CrudService, EntityBase, Filter, InjectionKey } from '@sienar/react-utils';
 import type { Color } from '@/react-ui/theme.ts';
 
 export type TableProps<T extends EntityBase> = {

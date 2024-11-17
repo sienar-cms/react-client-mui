@@ -1,5 +1,5 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle, validators } from '@sienar/react-utils';
 import { USERS_URL } from '@identity/urls.ts';
 import { USERS_SERVICE } from '@identity/services.ts';
 import { useParams } from 'react-router-dom';

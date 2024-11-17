@@ -1,10 +1,10 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { ButtonLink, StandaloneCheckbox, Form, Textbox } from '@/react-ui';
-import { AuthorizeRoute, useNavigate, validators, useAuthContext, useDocumentTitle } from '@/react-utils';
+import { AuthorizeRoute, useNavigate, validators, useAuthContext, useDocumentTitle } from '@sienar/react-utils';
 import { DASHBOARD_URL } from '@/keys';
 import { ACCOUNT_LOCKED_URL, FORGOT_PASSWORD_URL } from '@identity/urls.ts';
 import { LOGIN_SERVICE } from '@identity/services.ts';
-import type { RequestResult } from '@/react-utils';
+import type { RequestResult } from '@sienar/react-utils';
 import type { LoginResult } from '@identity/types.ts';
 
 export default function Login() {

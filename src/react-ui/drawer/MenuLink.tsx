@@ -1,9 +1,9 @@
 ﻿import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { inject } from '@/react-utils';
+import { inject } from '@sienar/react-utils';
 
 import type { MouseEventHandler } from 'react';
-import type { MenuLink } from '@/react-utils';
+import type { MenuLink } from '@sienar/react-utils';
 
 export type MenuLinkProps = {
 	data: MenuLink,

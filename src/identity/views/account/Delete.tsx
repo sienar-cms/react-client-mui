@@ -1,6 +1,6 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { Typography } from '@mui/material';
-import { AuthorizeRoute, useAuthContext, useDocumentTitle, useNavigate, validators } from '@/react-utils';
+import { AuthorizeRoute, useAuthContext, useDocumentTitle, useNavigate, validators } from '@sienar/react-utils';
 import { DELETE_ACCOUNT_SERVICE } from '@identity/services.ts';
 import { DELETED_URL } from '@identity/urls.ts';
 
