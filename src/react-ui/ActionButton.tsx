@@ -1,10 +1,10 @@
 ﻿import { useId, useRef } from 'react';
 import { Button, IconButton, ExtendButtonBase } from '@mui/material';
-import { sendRequest } from '@/react-utils';
+import { sendRequest } from '@sienar/react-utils';
 
 import type { FormEvent, PropsWithChildren, ReactNode } from 'react';
 import type { ButtonPropsColorOverrides, ButtonTypeMap, IconButtonTypeMap, SxProps, Theme } from '@mui/material';
-import type { HttpMethod } from '@/react-utils';
+import type { HttpMethod } from '@sienar/react-utils';
 import type { ExtensibleColor } from '@/react-ui/theme.ts';
 
 export type ActionButtonProps = PropsWithChildren & {

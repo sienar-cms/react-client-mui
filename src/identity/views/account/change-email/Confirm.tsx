@@ -1,6 +1,6 @@
 ﻿import { Form, HiddenInput } from '@/react-ui';
 import { useSearchParams } from 'react-router-dom';
-import { AuthorizeRoute, useDocumentTitle } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 import { CHANGE_EMAIL_SUCCESSFUL_URL } from '@identity/urls.ts';
 import { CHANGE_EMAIL_CONFIRM_SERVICE } from '@identity/services.ts';
 

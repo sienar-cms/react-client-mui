@@ -1,4 +1,4 @@
-import { ApiCrudService, CrudService, InjectionKey, provide, sendServiceRequest, sendStatusServiceRequest, Service, StatusService } from '@/react-utils';
+import { ApiCrudService, CrudService, InjectionKey, provide, sendServiceRequest, sendStatusServiceRequest, Service, StatusService } from '@sienar/react-utils';
 import type { AccountLockRequest, AccountLockResult, AddUserToRoleRequest, LockoutReason, LoginResult, ManuallyConfirmUserAccountRequest, RemoveUserFromRoleRequest, Role, UnlockUserAccountRequest, User } from '@identity/types.ts';
 
 // region Account

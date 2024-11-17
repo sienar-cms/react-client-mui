@@ -1,5 +1,5 @@
 ﻿import type { ReactNode } from 'react';
-import type { InjectionKey } from '@/react-utils';
+import type { InjectionKey } from '@sienar/react-utils';
 
 // Layouts
 export const DASHBOARD_LAYOUT = Symbol() as InjectionKey<ReactNode>;

@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { DatePicker as MaterialDatePicker } from '@mui/x-date-pickers';
 import ValidationList from './ValidationList.tsx';
-import { useFormFieldValidation, useRerender } from '@/react-utils';
+import { useFormFieldValidation, useRerender } from '@sienar/react-utils';
 
 import type { Dayjs } from 'dayjs';
 import type { FormInputProps } from './shared.ts';

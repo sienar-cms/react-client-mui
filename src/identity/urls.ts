@@ -1,4 +1,4 @@
-import { InjectionKey, provide } from '@/react-utils';
+import { InjectionKey, provide } from '@sienar/react-utils';
 
 // region Account
 

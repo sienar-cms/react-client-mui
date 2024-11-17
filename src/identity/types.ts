@@ -1,4 +1,4 @@
-import type { EntityBase } from '@/react-utils';
+import type { EntityBase } from '@sienar/react-utils';
 
 // region Users
 

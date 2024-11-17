@@ -1,6 +1,7 @@
 ﻿import { Form, Textbox } from '@/react-ui';
 import { Typography } from '@mui/material';
-import { AuthorizeRoute, useAuthContext, useDocumentTitle, useNavigate, validators } from '@/react-utils';
+import { AuthorizeRoute, useAuthContext, useDocumentTitle, useNavigate } from '@sienar/react-utils';
+import { required } from '@sienar/react-validators';
 import { DELETE_ACCOUNT_SERVICE } from '@identity/services.ts';
 import { DELETED_URL } from '@identity/urls.ts';
 
@@ -34,7 +35,7 @@ export default function Delete() {
 					name='password'
 					displayName='Password'
 					type='password'
-					validators={[validators.required()]}
+					validators={[required()]}
 					hideNonErrors
 				/>
 			</Form>

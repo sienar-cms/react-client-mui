@@ -1,6 +1,6 @@
 import { StatusPage } from '@/react-ui';
 import { Link } from 'react-router-dom';
-import { inject } from '@/react-utils';
+import { inject } from '@sienar/react-utils';
 import { LOGIN_URL } from '@identity/urls.ts';
 
 export default function MustBeLoggedIn() {

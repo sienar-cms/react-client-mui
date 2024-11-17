@@ -1,5 +1,6 @@
 ﻿import { Form, Textbox } from '@/react-ui';
-import { AuthorizeRoute, useDocumentTitle, validators } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
+import { isEmail, required } from '@sienar/react-validators';
 import { USERS_URL } from '@identity/urls.ts';
 import { USERS_SERVICE } from '@identity/services.ts';
 import { useParams } from 'react-router-dom';
@@ -25,28 +26,28 @@ export default function Upsert() {
 				<Textbox
 					name='username'
 					displayName='Username'
-					validators={[validators.required()]}
+					validators={[required()]}
 				/>
 				<Textbox
 					name='email'
 					displayName='Email'
 					type='email'
 					validators={[
-						validators.required(),
-						validators.isEmail()
+						required(),
+						isEmail()
 					]}
 				/>
 				<Textbox
 					name='password'
 					displayName='Password'
 					type='password'
-					validators={[validators.required()]}
+					validators={[required()]}
 				/>
 				<Textbox
 					name='confirmPassword'
 					displayName='Confirm password'
 					type='password'
-					validators={[validators.required()]}
+					validators={[required()]}
 				/>
 			</Form>
 		</AuthorizeRoute>

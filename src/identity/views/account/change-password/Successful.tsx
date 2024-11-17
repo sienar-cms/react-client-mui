@@ -1,5 +1,5 @@
 ﻿import { StatusPage } from '@/react-ui';
-import { AuthorizeRoute, useDocumentTitle } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 
 export default function Successful() {
 	useDocumentTitle('Password changed');

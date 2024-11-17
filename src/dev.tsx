@@ -1,4 +1,4 @@
-﻿import { createApp, DOCUMENT_TITLE_SUFFIX, provide, setup as reactUtilsSetup } from '@/react-utils';
+﻿import { createApp, DOCUMENT_TITLE_SUFFIX, provide, setup as reactUtilsSetup } from '@sienar/react-utils';
 import { setup as reactUiSetup } from '@/react-ui';
 import './overrides.ts';
 import { setup } from './main.tsx';

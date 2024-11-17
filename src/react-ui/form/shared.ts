@@ -1,5 +1,5 @@
 ﻿import type { PropsWithChildren } from 'react';
-import type { FormValueValidator } from '@/react-utils';
+import type { FormValueValidator } from '@sienar/react-utils';
 
 export type FormInputProps<T extends unknown> = PropsWithChildren & {
 	name: string

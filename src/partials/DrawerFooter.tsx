@@ -1,5 +1,5 @@
-﻿import { Authorize } from '@/react-utils';
-import { inject  } from '@/react-utils';
+﻿import { Authorize } from '@sienar/react-utils';
+import { inject  } from '@sienar/react-utils';
 import { Box, Button } from '@mui/material';
 import UserBadge from '@/components/UserBadge.tsx';
 import { Link } from 'react-router-dom';

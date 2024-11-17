@@ -1,6 +1,6 @@
 ﻿import { ButtonLink, Card } from '@/react-ui';
 import { Typography } from '@mui/material';
-import { AuthorizeRoute, useDocumentTitle } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 import { DOWNLOAD_PERSONAL_DATA_URL } from '@identity/urls.ts';
 
 export default function PersonalData() {

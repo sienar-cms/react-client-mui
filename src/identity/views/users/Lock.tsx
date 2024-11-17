@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Checkbox, CheckboxGroup, DatePicker, Form, HiddenInput, LoadingPage, Radio, RadioGroup, Spacer } from '@/react-ui';
-import { AuthorizeRoute, inject, useDocumentTitle, validators } from '@/react-utils';
+import { AuthorizeRoute, inject, useDocumentTitle } from '@sienar/react-utils';
+import { required } from '@sienar/react-validators';
 import { LOCK_USER_ACCOUNT_SERVICE, LOCKOUT_REASONS_SERVICE, USERS_SERVICE } from '@identity/services.ts';
 import { USERS_URL } from '@identity/urls.ts';
 
@@ -56,7 +57,7 @@ export default function Lock() {
 					label='Why should the user be locked out?'
 					name='reasons'
 					displayName='lockout reasons'
-					validators={[validators.required('You must select one or more %name')]}
+					validators={[required('You must select one or more %name')]}
 					maxHeight={300}
 				>
 					{lockoutReasons.map(r => (

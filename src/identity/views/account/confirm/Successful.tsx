@@ -1,5 +1,5 @@
 import { Link, StatusPage } from '@/react-ui';
-import { useDocumentTitle } from '@/react-utils';
+import { useDocumentTitle } from '@sienar/react-utils';
 import { LOGIN_URL } from '@identity/urls.ts';
 
 export default function Successful() {

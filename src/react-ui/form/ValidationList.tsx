@@ -1,9 +1,9 @@
 ﻿import { useContext } from 'react';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Done, Error, Feedback } from '@mui/icons-material';
-import { formValidationContext } from '@/react-utils';
+import { formValidationContext } from '@sienar/react-utils';
 
-import type { ValidationResult } from '@/react-utils';
+import type { ValidationResult } from '@sienar/react-utils';
 
 export type ValidationListProps = {
 	validations: ValidationResult[]

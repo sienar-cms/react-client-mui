@@ -1,4 +1,4 @@
-import { useFormFieldValidation } from '@/react-utils';
+import { useFormFieldValidation } from '@sienar/react-utils';
 
 export type HiddenInputProps = {
 	name: string

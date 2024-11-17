@@ -3,7 +3,7 @@ import { Collapse, List } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import MenuLink from './MenuLink.tsx';
 
-import type { MenuLink as Link } from '@/react-utils';
+import type { MenuLink as Link } from '@sienar/react-utils';
 
 export type MenuGroupProps = {
 	data: Link

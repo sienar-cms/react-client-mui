@@ -1,6 +1,6 @@
 ﻿import { enqueueSnackbar } from 'notistack';
-import { NotificationType } from '@/react-utils';
-import type { Notification, Notifier } from '@/react-utils';
+import { NotificationType } from '@sienar/react-utils';
+import type { Notification, Notifier } from '@sienar/react-utils';
 
 /**
  * Renders a notification in the UI

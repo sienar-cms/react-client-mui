@@ -2,11 +2,11 @@
 import { Avatar, Box, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Logout, Settings } from '@mui/icons-material';
-import { aggregateLinks, createApiCall, filterLinks, inject, useAuthContext } from '@/react-utils';
+import { aggregateLinks, createApiCall, filterLinks, inject, useAuthContext } from '@sienar/react-utils';
 import { USER_SETTINGS_MENU } from '@identity/menus.tsx';
 
 import type { ReactNode } from 'react';
-import type { InjectionKey, MenuLink, MenuLinkProvider } from '@/react-utils';
+import type { InjectionKey, MenuLink, MenuLinkProvider } from '@sienar/react-utils';
 
 export type UserBadgeProps = {
 	menuKeys?: InjectionKey<MenuLinkProvider>[]

@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
-import { useDocumentTitle } from '@/react-utils';
-import { AuthorizeRoute } from '@/react-utils';
+import { useDocumentTitle } from '@sienar/react-utils';
+import { AuthorizeRoute } from '@sienar/react-utils';
 
 export default function Dashboard() {
 	useDocumentTitle('Dashboard');

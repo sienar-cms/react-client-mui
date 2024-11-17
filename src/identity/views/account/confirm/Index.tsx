@@ -2,7 +2,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { CONFIRM_SUCCESSFUL_URL } from '@identity/urls.ts';
 import { CONFIRM_SERVICE } from '@identity/services.ts';
-import { AuthorizeRoute, useDocumentTitle } from '@/react-utils';
+import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 
 export default function Index() {
 	useDocumentTitle('Confirming account');
