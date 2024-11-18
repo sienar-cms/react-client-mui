@@ -1,5 +1,5 @@
 ﻿import { useSearchParams } from 'react-router-dom';
-import { ButtonLink, StandaloneCheckbox, Form, Textbox } from '@/react-ui';
+import { ButtonLink, StandaloneCheckbox, Form, Textbox } from '@sienar/react-ui-mui';
 import { AuthorizeRoute, useNavigate, useAuthContext, useDocumentTitle } from '@sienar/react-utils';
 import { required } from '@sienar/react-validators';
 import { DASHBOARD_URL } from '@/keys';

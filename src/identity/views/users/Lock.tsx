@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { Checkbox, CheckboxGroup, DatePicker, Form, HiddenInput, LoadingPage, Radio, RadioGroup, Spacer } from '@/react-ui';
+import { Checkbox, CheckboxGroup, DatePicker, Form, HiddenInput, LoadingPage, Radio, RadioGroup, Spacer } from '@sienar/react-ui-mui';
 import { AuthorizeRoute, inject, useDocumentTitle } from '@sienar/react-utils';
 import { required } from '@sienar/react-validators';
 import { LOCK_USER_ACCOUNT_SERVICE, LOCKOUT_REASONS_SERVICE, USERS_SERVICE } from '@identity/services.ts';

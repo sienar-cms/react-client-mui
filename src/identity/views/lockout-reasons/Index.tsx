@@ -1,4 +1,4 @@
-﻿import { Table } from '@/react-ui';
+﻿import { Table } from '@sienar/react-ui-mui';
 import { LOCKOUT_REASONS_SERVICE } from '@identity/services.ts';
 import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 import { roles } from '@/constants.ts';

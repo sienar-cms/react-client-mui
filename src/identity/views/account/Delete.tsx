@@ -1,4 +1,4 @@
-﻿import { Form, Textbox } from '@/react-ui';
+﻿import { Form, Textbox } from '@sienar/react-ui-mui';
 import { Typography } from '@mui/material';
 import { AuthorizeRoute, useAuthContext, useDocumentTitle, useNavigate } from '@sienar/react-utils';
 import { required } from '@sienar/react-validators';

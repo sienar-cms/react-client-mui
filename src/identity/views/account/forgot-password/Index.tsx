@@ -1,5 +1,5 @@
 ﻿import { Typography } from '@mui/material';
-import { Form, Textbox } from '@/react-ui';
+import { Form, Textbox } from '@sienar/react-ui-mui';
 import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 import { required } from '@sienar/react-validators';
 import { FORGOT_PASSWORD_SERVICE } from '@identity/services.ts';

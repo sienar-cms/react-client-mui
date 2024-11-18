@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { AuthorizeRoute, getDateString, inject } from '@sienar/react-utils';
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { Label } from '@mui/icons-material';
-import { StatusPage, LoadingPage } from '@/react-ui';
+import { StatusPage, LoadingPage } from '@sienar/react-ui-mui';
 import { GET_LOCKOUT_REASONS_SERVICE } from '@identity/services.ts';
 import type { AccountLockResult } from '@identity/types.ts';
 

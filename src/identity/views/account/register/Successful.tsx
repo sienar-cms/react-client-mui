@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { StatusPage } from '@/react-ui';
+import { StatusPage } from '@sienar/react-ui-mui';
 import { useDocumentTitle } from '@sienar/react-utils';
 
 export default function Successful() {
