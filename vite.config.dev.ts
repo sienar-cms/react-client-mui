@@ -1,17 +1,12 @@
-import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { alias } from './vite.config.shared.ts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	base: '/dashboard',
-	plugins: [react()],
-	resolve: {
-		alias: {
-			'@': resolve(__dirname, './src'),
-			'@identity': resolve(__dirname, './src/identity'),
-		}
-	},
+	plugins: [ react() ],
+	resolve: { alias },
 	server: {
 		proxy: {
 			'/api': 'http://localhost:5000'

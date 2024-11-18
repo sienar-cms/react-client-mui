@@ -1,8 +1,8 @@
 ﻿import { Authorize } from '@sienar/react-utils';
 import { inject  } from '@sienar/react-utils';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
+import { ButtonLink } from '@sienar/react-ui-mui';
 import UserBadge from '@/components/UserBadge.tsx';
-import { Link } from 'react-router-dom';
 import { REGISTER_URL, LOGIN_URL } from '@identity/urls.ts';
 
 import type { UserBadgeProps } from '@/components/UserBadge.tsx';
@@ -15,26 +15,24 @@ export default function DrawerFooter(props: UserBadgeProps) {
 		}}>
 			<Authorize unauthorized={(
 				<>
-					<Button
-						component={Link}
+					<ButtonLink
 						sx={{
 							width: '100%',
 							mb: 2
 						}}
 						variant='outlined'
-						to={inject(REGISTER_URL)}
+						to={REGISTER_URL}
 						color='secondary'
 					>
 						Register
-					</Button>
-					<Button
-						component={Link}
+					</ButtonLink>
+					<ButtonLink
 						sx={{ width: '100%' }}
 						variant='contained'
 						to={inject(LOGIN_URL)}
 					>
 						Log in
-					</Button>
+					</ButtonLink>
 				</>
 			)}>
 				<UserBadge {...props}/>
