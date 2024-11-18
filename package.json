@@ -1,5 +1,5 @@
 {
-	"name": "@sienar/react-client",
+	"name": "@sienar/react-client-mui",
 	"version": "0.1.0",
 	"type": "module",
 	"main": "dist/sienar-react-client-mui.js",
