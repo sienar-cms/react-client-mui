@@ -1,4 +1,4 @@
-﻿import { Link, StatusPage } from '@/react-ui';
+﻿import { Link, StatusPage } from '@sienar/react-ui-mui';
 import { useDocumentTitle } from '@sienar/react-utils';
 import { LOGIN_URL } from '@identity/urls.ts';
 

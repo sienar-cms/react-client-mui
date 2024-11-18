@@ -1,6 +1,6 @@
 ﻿import { useSearchParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { Form, HiddenInput, Textbox } from '@/react-ui';
+import { Form, HiddenInput, Textbox } from '@sienar/react-ui-mui';
 import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 import * as validators from '@sienar/react-validators';
 import { RESET_PASSWORD_SERVICE } from '@identity/services.ts';

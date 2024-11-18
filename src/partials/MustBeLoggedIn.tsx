@@ -1,4 +1,4 @@
-import { StatusPage } from '@/react-ui';
+import { StatusPage } from '@sienar/react-ui-mui';
 import { Link } from 'react-router-dom';
 import { inject } from '@sienar/react-utils';
 import { LOGIN_URL } from '@identity/urls.ts';

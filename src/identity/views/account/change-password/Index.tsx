@@ -1,4 +1,4 @@
-﻿import { Form, Textbox } from '@/react-ui';
+﻿import { Form, Textbox } from '@sienar/react-ui-mui';
 import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 import * as validators from '@sienar/react-validators';
 import { CHANGE_PASSWORD_SUCCESSFUL_URL } from '@identity/urls.ts';

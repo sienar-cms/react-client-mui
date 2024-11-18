@@ -1,4 +1,4 @@
-﻿import { ButtonLink, Card } from '@/react-ui';
+﻿import { ButtonLink, Card } from '@sienar/react-ui-mui';
 import { Typography } from '@mui/material';
 import { AuthorizeRoute, useDocumentTitle } from '@sienar/react-utils';
 import { DOWNLOAD_PERSONAL_DATA_URL } from '@identity/urls.ts';

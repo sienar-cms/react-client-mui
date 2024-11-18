@@ -1,12 +1,12 @@
 ﻿import { useRef, useState } from 'react';
 import { IconButton } from '@mui/material';
 import { AdminPanelSettings, CheckBox, Lock, LockOpen } from '@mui/icons-material';
-import { ConfirmationDialog, IconButtonLink, Table, TableBooleanCell } from '@/react-ui';
+import { ConfirmationDialog, IconButtonLink, Table, TableBooleanCell } from '@sienar/react-ui-mui';
 import { AuthorizeRoute, inject, useDocumentTitle } from '@sienar/react-utils';
 import { MANUALLY_CONFIRM_USER_ACCOUNT_SERVICE, UNLOCK_USER_ACCOUNT_SERVICE, USERS_SERVICE } from '@identity/services.ts';
 import { USERS_URL } from '@identity/urls.ts';
 import type { User } from '@identity/types.ts';
-import type { TableHandle } from '@/react-ui';
+import type { TableHandle } from '@sienar/react-ui-mui';
 import { roles } from '@/constants.ts';
 
 export default function Index() {

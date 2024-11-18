@@ -1,4 +1,4 @@
-import { StatusPage } from '@/react-ui';
+import { StatusPage } from '@sienar/react-ui-mui';
 
 export default function MustBeLoggedOut() {
 	return (
