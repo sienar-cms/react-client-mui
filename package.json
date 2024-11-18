@@ -2,9 +2,10 @@
 	"name": "@sienar/react-client",
 	"version": "0.1.0",
 	"type": "module",
+	"main": "dist/sienar-react-client-mui.js",
 	"scripts": {
 		"dev": "vite --config vite.config.dev.ts",
-		"build": "tsc -b && vite build",
+		"build": "tsc -b && vite build --config vite.config.prod.ts",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
@@ -28,6 +29,7 @@
 		"react-dom": "18.2.0",
 		"react-router-dom": "6.26.2",
 		"typescript": "5.5.3",
-		"vite": "5.4.1"
+		"vite": "5.4.1",
+		"vite-plugin-dts": "4.3.0"
 	}
 }
