@@ -92,6 +92,7 @@ export default function Lock() {
 					<Radio value={lockoutEnd?.toISOString() ?? ''}>
 						<DatePicker
 							name=''
+							value={lockoutEnd}
 							onChange={setLockoutEnd}
 						>
 							Pick a custom time
