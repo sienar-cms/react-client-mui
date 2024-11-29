@@ -26,11 +26,14 @@ export default defineConfig({
 	build: {
 		lib: {
 			entry: {
-				'sienar-react-client-mui': './src/index.ts'
+				'index': './src/index.ts'
 			},
 			formats: [ 'es' ]
 		},
 		rollupOptions: { external }
+	},
+	esbuild: {
+		minifyIdentifiers: false
 	},
 	plugins: [
 		react(),
