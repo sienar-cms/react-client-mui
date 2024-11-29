@@ -32,6 +32,9 @@ export default defineConfig({
 		},
 		rollupOptions: { external }
 	},
+	esbuild: {
+		minifyIdentifiers: false
+	},
 	plugins: [
 		react(),
 		dts({
