@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"description": "A React client for Sienar applications based on Material UI",
 	"type": "module",
-	"main": "dist/sienar-react-client-mui.js",
+	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"files": [
 		"/dist",
