@@ -1,6 +1,6 @@
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { alias } from './vite.config.shared';
 import dts from 'vite-plugin-dts';
 
 const external = [
@@ -42,5 +42,10 @@ export default defineConfig({
 			tsconfigPath: './tsconfig.app.json'
 		})
 	],
-	resolve: { alias }
+	resolve: {
+		alias: {
+			'@': resolve(__dirname, './src'),
+			'@identity': resolve(__dirname, './src/identity'),
+		}
+	}
 });
