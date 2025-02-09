@@ -12,8 +12,30 @@
 	],
 	"scripts": {
 		"dev": "vite --config vite.config.dev.ts",
-		"build": "tsc -b && vite build --config vite.config.prod.ts",
+		"build": "tsc -b && vite build",
 		"preview": "vite preview"
+	},
+	"peerDependencies": {
+		"@mui/types": "^7.2.18",
+		"@sienar/react-ui-mui": "^0.1.1",
+		"@sienar/react-utils": "^0.1.0",
+		"@sienar/react-validators": "^0.1.0",
+		"@types/react": "18.2.0",
+		"@types/react-dom": "18.2.0",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"react-router-dom": "6.26.2"
+	},
+	"peerDependenciesMeta": {
+		"@mui/types": {
+			"optional": true
+		},
+		"@types/react": {
+			"optional": true
+		},
+		"@types/react-dom": {
+			"optional": true
+		}
 	},
 	"dependencies": {
 		"@emotion/react": "11.13.3",
@@ -22,20 +44,11 @@
 		"@mui/material": "6.1.1",
 		"@mui/x-data-grid": "^7.22.1",
 		"@mui/x-date-pickers": "^7.22.1",
-		"@sienar/react-ui-mui": "^0.1.1",
-		"@sienar/react-utils": "^0.1.0",
-		"@sienar/react-validators": "^0.1.0",
 		"dayjs": "^1.11.13",
-		"notistack": "^3.0.1",
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1",
-		"react-router-dom": "6.26.2"
+		"notistack": "^3.0.1"
 	},
 	"devDependencies": {
-		"@mui/types": "^7.2.18",
 		"@types/node": "22.5.5",
-		"@types/react": "18.2.0",
-		"@types/react-dom": "18.2.0",
 		"@vitejs/plugin-react": "4.3.1",
 		"typescript": "5.5.3",
 		"vite": "5.4.1",
